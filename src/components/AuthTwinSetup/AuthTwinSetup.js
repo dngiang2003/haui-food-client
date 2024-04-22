@@ -212,7 +212,7 @@ function AuthTwinSetup() {
           <div className={cx('otp__title')}>{t('authTwinSetup.title03')}</div>
           <div>
             <input
-              className={cx('otp__input')}
+              className={cx('otp__input', { isDisabled: reduxData.loading })}
               placeholder="XXXXXX"
               value={otpValue}
               onChange={(e) => {

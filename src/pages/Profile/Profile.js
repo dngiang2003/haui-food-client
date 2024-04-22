@@ -14,15 +14,14 @@ import {
 import Button from '~/components/Button';
 import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUserById, getUser } from '~/apiService/userService';
+// import { updateUserById, getUser } from '~/apiService/userService';
 import Loader from '~/components/Loader';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import 'flatpickr/dist/flatpickr.css';
 import Flatpickr from 'react-flatpickr';
 import moment from 'moment';
-import { changePassword } from '~/apiService/authService';
-import { reFreshStatus } from '~/features/authSlice';
+import { changePassword, getMe, updateMe } from '~/apiService/authService';
 import TermsOfUse from '~/components/TermsOfUse';
 import Help from '~/components/Help';
 import AuthTwinSetup from '~/components/AuthTwinSetup';
@@ -50,18 +49,18 @@ function Profile() {
     confirmPassword: false,
     oldPassword: false,
   });
-  const reduxData = useSelector((prop) => prop.user);
-  const reduxChangePassword = useSelector((prop) => prop.auth);
+  const reduxData = useSelector((prop) => prop.auth);
+  // const reduxChangePassword = useSelector((prop) => prop.auth);
   const { t } = useTranslation();
 
   useEffect(() => {
     if (selectedOption === listOptions[1].title) {
       setIsLoading(reduxData.loading);
     } else if (selectedOption === listOptions[2].title) {
-      setIsLoading(reduxChangePassword.loading);
+      setIsLoading(reduxData.loading);
     }
     //eslint-disable-next-line
-  }, [reduxData.loading, reduxChangePassword.loading]);
+  }, [reduxData.loading]);
 
   const handleEyeIconClick = (field) => {
     setShowPassword({
@@ -123,17 +122,20 @@ function Profile() {
 
   const [selectedOption, setSelectedOption] = useState(listOptions[1].title);
 
-  const upDateUserInfo = () => {
-    setUserInfo(reduxData.user);
-    setEmail(reduxData.user?.email ?? '');
-    setFullName(reduxData.user?.fullname ?? '');
-    setMsv(reduxData.user?.msv || '');
-    setPhoneNumber(reduxData.user?.phone || '');
-    setDate([reduxData.user?.dateOfBirth ? new Date(reduxData.user?.dateOfBirth) : null]);
-    setGender(reduxData.user?.gender ?? 'male');
-    setIsChange(false);
-    setImagePreview(null);
-    setImageSelected(null);
+  const upDateUserInfo = (userInfo) => {
+    if (userInfo) {
+      console.log(userInfo);
+      setUserInfo(userInfo);
+      setEmail(userInfo?.email ?? '');
+      setFullName(userInfo?.fullname ?? '');
+      setMsv(userInfo?.msv || '');
+      setPhoneNumber(userInfo?.phone || '');
+      setDate([userInfo?.dateOfBirth ? new Date(userInfo?.dateOfBirth) : null]);
+      setGender(userInfo?.gender ?? 'male');
+      setIsChange(false);
+      setImagePreview(null);
+      setImageSelected(null);
+    }
 
     setOldPassword('');
     setConfirmPassword('');
@@ -142,45 +144,60 @@ function Profile() {
     setErrors({});
   };
 
-  useEffect(() => {
-    if (reduxChangePassword.status === 200) {
-      toast.success(t('profile.toast.successed'));
-      upDateUserInfo();
-      setShowPassword({
-        newPassword: false,
-        confirmPassword: false,
-        oldPassword: false,
-      });
-      dispatch(reFreshStatus());
-    } else if (reduxChangePassword.status === 401) {
-      toast.error(t('profile.toast.noExactlyPasswords'));
-      dispatch(reFreshStatus());
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reduxChangePassword.status]);
+  // useEffect(() => {
+  //   if (reduxChangePassword.status === 200) {
+  //     toast.success(t('profile.toast.successed'));
+  //     upDateUserInfo();
+  //     setShowPassword({
+  //       newPassword: false,
+  //       confirmPassword: false,
+  //       oldPassword: false,
+  //     });
+  //     dispatch(reFreshStatus());
+  //   } else if (reduxChangePassword.status === 401) {
+  //     toast.error(t('profile.toast.noExactlyPasswords'));
+  //     dispatch(reFreshStatus());
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [reduxChangePassword.status]);
 
   //call api and assign userInfo when first mounted
-  useEffect(() => {
-    // console.log('call api');
-    dispatch(getUser());
-    upDateUserInfo();
 
+  //call api to get user info in first mounted
+  useEffect(() => {
+    if (listOptions[1].title === selectedOption) {
+      dispatch(getMe()).then((result) => {
+        console.log(result);
+        if (result.payload.code === 200) {
+          upDateUserInfo(result.payload.data);
+        } else {
+          toast.error(result.payload.message);
+        }
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    // console.log('UserInfo', userInfo);
-    if (!reduxData.isUpdate) {
-      upDateUserInfo();
-    } else if (reduxData.loading === false && reduxData.error === null && reduxData.isUpdate) {
-      toast.success(t('profile.toast.successed'));
-      upDateUserInfo();
-    } else if (reduxData.loading === false && reduxData.error !== null && reduxData.isUpdate) {
-      toast.error(t('profile.toast.error'));
-      upDateUserInfo();
-    }
-    //eslint-disable-next-line
-  }, [reduxData]);
+  // useEffect(() => {
+  //   if (listOptions[1].title === selectedOption) {
+  //     console.log(reduxData.user);
+  //     upDateUserInfo(reduxData.user);
+  //   }
+  // }, [selectedOption]);
+
+  // useEffect(() => {
+  //   // console.log('UserInfo', userInfo);
+  //   if (!reduxData.isUpdate) {
+  //     upDateUserInfo();
+  //   } else if (reduxData.loading === false && reduxData.error === null && reduxData.isUpdate) {
+  //     toast.success(t('profile.toast.successed'));
+  //     upDateUserInfo();
+  //   } else if (reduxData.loading === false && reduxData.error !== null && reduxData.isUpdate) {
+  //     toast.error(t('profile.toast.error'));
+  //     upDateUserInfo();
+  //   }
+  //   //eslint-disable-next-line
+  // }, [reduxData]);
 
   // handle when update
   const handleUpdate = async () => {
@@ -199,10 +216,7 @@ function Profile() {
       }
     });
 
-    // console.log('start date', date);
-    // // console.log('dateOfBirth', new Date(userInfo.dateOfBirth));
-    // // console.log(startDate.getTime() === new Date(userInfo.dateOfBirth).getTime());
-
+    // if change password
     if (!isPersonalInfo) {
       if (oldPassword === '' || oldPassword === '' || confirmPassword === '') {
         toast.error(t('profile.toast.noExactly'));
@@ -213,10 +227,25 @@ function Profile() {
           oldPassword: oldPassword,
           newPassword: newPassword,
         };
-        dispatch(changePassword(data));
+        dispatch(changePassword(data)).then((result) => {
+          if (result.payload.code === 200) {
+            toast.success(t('profile.toast.successed'));
+            upDateUserInfo();
+            setShowPassword({
+              newPassword: false,
+              confirmPassword: false,
+              oldPassword: false,
+            });
+          } else if (result.payload.code === 401) {
+            toast.error(t('profile.toast.noExactlyPasswords'));
+          } else {
+            toast.error(t(result.payload.message));
+          }
+        });
       }
     }
 
+    // ìf change personal info
     if (isPersonalInfo) {
       if (
         fullName === userInfo?.fullname &&
@@ -239,7 +268,12 @@ function Profile() {
           // phone: phoneNumber,
           // msv: msv,
         };
-        dispatch(updateUserById({ userData: data, avatar: imageSelected }));
+        dispatch(updateMe({ userData: data, avatar: imageSelected })).then((result) => {
+          if (result.payload.code === 200) {
+            toast.success(t('profile.toast.successed'));
+            upDateUserInfo(result.payload.data);
+          }
+        });
       } else {
         toast.error(t('profile.toast.noExactly'));
       }
@@ -296,7 +330,9 @@ function Profile() {
       confirmPassword: false,
       oldPassword: false,
     });
+
     upDateUserInfo();
+
     //eslint-disable-next-line
   }, [selectedOption]);
 

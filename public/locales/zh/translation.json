@@ -314,5 +314,11 @@
       "copySuccess": "复制成功。",
       "invalidOtp": "请输入正确格式的OTP码。"
     }
+  },
+  "login-with-2fa": {
+    "heading": "使用 OTP 进行验证",
+    "desc01": "请输入您的密钥生成的 OTP 以继续。",
+    "desc02": "从您的密钥中查找 OTP",
+    "here": "这里"
   }
 }

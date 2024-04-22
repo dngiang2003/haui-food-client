@@ -35,8 +35,13 @@ export const addOrUpdateFieldInLocalStorage = (fieldName, newField, newValue) =>
     if (fieldName) {
       // Lấy đối tượng từ localStorage hoặc tạo mới nếu chưa tồn tại
       storedData = JSON.parse(localStorage.getItem(fieldName)) || {};
-      // Thêm hoặc cập nhật trường mới với giá trị được cung cấp
-      storedData[newField] = newValue;
+      if (newField) {
+        // Thêm hoặc cập nhật trường mới với giá trị được cung cấp
+        storedData[newField] = newValue;
+      } else{
+        // Tạo một item mới với tên là newField và giá trị là newValue
+        storedData[newField] = newValue;
+      }
       // Lưu lại đối tượng đã được cập nhật vào localStorage
       localStorage.setItem(fieldName, JSON.stringify(storedData));
     } else {

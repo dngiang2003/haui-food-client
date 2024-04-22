@@ -309,11 +309,16 @@
     "note05.1": "Download the app from",
     "note05.2": "or",
     "refresh-btn": "Change Secret Key",
-    "update-btn": "Update"
+    "update-btn": "Update",
+    "toast": {
+      "copySuccess": "Copy successful.",
+      "invalidOtp": "Please enter the OTP in the correct format."
+    }
   },
-
-  "toast": {
-    "copySuccess": "Copy successful.",
-    "invalidOtp": "Please enter the OTP in the correct format."
+  "login-with-2fa": {
+    "heading": "Verify with OTP",
+    "desc01": "Please enter the OTP generated from your secret key to proceed.",
+    "desc02": "Find the OTP from your secret key",
+    "here": "Here"
   }
 }

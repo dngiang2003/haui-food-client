@@ -54,11 +54,12 @@ function Header() {
   const cartRef = useRef(null);
 
   const auth = useSelector((state) => state.auth.isLogin);
-  const userData = useSelector((state) => state.user);
+  const userData = useSelector((state) => state.auth);
   const token = localStorage.getItem('accessToken');
 
   useEffect(() => {
     if (userData.isUpdate) {
+      console.log(userData.user);
       setAvatar(userData.user?.avatar ? userData.user.avatar : images.avatarDefault);
     }
 

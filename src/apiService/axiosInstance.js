@@ -3,7 +3,7 @@ import { getLocalStorageItem } from '~/utils/localStorage';
 
 const axiosInstance = axios.create({
   baseURL: 'https://api.hauifood.com/api',
-  timeout: 5000,
+  timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -23,7 +23,6 @@ axiosInstance.interceptors.response.use(
   function (response) {
     console.log(response);
     if (response.status === 202) {
-      
     }
     return response.data;
   },

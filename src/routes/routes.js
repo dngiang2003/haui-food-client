@@ -17,6 +17,7 @@ import NotFound from '~/pages/NotFound';
 import Profile from '../pages/Profile';
 import Forbidden from '~/pages/Forbidden';
 import ServerError from '~/pages/ServerError';
+import LoginWith2FA from '~/pages/LoginWith2FA/LoginWith2FA';
 
 const publicRoutes = [
   { path: config.routes.home, component: Home },
@@ -45,6 +46,7 @@ const publicRoutes = [
   { path: config.routes.signup, component: SignUp, layout: AuthLayout },
   { path: config.routes.profile, component: Profile },
   { path: config.routes.checkout, component: CheckOut, layout: CheckoutLayout },
+  { path: config.routes.loginWith2Fa, component: LoginWith2FA, layout: AuthLayout },
 ];
 
 const privateRoutes = [];

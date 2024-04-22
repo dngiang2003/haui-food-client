@@ -8,6 +8,7 @@ const routes = {
   signup: '/auth/signup',
   forgotPassword: '/auth/forgot-password',
   verifyOTP: '/auth/verify-otp',
+  loginWith2Fa: 'auth/login-with-2fa',
   resetPassword: '/auth/reset-password',
   aboutHaUIFood: '/about/haui-food',
   aboutDevelopmentTeam: '/about/development-team',

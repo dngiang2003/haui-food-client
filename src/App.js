@@ -23,11 +23,12 @@ function AppBody() {
     const interceptor = axiosInstance.interceptors.response.use((response) => {
       if (response.code === 202) {
         console.log(response);
-        navigate('/auth/verify-otp');
+        sessionStorage.setItem('token2FA', JSON.stringify(response.data.twoFaToken));
+        navigate('auth/login-with-2fa');
       }
       return response;
     });
-    
+
     // Hủy bỏ interceptor khi component unmount
     return () => {
       axiosInstance.interceptors.response.eject(interceptor);

@@ -931,7 +931,8 @@ function Profile() {
 
                   {/* listOption[1].title là "Personal info" */}
                   {/* nếu đang thay đổi hoặc không phải là trang personal info thì hiển thị */}
-                  {(isChange || selectedOption === listOptions[2].title) && (
+                  {((isChange && selectedOption === listOptions[1].title) ||
+                    selectedOption === listOptions[2].title) && (
                     <div className={cx('btn-container')}>
                       <Button
                         className={cx('cancel-btn')}

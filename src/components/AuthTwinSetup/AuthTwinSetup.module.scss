@@ -32,6 +32,9 @@
 
   @include media-breakpoint-down(lg) {
     margin-top: 10px;
+    width: 130px;
+    font-size: 1.5rem;
+    padding: 5px 10px;
   }
 }
 
@@ -242,6 +245,10 @@
     border: 1px solid var(--primary-color);
     // padding: 5px;
     border-radius: 5px;
+    @include media-breakpoint-down(lg) {
+      width: 270px;
+      height: 270px;
+    }
   }
 }
 

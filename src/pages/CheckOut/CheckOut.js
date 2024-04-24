@@ -103,18 +103,24 @@ function CheckOut() {
         roomsPerFloor = 4;
         break;
       case 'A7':
-        floors = Array.from({ length: 20 }, (_, i) => i + 1);
-        roomsPerFloor = 20;
+        floors = Array.from({ length: 6 }, (_, i) => i + 1);
+        roomsPerFloor = 33;
         break;
       case 'A8':
+        floors = Array.from({ length: 6 }, (_, i) => i + 1);
+        roomsPerFloor = 4;
+        break;
+      case 'A9':
+        floors = Array.from({ length: 6 }, (_, i) => i + 1);
+        roomsPerFloor = 9;
+        break;
+      case 'A10':
+        floors = Array.from({ length: 9 }, (_, i) => i + 1);
+        roomsPerFloor = 15;
+        break;
       case 'A12':
         floors = Array.from({ length: 6 }, (_, i) => i + 1);
         roomsPerFloor = 6;
-        break;
-      case 'A9':
-      case 'A10':
-        floors = Array.from({ length: 8 }, (_, i) => i + 1);
-        roomsPerFloor = 8;
         break;
       default:
         floors = Array.from({ length: 6 }, (_, i) => i + 1);

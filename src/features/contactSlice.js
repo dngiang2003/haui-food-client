@@ -13,20 +13,17 @@ const contactSlice = createSlice({
       .addCase(contactUs.pending, (state) => {
         state.loading = true;
         state.error = null;
-        state.user = null;
-        state.isLogin = null;
+        state.contacts = null;
       })
       .addCase(contactUs.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
+        state.contacts = action.payload;
         state.error = null;
-        state.isLogin = true;
       })
       .addCase(contactUs.rejected, (state, action) => {
         state.loading = false;
-        state.user = null;
+        state.contacts = null;
         state.error = action.error.message;
-        state.isLogin = null;
       });
   },
 });

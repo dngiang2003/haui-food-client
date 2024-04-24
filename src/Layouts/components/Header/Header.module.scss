@@ -10,7 +10,9 @@
   width: 100%;
   height: 88px;
   background-color: transparent;
-  transition: background-color 0.2s;
+  transition: background-color, box-shadow;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
   z-index: 9999;
 
   @include media-breakpoint-down(md) {

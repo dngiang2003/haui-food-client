@@ -3,15 +3,17 @@ import classNames from 'classnames/bind';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { Oval } from '@agney/react-loading';
+import { useGoogleLogin } from '@react-oauth/google';
 
 import styles from './SignIn.module.scss';
 import { EmailIcon, GoogleIcon, PasswordIcon } from '~/components/Icons';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '~/components/Button';
 import routes from '~/config/routes';
-import { loginUser, clearError } from '~/apiService/authService';
+import { loginUser } from '~/apiService/authService';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { loginWithGoogle } from '~/apiService/loginWithGoogleService';
 const cx = classNames.bind(styles);
 
 function SignIn() {
@@ -41,6 +43,21 @@ function SignIn() {
   //   };
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [error]);
+
+  const login = useGoogleLogin({
+    onSuccess: async (response) =>
+      dispatch(loginWithGoogle(response)).then((result) => {
+        console.log(result);
+
+        if (result.payload.status === 200) {
+          localStorage.setItem('accessToken', JSON.stringify(result.payload.access_token));
+          toast.success(t('login.notify01'));
+          navigate('/');
+        } else if (result.payload.status === 400 || result.payload.status === 401 || result.payload.status === 429) {
+          toast.error(result.payload.statusText);
+        }
+      }),
+  });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -198,7 +215,7 @@ function SignIn() {
           >
             {t('button.btn05')}
           </Button>
-          <Button authGoogle leftIcon={<GoogleIcon className={cx('icon-google')} />}>
+          <Button onClick={() => login()} authGoogle leftIcon={<GoogleIcon className={cx('icon-google')} />}>
             {t('button.btn06')}
           </Button>
         </div>

@@ -11,11 +11,11 @@ import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 import GlobalStyles from '~/components/GlobalStyles';
 import BasketProvider from './contexts/BasketContext';
 import store from './redux/store';
-
 
 AOS.init({
   once: true,
@@ -27,20 +27,22 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 function Main() {
   const { t } = useTranslation();
-  
+
   return (
     <Provider store={store}>
       <React.StrictMode>
-        <I18nextProvider i18n={i18n}>
-          <GlobalStyles>
-            <BasketProvider>
-              <Helmet>
-                <title>{t('title')}</title>
-              </Helmet>
-              <App />
-            </BasketProvider>
-          </GlobalStyles>
-        </I18nextProvider>
+        <GoogleOAuthProvider clientId="1016987616352-ac1dgf61p6suvhvg3bcaqcrqd874rppm.apps.googleusercontent.com">
+          <I18nextProvider i18n={i18n}>
+            <GlobalStyles>
+              <BasketProvider>
+                <Helmet>
+                  <title>{t('title')}</title>
+                </Helmet>
+                <App />
+              </BasketProvider>
+            </GlobalStyles>
+          </I18nextProvider>
+        </GoogleOAuthProvider>
       </React.StrictMode>
     </Provider>
   );

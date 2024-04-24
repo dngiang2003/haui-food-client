@@ -141,7 +141,7 @@
     "heading": "Đăng ký",
     "desc01": "Hãy bắt đầu tạo một tài khoản mới để trải nghiệm đầy đủ các tính năng và dịch vụ của chúng tôi.",
     "desc02": "Bạn đã có tài khoản",
-    "notify": "Đăng ký thành công"
+    "notify": "Đăng ký thành công, vui lòng kiểm tra email"
   },
   "forgot-password": {
     "heading": "Khôi phục mật khẩu",
@@ -323,5 +323,8 @@
     "desc01": "Vui lòng nhập mã OTP được tạo từ khóa bí mật của bạn để tiếp tục.",
     "desc02": "Tìm mã OTP từ secret key",
     "here": "Tại đây"
+  },
+  "system": {
+    "error": "Đã sảy ra lỗi vui lòng thử lại sau"
   }
 }

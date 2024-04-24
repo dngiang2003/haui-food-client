@@ -99,7 +99,7 @@ function SignUp() {
       if (result.payload) {
         setTimeout(() => {
           navigate('/auth/login');
-        }, 2000);
+        }, 3500);
         toast.success(t('sign-up.notify'));
       }
     });

@@ -53,8 +53,8 @@ function SignIn() {
           localStorage.setItem('accessToken', JSON.stringify(result.payload.access_token));
           toast.success(t('login.notify01'));
           navigate('/');
-        } else if (result.payload.status === 400 || result.payload.status === 401 || result.payload.status === 429) {
-          toast.error(result.payload.statusText);
+        } else {
+          toast.error(result?.payload?.statusText || t('system.error'));
         }
       }),
   });
@@ -125,8 +125,6 @@ function SignIn() {
     }
 
     dispatch(loginUser(loginForm)).then((result) => {
-      console.log(result);
-
       // if (result.payload.code === 202) {
       //   navigate('/auth/verify-otp');
       // }
@@ -134,8 +132,8 @@ function SignIn() {
       if (result.payload.code === 200) {
         toast.success(t('login.notify01'));
         navigate('/');
-      } else if (result.payload.code === 400 || result.payload.code === 401 || result.payload.code === 429) {
-        toast.error(result.payload.message);
+      } else {
+        toast.error(result?.payload?.statusText || t('system.error'));
       }
     });
   };

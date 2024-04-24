@@ -140,7 +140,7 @@
     "heading": "Sign up",
     "desc01": "Let's start creating a new account to fully experience our features and services.",
     "desc02": "You already have an account",
-    "notify": "Registration successful"
+    "notify": "Registration successful, please verify your email"
   },
   "forgot-password": {
     "heading": "Recover password",
@@ -320,5 +320,8 @@
     "desc01": "Please enter the OTP generated from your secret key to proceed.",
     "desc02": "Find the OTP from your secret key",
     "here": "Here"
+  },
+  "system": {
+    "error": "An error occurred. Please try again later"
   }
 }

@@ -127,6 +127,7 @@ function SignUp() {
             <input
               type="text"
               name=""
+              readOnly={loading}
               value={fullname}
               onChange={(e) => setFullName(e.target.value)}
               onBlur={handleCheckFullName}
@@ -143,6 +144,7 @@ function SignUp() {
             <input
               type="email"
               name=""
+              readOnly={loading}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               onBlur={handleChangeEmail}
@@ -157,6 +159,7 @@ function SignUp() {
         <div className={cx('form__group')}>
           <div className={cx('form__text-input')} style={errors.password !== '' ? { border: '1px solid #f44336' } : {}}>
             <input
+              readOnly={loading}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               onBlur={handleChangePassword}

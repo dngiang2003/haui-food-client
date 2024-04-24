@@ -163,6 +163,7 @@ function SignIn() {
               type="email"
               name="email"
               value={email}
+              readOnly={loading}
               onChange={(e) => {
                 setEmail(e.target.value);
                 handleInputChange(e);
@@ -180,6 +181,7 @@ function SignIn() {
           <div className={cx('form__text-input')} style={errors.password !== '' ? { border: '1px solid #f44336' } : {}}>
             <input
               value={password}
+              readOnly={loading}
               onChange={(e) => {
                 setPassword(e.target.value);
                 handleInputChange(e);

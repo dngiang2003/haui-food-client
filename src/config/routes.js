@@ -16,6 +16,7 @@ const routes = {
   checkout: '/checkout',
   forbidden: '/forbidden',
   internalServer: '/server-error',
+  forgotPasswordOTP: '/auth/verify-otp-forgot-password',
   notFound: '*',
 };
 

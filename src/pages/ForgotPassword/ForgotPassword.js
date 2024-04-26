@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Oval } from '@agney/react-loading';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './ForgotPassword.module.scss';
 import { EmailIcon, ReloadIcon } from '~/components/Icons';
@@ -12,19 +13,22 @@ import Button from '~/components/Button';
 import routes from '~/config/routes';
 import { captcha } from '~/apiService/captchaService';
 import images from '~/assets/images';
+import { forgotPassword } from '~/apiService/authService';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
 function ForgotPassword() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const loading = useSelector((state) => state.captcha.loading);
 
   const [email, setEmail] = useState('');
   const [captchaValue, setCaptchaValue] = useState('');
 
   const [button, setButton] = useState(t('button.btn08'));
-  const [submit, setSubmit] = useState(true);
+  const [submit, setSubmit] = useState(false);
   const [captchaSVG, setCaptchaSVG] = useState('');
   const [touchedEmail, setTouchedEmail] = useState(false);
   const [touchedCaptcha, setTouchedCaptcha] = useState(false);
@@ -51,7 +55,7 @@ function ForgotPassword() {
       .then((result) => {
         if (result.payload.code === 201) {
           setCaptchaSVG(result.payload.data.image);
-          sessionStorage.setItem('signature', result.payload.data.sign);
+          sessionStorage.setItem('signature', JSON.stringify(result.payload.data.sign));
         } else {
           toast.error(result.payload.message);
         }
@@ -63,7 +67,7 @@ function ForgotPassword() {
   };
 
   useEffect(() => {
-    setSubmit(!emailRegex.test(email) || email === '' || captchaValue === '');
+    setSubmit(!emailRegex.test(email) || email === '' || captchaValue === '' || captchaValue.length !== 4);
   }, [emailRegex, email, captchaValue]);
 
   useEffect(() => {
@@ -114,6 +118,34 @@ function ForgotPassword() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleForgotPassword = () => {
+    const data = {
+      email: email,
+      text: captchaValue,
+      sign: 'U2FsdGVkX1+jTOXmH4CXlekMcx3d56iebXE8vP50Nvb5e/UC/n41QFFEJc1pioo0mwH8oTsueKaP6qBIvUGIig==',
+    };
+
+    dispatch(forgotPassword(data))
+      .then((result) => {
+        setSubmit(false);
+        setButton(t('button.btn08'));
+        setCaptchaValue('');
+
+        if (result.payload.code === 200) {
+          sessionStorage.setItem('tokenForgot', JSON.stringify(result.payload.data.tokenForgot));
+
+          navigate(config.routes.forgotPasswordOTP);
+        } else if (result.payload.code === 400) {
+          fetchCaptcha();
+          toast.error(result.payload.message);
+        }
+      })
+      .catch(() => {
+        setSubmit(false);
+        setButton(t('button.btn08'));
+      });
+  };
+
   return (
     <div className={cx('forgot-password')}>
       <h1 className={cx('forgot-password__heading', 'shine')}>{t('forgot-password.heading')}</h1>
@@ -123,8 +155,8 @@ function ForgotPassword() {
         className={cx('form')}
         onSubmit={(e) => {
           e.preventDefault();
+          handleForgotPassword();
           setButton(t('button.btn09'));
-          setSubmit(true);
         }}
       >
         <div className={cx('form__group')}>
@@ -161,6 +193,7 @@ function ForgotPassword() {
                 onBlur={() => setTouchedCaptcha(true)}
                 type="text"
                 name=""
+                value={captchaValue}
                 placeholder="Captcha"
                 className={cx('form__input')}
               />

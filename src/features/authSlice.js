@@ -10,6 +10,9 @@ import {
   getMe,
   updateMe,
   LoginWith2FA,
+  forgotPassword,
+  verifyOtpForgotPassword,
+  resetPassword,
 } from '~/apiService/authService';
 import { addOrUpdateFieldInLocalStorage } from '~/utils/localStorage';
 
@@ -37,6 +40,51 @@ const authSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
+
+      //reset password
+      .addCase(resetPassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(resetPassword.fulfilled, (state, action) => {
+        state.loading = false;
+        state.secretKey = action.payload.data.secret;
+        state.message = action.payload.message;
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
+        state.loading = false;
+        state.message = action.payload.message;
+      })
+
+      //verify Otp ForgotPassword
+      .addCase(verifyOtpForgotPassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(verifyOtpForgotPassword.fulfilled, (state, action) => {
+        state.loading = false;
+        state.secretKey = action.payload.data.secret;
+        state.message = action.payload.message;
+      })
+      .addCase(verifyOtpForgotPassword.rejected, (state, action) => {
+        state.loading = false;
+        state.message = action.payload.message;
+      })
+
+      // forgot password
+      .addCase(forgotPassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(forgotPassword.fulfilled, (state, action) => {
+        state.loading = false;
+        state.secretKey = action.payload.data.secret;
+        state.message = action.payload.message;
+      })
+      .addCase(forgotPassword.rejected, (state, action) => {
+        state.loading = false;
+        state.message = action.payload.message;
+      })
 
       // login with 2fa
       .addCase(LoginWith2FA.pending, (state) => {

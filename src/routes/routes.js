@@ -18,6 +18,7 @@ import Profile from '../pages/Profile';
 import Forbidden from '~/pages/Forbidden';
 import ServerError from '~/pages/ServerError';
 import LoginWith2FA from '~/pages/LoginWith2FA/LoginWith2FA';
+import ForgotPasswordOTP from '~/pages/ForgotPasswordOTP';
 
 const publicRoutes = [
   { path: config.routes.home, component: Home },
@@ -47,6 +48,7 @@ const publicRoutes = [
   { path: config.routes.profile, component: Profile },
   { path: config.routes.checkout, component: CheckOut, layout: CheckoutLayout },
   { path: config.routes.loginWith2Fa, component: LoginWith2FA, layout: AuthLayout },
+  { path: config.routes.forgotPasswordOTP, component: ForgotPasswordOTP, layout: AuthLayout },
 ];
 
 const privateRoutes = [];

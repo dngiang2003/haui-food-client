@@ -125,15 +125,13 @@ function SignIn() {
     }
 
     dispatch(loginUser(loginForm)).then((result) => {
-      // if (result.payload.code === 202) {
-      //   navigate('/auth/verify-otp');
-      // }
-
       if (result.payload.code === 200) {
         toast.success(t('login.notify01'));
         navigate('/');
+      } else if (result.payload.code === 202) {
+        return;
       } else {
-        toast.error(result?.payload?.statusText || t('system.error'));
+        toast.error(result?.payload?.message || t('system.error'));
       }
     });
   };

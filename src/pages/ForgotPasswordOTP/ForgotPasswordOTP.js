@@ -4,16 +4,17 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import styles from './LoginWith2FA.module.scss';
+import styles from './ForgotPasswordOTP.module.scss';
 import Button from '~/components/Button';
 import routes from '~/config/routes';
 import { useDispatch } from 'react-redux';
-import { LoginWith2FA as login2FA } from '~/apiService/authService';
+import { verifyOtpForgotPassword } from '~/apiService/authService';
 import { toast } from 'react-toastify';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
-function LoginWith2FA() {
+function ForgotPasswordOTP() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -71,15 +72,16 @@ function LoginWith2FA() {
     }
   };
 
-  const handleLoginWith2Fa = () => {
+  const handleForgotPasswordOTP = () => {
     console.log(inputs.join(''));
-    const token2FA = JSON.parse(sessionStorage.getItem('token2FA'));
-    console.log(token2FA);
+    const tokenForgot = JSON.parse(sessionStorage.getItem('tokenForgot'));
+    console.log(tokenForgot);
     const code = inputs.join('');
-    dispatch(login2FA({ token2FA: token2FA, code: code })).then((result) => {
+    dispatch(verifyOtpForgotPassword({ tokenForgot: tokenForgot, otp: code })).then((result) => {
       if (result.payload.code === 200) {
-        navigate('/');
-        toast.success(t('login.notify01'));
+        console.log(result.payload);
+        sessionStorage.setItem('tokenVerifyOTP', JSON.stringify(result.payload.data.tokenVerifyOTP));
+        navigate(config.routes.resetPassword);
       } else {
         toast.error(result.payload.message);
         setSubmit(false);
@@ -128,7 +130,7 @@ function LoginWith2FA() {
             auth
             disabled={!submit || reduxData.loading}
             onClick={() => {
-              handleLoginWith2Fa();
+              handleForgotPasswordOTP();
             }}
           >
             {button}
@@ -146,4 +148,4 @@ function LoginWith2FA() {
   );
 }
 
-export default LoginWith2FA;
+export default ForgotPasswordOTP;

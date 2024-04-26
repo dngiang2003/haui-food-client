@@ -5,62 +5,107 @@ import { useTranslation } from 'react-i18next';
 import styles from './ResetPassword.module.scss';
 import { PasswordIcon } from '~/components/Icons';
 import Button from '~/components/Button';
+import { useDispatch } from 'react-redux';
+import { resetPassword } from '~/apiService/authService';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
 function ResetPassword() {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
-  const [submit, setSubmit] = useState(true);
+  const [submit, setSubmit] = useState(false);
   const [showPassword, setShowPassword] = useState('password');
 
   const passwordRegex = useMemo(() => /^(?=.*[@-_]).{8,}$/, []);
   const [errors, setErrors] = useState({ newPassword: '', confirmPassword: '' });
 
   const checkSubmit = useCallback(() => {
-    setSubmit(
-      !passwordRegex.test(newPassword) ||
-        newPassword === '' ||
-        confirmNewPassword === '' ||
-        confirmNewPassword !== newPassword,
-    );
+    let isSubmit = false;
+
+    if (!newPassword || !confirmNewPassword) {
+      setSubmit(isSubmit);
+      return;
+    }
+    console.log(errors);
+    isSubmit = Object.values(errors).every((err) => err === '');
+    console.log(Object.values(errors).every((err) => err === ''));
+    setSubmit(isSubmit);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [passwordRegex, newPassword, confirmNewPassword]);
 
-  const handleChangeNewPassword = useCallback(() => {
-    if (!passwordRegex.test(newPassword)) {
-      setErrors({
-        ...errors,
-        newPassword: t('errors.err04'),
-      });
-    }
-    if (passwordRegex.test(newPassword)) {
-      setErrors({ ...errors, newPassword: '' });
-    }
-    if (!newPassword) {
-      setErrors({ ...errors, newPassword: t('errors.err03') });
-    }
-    checkSubmit();
+  const handleChangeNewPassword = useCallback(
+    (e) => {
+      // lay giá trị của new password
+      const value = e.target.value;
+      setNewPassword(value);
+      if (!passwordRegex.test(value)) {
+        setErrors({
+          ...errors,
+          newPassword: t('errors.err04'),
+        });
+      }
+      if (passwordRegex.test(value)) {
+        setErrors({ ...errors, newPassword: '' });
+      }
+      if (!value) {
+        //t('errors.err03')
+        setErrors({ ...errors, newPassword: '' });
+      }
+      checkSubmit();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [passwordRegex, newPassword, errors, checkSubmit]);
+    [passwordRegex, newPassword, errors, checkSubmit],
+  );
 
-  const handleChangeConfirmPassword = useCallback(() => {
-    if (confirmNewPassword !== newPassword) {
-      setErrors({ ...errors, confirmPassword: t('errors.err06') });
-    }
-    if (!confirmNewPassword) {
-      setErrors({ ...errors, confirmPassword: t('errors.err07') });
-    }
-    if (confirmNewPassword === newPassword) {
-      setErrors({ ...errors, confirmPassword: '' });
-    }
-    checkSubmit();
+  const handleChangeConfirmPassword = useCallback(
+    (e) => {
+      const value = e.target.value;
+      setConfirmNewPassword(value);
+      if (value !== newPassword) {
+        setErrors({ ...errors, confirmPassword: t('errors.err06') });
+      }
+      // if (!value) {
+      //   setErrors({ ...errors, confirmPassword: t('errors.err07') });
+      // }
+      if (value === newPassword || value === '') {
+        setErrors({ ...errors, confirmPassword: '' });
+      }
+      checkSubmit();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [confirmNewPassword, newPassword, errors]);
+    [confirmNewPassword, newPassword, errors],
+  );
 
   const handleShowPassword = () => {
     setShowPassword(showPassword === 'password' ? 'text' : 'password');
+  };
+
+  const handleResetPassword = () => {
+    const tokenVerifyOTP = JSON.parse(sessionStorage.getItem('tokenVerifyOTP'));
+    const data = {
+      tokenVerifyOTP: tokenVerifyOTP,
+      newPassword: newPassword,
+    };
+    dispatch(resetPassword(data)).then((result) => {
+      console.log(result.payload);
+
+      if (result.payload.code === 200) {
+        toast.success(result.payload.message);
+        navigate(config.routes.login);
+      } else {
+        toast.error(result.payload.message);
+      }
+    });
   };
 
   return (
@@ -76,7 +121,9 @@ function ResetPassword() {
           >
             <input
               value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
+              onChange={(e) => {
+                handleChangeNewPassword(e);
+              }}
               onBlur={handleChangeNewPassword}
               type={showPassword}
               name=""
@@ -95,7 +142,10 @@ function ResetPassword() {
           >
             <input
               value={confirmNewPassword}
-              onChange={(e) => setConfirmNewPassword(e.target.value)}
+              onChange={(e) => {
+                handleChangeConfirmPassword(e);
+                // setConfirmNewPassword(e.target.value);
+              }}
               onBlur={handleChangeConfirmPassword}
               type={showPassword}
               name=""
@@ -115,7 +165,14 @@ function ResetPassword() {
         </div>
 
         <div style={submit ? { cursor: 'no-drop' } : {}} className={cx('form__group', 'reset-password__btn-group')}>
-          <Button primary auth disabled={submit}>
+          <Button
+            primary
+            auth
+            disabled={!submit}
+            onClick={() => {
+              handleResetPassword();
+            }}
+          >
             {t('button.btn12')}
           </Button>
         </div>

@@ -3,6 +3,40 @@ import hostname from '~/utils/http';
 import axios from 'axios';
 import { callApi } from './apiUtils';
 
+export const resetPassword = createAsyncThunk('auth/reset-password', async (data, { rejectWithValue }) => {
+  try {
+    const response = await callApi('post', '/v1/auth/reset-password', null, data);
+    return response;
+  } catch (error) {
+    return rejectWithValue({ ...error });
+  }
+});
+
+export const verifyOtpForgotPassword = createAsyncThunk(
+  'auth/verify-otp-forgot-password',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await callApi('post', '/v1/auth/verify-otp-forgot-password', null, data);
+      if (response.code === 200) {
+      }
+      return response;
+    } catch (error) {
+      return rejectWithValue({ ...error });
+    }
+  },
+);
+
+export const forgotPassword = createAsyncThunk('auth/forgot-password', async (data, { rejectWithValue }) => {
+  try {
+    const response = await callApi('post', '/v1/auth/forgot-password', null, data);
+    if (response.code === 200) {
+    }
+    return response;
+  } catch (error) {
+    return rejectWithValue({ ...error });
+  }
+});
+
 export const loginUser = createAsyncThunk('auth/login', async (userCredentials, { rejectWithValue }) => {
   try {
     const res = await callApi('POST', '/v1/auth/login', null, userCredentials);

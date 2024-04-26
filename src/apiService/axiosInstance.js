@@ -21,7 +21,6 @@ axiosInstance.interceptors.request.use(async (config) => {
 
 axiosInstance.interceptors.response.use(
   function (response) {
-    console.log(response);
     if (response.status === 202) {
     }
     return response.data;
@@ -30,11 +29,9 @@ axiosInstance.interceptors.response.use(
   function (error) {
     if (error.response) {
       const { code, message } = error.response.data;
-      console.log(error.response);
       return Promise.reject({ success: false, message: message, code: code });
     } else {
       // Nếu không có phản hồi từ máy chủ
-      console.log(error);
       // Trả về một object có cấu trúc tùy chỉnh
       return Promise.reject({ success: false, message: 'Network error', code: 0 });
     }

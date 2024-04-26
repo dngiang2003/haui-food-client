@@ -311,13 +311,11 @@
     "note05.2": "hoặc",
     "refresh-btn": "Đổi Secret Key",
     "update-btn": "Cập nhật",
-
     "toast": {
       "copySuccess": "Copy thành công.",
       "invalidOtp": "Xin vui lòng nhập mã OTP đúng định dạng."
     }
   },
-
   "login-with-2fa": {
     "heading": "Xác minh bằng mã OTP",
     "desc01": "Vui lòng nhập mã OTP được tạo từ khóa bí mật của bạn để tiếp tục.",

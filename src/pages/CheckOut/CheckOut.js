@@ -254,6 +254,13 @@ function CheckOut() {
                               onClick={() => {
                                 setBuilding(`${t('checkout.title06')} ${buildingItem}`);
                                 handleBuildingClick(buildingItem);
+                                if (building !== t('checkout.title04')) {
+                                  setFloor(t('checkout.title05'));
+                                  setClassroom(t('checkout.title07'));
+                                  if (floorsRef.current) {
+                                    floorsRef.current.scrollTop = 0;
+                                  }
+                                }
                               }}
                               key={index}
                               className={cx('address__building-item')}

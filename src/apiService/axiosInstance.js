@@ -21,7 +21,8 @@ axiosInstance.interceptors.request.use(async (config) => {
 
 axiosInstance.interceptors.response.use(
   function (response) {
-    return response;
+    // console.log(response);
+    return { ...response.data, config: response.config };
   },
 
   function (error) {

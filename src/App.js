@@ -21,13 +21,13 @@ function AppBody() {
   useEffect(() => {
     // Tạo interceptor trong useEffect để có thể sử dụng useNavigate
     const interceptor = axiosInstance.interceptors.response.use((response) => {
-      console.log(response);
-      if (response.config.url.includes('login') && response.data.code === 202) {
-        console.log(response);
-        sessionStorage.setItem('token2FA', JSON.stringify(response.data.data.twoFaToken));
+      // console.log(response);
+      if (response.config.url.includes('login') && response.code === 202) {
+        // console.log(response);
+        sessionStorage.setItem('token2FA', JSON.stringify(response.data.twoFaToken));
         navigate('auth/login-with-2fa');
       }
-      return response.data;
+      return response;
     });
 
     // Hủy bỏ interceptor khi component unmount

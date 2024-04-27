@@ -144,27 +144,9 @@ function Profile() {
     setErrors({});
   };
 
-  // useEffect(() => {
-  //   if (reduxChangePassword.status === 200) {
-  //     toast.success(t('profile.toast.successed'));
-  //     upDateUserInfo();
-  //     setShowPassword({
-  //       newPassword: false,
-  //       confirmPassword: false,
-  //       oldPassword: false,
-  //     });
-  //     dispatch(reFreshStatus());
-  //   } else if (reduxChangePassword.status === 401) {
-  //     toast.error(t('profile.toast.noExactlyPasswords'));
-  //     dispatch(reFreshStatus());
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [reduxChangePassword.status]);
-
-  //call api and assign userInfo when first mounted
-
   //call api to get user info in first mounted
   useEffect(() => {
+    console.log('get me');
     if (listOptions[1].title === selectedOption) {
       dispatch(getMe()).then((result) => {
         console.log(result);
@@ -177,27 +159,6 @@ function Profile() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // useEffect(() => {
-  //   if (listOptions[1].title === selectedOption) {
-  //     console.log(reduxData.user);
-  //     upDateUserInfo(reduxData.user);
-  //   }
-  // }, [selectedOption]);
-
-  // useEffect(() => {
-  //   // console.log('UserInfo', userInfo);
-  //   if (!reduxData.isUpdate) {
-  //     upDateUserInfo();
-  //   } else if (reduxData.loading === false && reduxData.error === null && reduxData.isUpdate) {
-  //     toast.success(t('profile.toast.successed'));
-  //     upDateUserInfo();
-  //   } else if (reduxData.loading === false && reduxData.error !== null && reduxData.isUpdate) {
-  //     toast.error(t('profile.toast.error'));
-  //     upDateUserInfo();
-  //   }
-  //   //eslint-disable-next-line
-  // }, [reduxData]);
 
   // handle when update
   const handleUpdate = async () => {

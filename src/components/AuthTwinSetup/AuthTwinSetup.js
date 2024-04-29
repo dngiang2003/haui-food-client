@@ -31,7 +31,7 @@ function AuthTwinSetup() {
   const userInfo = getLocalStorageItem('user');
 
   useEffect(() => {
-    console.log('userInfo', userInfo);
+    // console.log('userInfo', userInfo);
     const secretKey = userInfo?.secret ? userInfo.secret : '';
     setQrImg(generateQRCodeImage(userInfo.email, secretKey));
     SetSecretKey(secretKey);
@@ -58,7 +58,7 @@ function AuthTwinSetup() {
 
     dispatch(getSecretKey()).then((result) => {
       if (result.payload.code === 200) {
-        console.log(result.payload);
+        // console.log(result.payload);
         setTempSecretKey(result.payload.data.secret);
         SetSecretKey(result.payload.data.secret);
         setQrImg(generateQRCodeImage(userInfo.email, reduxData.secretKey));
@@ -68,7 +68,7 @@ function AuthTwinSetup() {
       }
     });
   };
-  console.log(tempSecretKey);
+  // console.log(tempSecretKey);
   const handleToggle2FA = () => {
     if (!isUseAuthTwin && !isUpdate) {
       toast.error(t('authTwinSetup.toast.invalidOtp'));
@@ -90,11 +90,11 @@ function AuthTwinSetup() {
   };
 
   const handleUpdateSecretKey = () => {
-    console.log(tempSecretKey);
+    // console.log(tempSecretKey);
 
     if (isUpdate) {
       dispatch(updateSecretKey({ code: otpValue, secret: tempSecretKey })).then((result) => {
-        console.log(result.payload);
+        // console.log(result.payload);
         if (result.payload.code === 200) {
           toast.success(result.payload.message);
           addOrUpdateFieldInLocalStorage('user', 'secret', result.payload.data.secret);
@@ -126,23 +126,23 @@ function AuthTwinSetup() {
       <h2 className={cx('auth-twin__title')}>{t('authTwinSetup.title01')}</h2>
       <div className={cx('first-row')}>
         <p className={cx('first-row__desc')}>
-          <div>
+          <span>
             <CheckIcon className={cx('check-icon')} />
-          </div>
+          </span>
           {t('authTwinSetup.desc01')}
         </p>
 
         <p className={cx('first-row__desc')}>
-          <div>
+          <span>
             <CheckIcon className={cx('check-icon')} />
-          </div>
+          </span>
           {t('authTwinSetup.desc02')}
         </p>
 
-        <p className={cx('first-row__desc')}>
-          <div>
+        <div className={cx('first-row__desc')}>
+          <span>
             <CheckIcon className={cx('check-icon')} />
-          </div>
+          </span>
           <p>
             {t('authTwinSetup.desc03.1')}
             <a target="blank" href="https://apps.apple.com/us/app/google-authenticator/id388497605">
@@ -156,7 +156,7 @@ function AuthTwinSetup() {
               <strong className={cx('strong')}> Android </strong>
             </a>
           </p>
-        </p>
+        </div>
       </div>
 
       <div className={cx('security-method')}>
@@ -247,12 +247,12 @@ function AuthTwinSetup() {
         </div>
 
         <div className={cx('note__container')}>
-          <p className={cx('note__title')}>{t('authTwinSetup.title04')}</p>
+          <div className={cx('note__title')}>{t('authTwinSetup.title04')}</div>
           <div className={cx('note__desc')}>
             1.{' '}
             <p>
               {t('authTwinSetup.note01')}
-              <strong className={cx('strong')}>HauiFood</strong>
+              <strong className={cx('strong')}> HauiFood</strong>
             </p>
           </div>
           <div className={cx('note__desc')}>

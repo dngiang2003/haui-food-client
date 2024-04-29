@@ -584,7 +584,12 @@ function Profile() {
 
           {/* main content */}
           <div className={cx('col-xl-9')}>
-            <div className={cx('profile-content-container', { onLoader: isLoading })}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+              className={cx('profile-content-container', { onLoader: isLoading })}
+            >
               {isLoading && <Loader className={cx('loader')} />}
               {!isLoading && (
                 <div className={cx('profile-content')}>
@@ -635,6 +640,10 @@ function Profile() {
                             // id="email"
                             placeholder="Email"
                             value={email}
+                            onChange={(e) => {
+                              handleInputChange(e);
+                              validateInputs();
+                            }}
                           />
                         </div>
 
@@ -771,6 +780,7 @@ function Profile() {
                               name="oldPassword"
                               placeholder={t('profile.oldPassword')}
                               value={oldPassword}
+                              autoComplete="false"
                               onChange={(e) => {
                                 handleInputChange(e);
                                 validateInputs();
@@ -805,6 +815,7 @@ function Profile() {
                               name="newPassword"
                               placeholder={t('profile.newPassword')}
                               value={newPassword}
+                              autoComplete="false"
                               onChange={(e) => {
                                 handleInputChange(e);
                                 validateInputs();
@@ -839,6 +850,7 @@ function Profile() {
                               name="confirmPassword"
                               placeholder={t('profile.confirmPassword')}
                               value={confirmPassword}
+                              autoComplete="false"
                               onChange={(e) => {
                                 handleInputChange(e);
                                 validateInputs();
@@ -916,7 +928,7 @@ function Profile() {
                   )}
                 </div>
               )}
-            </div>
+            </form>
           </div>
         </div>
       </div>

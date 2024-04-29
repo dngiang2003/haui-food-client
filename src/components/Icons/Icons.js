@@ -18,7 +18,7 @@ export const KeyIcon = ({ className }) => {
   return (
     <svg
       className={className}
-      fill="#000000"
+      fill="currentColor"
       version="1.1"
       id="Layer_1"
       xmlns="http://www.w3.org/2000/svg"

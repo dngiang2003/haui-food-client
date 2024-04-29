@@ -57,9 +57,11 @@ function ForgotPasswordOTP() {
   const handleChange = (e, index) => {
     const numericValue = e.target.value.replace(/[^0-9]/g, ''); // Chỉ cho phép nhập số
     const newInputs = [...inputs];
+    console.log('input', newInputs);
     newInputs[index] = numericValue.slice(0, 1); // Giới hạn giá trị nhập vào
     setInputs(newInputs);
-    console.log(newInputs);
+    console.log('new input', newInputs);
+
     // Không chuyển sang ô nhập khác nếu giá trị không phải số
     if (numericValue && index < 5) {
       inputRefs.current[index + 1].current.focus();
@@ -82,6 +84,8 @@ function ForgotPasswordOTP() {
         console.log(result.payload);
         sessionStorage.setItem('tokenVerifyOTP', JSON.stringify(result.payload.data.tokenVerifyOTP));
         navigate(config.routes.resetPassword);
+      } else if (result.payload.code === 400) {
+        navigate(config.routes.forgotPassword);
       } else {
         toast.error(result.payload.message);
         setSubmit(false);
@@ -117,7 +121,9 @@ function ForgotPasswordOTP() {
                 }}
                 onKeyDown={(e) => handleKeyDown(e, index)}
                 type="text"
+                inputMode="numeric"
                 name=""
+                autoComplete="off"
                 className={cx('form__input', 'form__input--center')}
               />
             </div>

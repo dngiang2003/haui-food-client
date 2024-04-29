@@ -115,8 +115,9 @@ function Header() {
   const handleLogOut = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('user');
+    localStorage.removeItem('refreshToken');
     setShowUserOptions(false);
-   
+
     // Lưu trạng thái thông báo vào localStorage
     localStorage.setItem('showToast', 'true');
     window.location.href = '/';

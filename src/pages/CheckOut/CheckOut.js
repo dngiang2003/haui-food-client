@@ -295,6 +295,12 @@ function CheckOut() {
                               onClick={() => {
                                 setFloor(`${t('checkout.title05')} ${floorItem}`);
                                 handleFloorClick(floorItem);
+                                if (floor !== t('checkout.title05')) {
+                                  setClassroom(t('checkout.title07'));
+                                  if (classroomsRef.current) {
+                                    classroomsRef.current.scrollTop = 0;
+                                  }
+                                }
                               }}
                               key={index}
                               className={cx('address__floor-item')}

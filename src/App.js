@@ -3,9 +3,10 @@ import { Fragment, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { publicRoutes } from '~/routes';
+import { publicRoutes, privateRoutes } from '~/routes';
 import DefaultLayout from './Layouts';
 import axiosInstance from './apiService/axiosInstance';
+import ProtectedRoute from './routes/ProtectedRoute';
 
 function App() {
   return (
@@ -40,14 +41,7 @@ function AppBody() {
     <div className="App">
       <Routes>
         {publicRoutes.map((route, index) => {
-          const Page = route.component;
-          let Layout = DefaultLayout;
-
-          if (route.layout) {
-            Layout = route.layout;
-          } else if (route.layout === null) {
-            Layout = Fragment;
-          }
+          const { component: Page, layout: Layout = DefaultLayout } = route;
           return (
             <Route
               key={index}
@@ -56,6 +50,23 @@ function AppBody() {
                 <Layout>
                   <Page />
                 </Layout>
+              }
+            />
+          );
+        })}
+
+        {privateRoutes.map((route, index) => {
+          const { component: Page, layout: Layout = DefaultLayout } = route;
+          return (
+            <Route
+              key={index}
+              path={route.path}
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <Page />
+                  </Layout>
+                </ProtectedRoute>
               }
             />
           );

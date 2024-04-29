@@ -45,12 +45,15 @@ const publicRoutes = [
   { path: config.routes.internalServer, component: ServerError, layout: NotFoundLayout },
   { path: config.routes.login, component: SignIn, layout: AuthLayout },
   { path: config.routes.signup, component: SignUp, layout: AuthLayout },
-  { path: config.routes.profile, component: Profile },
-  { path: config.routes.checkout, component: CheckOut, layout: CheckoutLayout },
+  // { path: config.routes.profile, component: Profile },
+  // { path: config.routes.checkout, component: CheckOut, layout: CheckoutLayout },
   { path: config.routes.loginWith2Fa, component: LoginWith2FA, layout: AuthLayout },
   { path: config.routes.forgotPasswordOTP, component: ForgotPasswordOTP, layout: AuthLayout },
 ];
 
-const privateRoutes = [];
+const privateRoutes = [
+  { path: config.routes.profile, component: Profile },
+  { path: config.routes.checkout, component: CheckOut, layout: CheckoutLayout },
+];
 
 export { publicRoutes, privateRoutes };

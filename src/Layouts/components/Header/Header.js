@@ -116,6 +116,7 @@ function Header() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('user');
     setShowUserOptions(false);
+   
     // Lưu trạng thái thông báo vào localStorage
     localStorage.setItem('showToast', 'true');
     window.location.href = '/';

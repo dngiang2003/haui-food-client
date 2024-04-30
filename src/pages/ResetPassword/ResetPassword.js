@@ -101,7 +101,7 @@ function ResetPassword() {
 
       if (result.payload.code === 200) {
         toast.success(result.payload.message);
-        navigate(config.routes.login);
+        navigate(config.routes.login, {replace: true});
       } else {
         toast.error(result.payload.message);
       }

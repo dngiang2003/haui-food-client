@@ -83,7 +83,7 @@ function ForgotPasswordOTP() {
       if (result.payload.code === 200) {
         console.log(result.payload);
         sessionStorage.setItem('tokenVerifyOTP', JSON.stringify(result.payload.data.tokenVerifyOTP));
-        navigate(config.routes.resetPassword);
+        navigate(config.routes.resetPassword, { replace: true });
       } else if (result.payload.code === 400) {
         navigate(config.routes.forgotPassword);
       } else {

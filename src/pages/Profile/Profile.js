@@ -464,43 +464,7 @@ function Profile() {
     validateDate(date);
   };
 
-  //   const value = datePickerRef.current.input.value;
-  //   console.log(value);
-
-  //   const [day, month, year] = value.split('/');
-  //   const inputDate = new Date(`${year}-${month}-${day}`);
-  //   const currentDay = new Date();
-  //   let newErrors = { ...errors }; // Sao chép errors hiện tại để thay đổi
-  //   // console.log('start date', startDate.getFullYear());
-  //   // console.log('4 year', year.toString().length === 4);
-  //   // console.log('18 year', currentDay.getFullYear() - year < 18);
-
-  //   if (inputDate instanceof Date && !isNaN(inputDate) && year?.toString().length === 4) {
-  //     console.log('intant of date');
-  //     setStartDate(inputDate);
-  //   } else {
-  //     return;
-  //   }
-  //   if (!(inputDate instanceof Date)) {
-  //     return (newErrors = { ...newErrors, birthDay: 'Ngày sinh không hợp lệ' });
-  //     // console.log('ngay sinh khong hop le');
-  //   } else if (inputDate > currentDay) {
-  //     newErrors = { ...newErrors, birthDay: 'Ngày sinh không thể lớn hơn hôm nay' };
-  //     console.log('ngay sinh khong the lon hon ngay hom nay');
-  //   } else if (year && year.toString().length === 4 && currentDay.getFullYear() - year < 18) {
-  //     newErrors = { ...newErrors, birthDay: 'Bạn chưa đủ 18 tuổi' };
-  //     console.log('ngay sinh khong the lon hon 18 tuoi');
-  //   } else if (currentDay.getFullYear() - 100 > year && year === startDate?.getFullYear().toString()) {
-  //     newErrors = { ...newErrors, birthDay: 'Bạn đã quá 100 tuổi' };
-  //     console.log('ngay sinh khong the lon hon 100 tuoi');
-  //   } else {
-  //     newErrors = { ...newErrors, birthDay: '' }; // Không có lỗi
-  //   }
-
-  //   setErrors(newErrors);
-  // };
-
-  // console.log(image);
+ 
   return (
     <div className={cx('wrapper')}>
       <div className={cx('container')}>

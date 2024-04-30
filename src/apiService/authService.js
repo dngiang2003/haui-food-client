@@ -3,7 +3,6 @@ import hostname from '~/utils/http';
 import axios from 'axios';
 import { callApi } from './apiUtils';
 
-
 export const resetPassword = createAsyncThunk('auth/reset-password', async (data, { rejectWithValue }) => {
   try {
     const response = await callApi('post', '/v1/auth/reset-password', null, data);
@@ -46,7 +45,6 @@ export const loginUser = createAsyncThunk('auth/login', async (userCredentials, 
       localStorage.setItem('accessToken', JSON.stringify(res.data.accessToken));
       localStorage.setItem('refreshToken', JSON.stringify(res.data.refreshToken));
       localStorage.setItem('user', JSON.stringify(res.data.user));
-      
     }
     return res;
   } catch (error) {
@@ -109,6 +107,12 @@ export const updateMe = createAsyncThunk('auth/updateMe', async ({ userData, ava
     }
 
     const response = await callApi('put', '/v1/auth/me', null, formData, customHeaders);
+
+    // console.log(response);
+    if (response.code === 200) {
+      localStorage.setItem('user', JSON.stringify(response.data));
+    }
+
     return response;
   } catch (error) {
     return rejectWithValue({ ...error });

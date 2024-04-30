@@ -59,7 +59,7 @@ function Header() {
 
   useEffect(() => {
     if (userData.isUpdate) {
-      console.log(userData.user);
+      // console.log(userData.user);
       setAvatar(userData.user?.avatar ? userData.user.avatar : images.avatarDefault);
     }
 

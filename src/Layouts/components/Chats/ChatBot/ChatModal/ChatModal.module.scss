@@ -31,14 +31,30 @@
     border-left: 13px solid white;
     z-index: 99999999999;
   }
+  @media (max-width: 2400px) {
+    right: 5.5vw;
+    max-height: 50vh;
+    max-width: 20vw;
+  }
+  @media (max-width: 1800px) {
+    right: 6.4vw;
+    max-height: 54vh;
+  }
 
-  @include media-breakpoint-down(lg) {
-    right: 10.3vw;
+  @media (max-width: 1200px) {
+    right: 8vw;
     max-height: 50vh;
   }
-  @include media-breakpoint-down(sm) {
+
+  @media (max-width: 992px) {
+    right: 10.3vw;
+    max-height: 42vh;
+    max-width: 45vw;
+  }
+
+  @media (max-width: 576px) {
     max-height: 45vh;
-    right: 19.8vw;
+    right: 17.8vw;
     padding: 5px;
   }
 }
@@ -48,10 +64,10 @@
   padding: 0 0 5px 0 !important;
   text-align: center !important;
   border-bottom: 1px solid #ccc !important;
-  font-size: 16px !important;
+  font-size: 18px !important;
   line-height: 24px !important;
   letter-spacing: 0.008px !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
   color: rgb(39, 39, 42) !important;
 }
 
@@ -107,10 +123,13 @@
   appearance: none;
   height: 40px;
   min-height: 40px;
-  caret-color: rgb(10, 104, 255);
+  caret-color: #00ba51;
   display: flex;
   margin-top: 10px;
   position: relative;
+  &:hover {
+    border-color: #00ba51;
+  }
 }
 
 .chat-modal__input {

@@ -1,10 +1,9 @@
 import classNames from 'classnames/bind';
-import { useTranslation } from 'react-i18next';
+
 import RestaurantHeader from '~/components/RestaurantHeader/RestaurantHeader';
 import styles from './Restaurant.module.scss';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { PlusIcon } from '~/components/Icons';
 
 const cx = classNames.bind(styles);
 

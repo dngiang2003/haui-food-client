@@ -2,6 +2,28 @@
 @import 'bootstrap/scss/variables';
 @import 'bootstrap/scss/mixins';
 
+.list-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  // transition: max-height 0.5s;
+
+  animation: showList 0.5s linear forwards;
+
+  @keyframes showList {
+    from {
+      max-height: 0;
+    }
+
+    to {
+      max-height: 500px;
+    }
+  }
+}
+
+.list-wrapper-show {
+  max-height: 500px;
+}
+
 .list-slider {
   padding-left: 0;
   padding-right: 0;

@@ -189,7 +189,7 @@ const RestaurantHeader = ({ restaurant }) => {
   return (
     <div className={cx('container')}>
       <div className={cx('banner')}>
-        <img src={restaurant.banner} alt='' />
+        <img src={restaurant.banner} alt="" />
       </div>
       <div className={cx('header')}>
         <div className={cx('header__breadcrumb')}>
@@ -197,9 +197,13 @@ const RestaurantHeader = ({ restaurant }) => {
           <ArrowRightIcon className={cx('arrowRightIcon')} />
           <a href="/restaurants">Nhà hàng</a>
           <ArrowRightIcon className={cx('arrowRightIcon')} />
+
+          {/* name */}
           <span>{restaurant.restaurantName || ''}</span>
         </div>
         <h1>{restaurant.restaurantName || ''}</h1>
+
+        {/* categories */}
         <div className={cx('header__cuisine')}>{restaurant.products}</div>
         <div className={cx('header__ratingAndDistance')}>
           <StarIcon className={cx('star-icon')} />

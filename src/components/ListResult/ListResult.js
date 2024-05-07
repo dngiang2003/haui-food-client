@@ -6,6 +6,7 @@ import style from './ListResult.module.scss';
 import NoResult from '../NoResult';
 
 import { useDispatch, useSelector } from 'react-redux';
+import ProductCard from '../ProductCard';
 const cx = classNames.bind(style);
 
 function ListResult({ data, className, onChangePage }) {
@@ -32,20 +33,7 @@ function ListResult({ data, className, onChangePage }) {
             {data.map((item, index) => {
               return (
                 <div key={index} className={cx('col-xl-4 col-12')}>
-                  <div className={cx('item__wrapper')}>
-                    <div className={cx('item__img-container')}>
-                      <img className={cx('item__img')} src={item?.image} alt={item?.name} />
-                    </div>
-
-                    <div className={cx('item__info')}>
-                      <div className={cx('item__name')}>{item?.name}</div>
-                      <div className={cx('item__desc')}>{item?.description}</div>
-                      <div className={cx('item__last-row')}>
-                        <div className={cx('item__price')}>{item?.price}</div>
-                        <div className={cx('item__add-cart-btn')}></div>
-                      </div>
-                    </div>
-                  </div>
+                  <ProductCard data={item} />
                 </div>
               );
             })}

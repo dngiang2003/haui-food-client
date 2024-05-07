@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
 import style from './RestaurantList.module.scss';
-import ProductCard from '../ProductCard/ProductCard';
+import RestaurantCard from '../RestaurantCard/RestaurantCard';
 import Loader from '../Loader';
 import NoResult from '../NoResult';
 import { getRestaurants, getRestaurantsByCategory } from '~/apiService/restaurantService';
@@ -146,7 +146,7 @@ function RestaurantList({ category, type }) {
             return (
               <div key={index} className={cx('col-xl-3 col-6')}>
                 <div>
-                  <ProductCard data={item} className={cx('restaurant-list__item')} />
+                  <RestaurantCard data={item} className={cx('restaurant-list__item')} />
                 </div>
               </div>
             );

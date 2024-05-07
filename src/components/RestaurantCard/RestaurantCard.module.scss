@@ -1,0 +1,132 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+.restaurant-card {
+  width: 100%;
+  padding-left: 7px;
+  padding-right: 7px;
+  height: 100%;
+  position: relative;
+  cursor: pointer;
+
+  @include media-breakpoint-down(md) {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  &__label {
+    background-color: var(--primary-color);
+    position: absolute;
+    top: 15px;
+
+    color: var(--white);
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 3px 5px 3px 3px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+    &::before {
+      content: '';
+      width: 5px;
+      height: 100%;
+      top: 0;
+      left: -3px;
+      background-color: var(--primary-color);
+      position: absolute;
+    }
+
+    &-tail {
+      width: 0;
+      z-index: -1;
+      border-top: 3px solid #008c3f;
+      border-left: 3px solid transparent;
+      position: absolute;
+      bottom: -2px;
+      left: -3px;
+    }
+  }
+
+  &__img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  &__name {
+    font-size: 1.8rem;
+    color: var(--text-color);
+    font-weight: 600;
+    margin-top: 10px;
+
+    @include media-breakpoint-down(md) {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__categorise {
+    font-size: 1.4rem;
+    color: #676767;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  &__rating {
+    font-size: 1.4rem;
+    color: #676767;
+  }
+
+  &__rating-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    @include media-breakpoint-down(md) {
+      gap: 5px;
+    }
+  }
+
+  &__discount-container {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  &__discount-tag {
+    background-image: url(https://food.grab.com/static/images/icons/icon-promo-tag.svg);
+    width: 24px;
+    height: 24px;
+    background-size: contain;
+    background-position: center;
+    @include media-breakpoint-down(md) {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__discount-text {
+    @include media-breakpoint-down(md) {
+      font-size: 1.4rem;
+    }
+  }
+}
+
+.star-container {
+  display: flex;
+  align-items: center;
+}
+
+.product-card .star-icon {
+  color: #f7c942;
+  width: 18px;
+  height: 18px;
+  @include media-breakpoint-down(md) {
+    width: 14px;
+    height: 14px;
+  }
+}

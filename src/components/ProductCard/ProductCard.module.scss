@@ -2,49 +2,24 @@
 @import 'bootstrap/scss/variables';
 @import 'bootstrap/scss/mixins';
 
-.product-card {
-  width: 100%;
-  padding-left: 7px;
-  padding-right: 7px;
-  height: 100%;
-  position: relative;
-  cursor: pointer;
+.product {
+  &__wrapper {
+    padding: 20px;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    border: 1px solid transparent;
+    background-color: #f7f7f7;
+    box-shadow: 1px 4px 6px 2px rgba(28, 28, 29, 0.07);
+    border-radius: 4px;
+    cursor: pointer;
 
-  @include media-breakpoint-down(md) {
-    padding-left: 5px;
-    padding-right: 5px;
-  }
-
-  &__label {
-    background-color: var(--primary-color);
-    position: absolute;
-    top: 15px;
-
-    color: var(--white);
-    font-size: 1.2rem;
-    font-weight: 600;
-    padding: 3px 5px 3px 3px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-
-    &::before {
-      content: '';
-      width: 5px;
-      height: 100%;
-      top: 0;
-      left: -3px;
-      background-color: var(--primary-color);
-      position: absolute;
+    @include media-breakpoint-down(lg) {
+      grid-template-columns: 1fr 4fr;
     }
 
-    &-tail {
-      width: 0;
-      z-index: -1;
-      border-top: 3px solid #008c3f;
-      border-left: 3px solid transparent;
-      position: absolute;
-      bottom: -2px;
-      left: -3px;
+    &:hover {
+      border: 1px solid var(--primary-color);
     }
   }
 
@@ -52,81 +27,74 @@
     width: 100%;
     height: auto;
     object-fit: cover;
-    border-radius: 8px;
-    overflow: hidden;
+    border-radius: 4px;
+  }
+
+  &__info {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
   &__name {
     font-size: 1.8rem;
-    color: var(--text-color);
-    font-weight: 600;
-    margin-top: 10px;
-
-    @include media-breakpoint-down(md) {
-      font-size: 1.6rem;
-    }
+    font-weight: 500;
   }
 
-  &__categorise {
-    font-size: 1.4rem;
-    color: #676767;
-    margin-top: 10px;
-    margin-bottom: 10px;
+  &__desc {
+    color: var(--secondary-text-color);
+    height: 80px;
+    // overflow: hidden;
+    // line-height: 1.5;
+    // display: -webkit-box;
+    // -webkit-line-clamp: 3; /* Số dòng tối đa */
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+
+    display: block;
+    display: -webkit-box;
+    line-height: 1.5; /* Fallback  */
+    max-height: 74px; /* Fallback số dòng bạn muốn giới hạn */
+    -webkit-line-clamp: 3; /* Số dòng bạn muốn giới hạn */
+    visibility: visible; /* Tránh bug không giới hạn số dòng được do trình duyệt */
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 300px;
   }
 
-  &__rating {
-    font-size: 1.4rem;
-    color: #676767;
-  }
-
-  &__rating-container {
+  &__last-row {
     display: flex;
     align-items: center;
-    gap: 10px;
-    @include media-breakpoint-down(md) {
-      gap: 5px;
+    justify-content: space-between;
+  }
+
+  &__price {
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+
+  &__add-cart-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    position: relative;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 15px;
+      height: 3px;
+      background-color: white;
     }
-  }
 
-  &__discount-container {
-    margin-top: 10px;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-
-  &__discount-tag {
-    background-image: url(https://food.grab.com/static/images/icons/icon-promo-tag.svg);
-    width: 24px;
-    height: 24px;
-    background-size: contain;
-    background-position: center;
-    @include media-breakpoint-down(md) {
-      width: 20px;
-      height: 20px;
+    &::before {
+      transform: translateX(-50%) translateY(-50%) rotate(90deg);
     }
-  }
-
-  &__discount-text {
-    @include media-breakpoint-down(md) {
-      font-size: 1.4rem;
-    }
-  }
-}
-
-.star-container {
-  display: flex;
-  align-items: center;
-}
-
-.product-card .star-icon {
-  color: #f7c942;
-  width: 18px;
-  height: 18px;
-  @include media-breakpoint-down(md) {
-    width: 14px;
-    height: 14px;
   }
 }

@@ -1,9 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { callApi } from './apiUtils';
 
-export const getRestaurants = createAsyncThunk('restaurant/', async (params, { rejectWithValue }) => {
+export const getRestaurants = createAsyncThunk('restaurant', async (params, { rejectWithValue }) => {
   try {
     // console.log(params);
+
     const response = await callApi('get', '/v1/shops', params, {});
     if (response.code === 200) {
     }

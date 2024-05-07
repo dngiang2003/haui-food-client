@@ -8,7 +8,7 @@ import style from './RestaurantList.module.scss';
 import ProductCard from '../ProductCard/ProductCard';
 import Loader from '../Loader';
 import NoResult from '../NoResult';
-import { getRestaurants } from '~/apiService/restaurantService';
+import { getRestaurants, getRestaurantsByCategory } from '~/apiService/restaurantService';
 const cx = classNames.bind(style);
 
 function RestaurantList({ category, type }) {
@@ -32,7 +32,7 @@ function RestaurantList({ category, type }) {
 
   const fetchRestaurants = async () => {
     console.log('call api');
-    if (!query) {
+    if (!query && !category) {
       dispatch(getRestaurants({ limit: limit, page: currentPage })).then((result) => {
         console.log(result);
         if (result.payload.code === 200) {
@@ -41,7 +41,16 @@ function RestaurantList({ category, type }) {
           setRestaurantList((preRestaurant) => {
             return [...preRestaurant, ...result.payload.data.shops];
           });
-          setCurrentPage((pre) => ++pre);
+
+          if (currentPage === result.payload.data.totalPage) {
+            setHasMore(false);
+            return;
+          } else {
+            setCurrentPage((pre) => {
+              return ++pre;
+            });
+          }
+
           // setIsLoading(false);
         }
       });
@@ -55,6 +64,7 @@ function RestaurantList({ category, type }) {
             setRestaurantList((preRestaurant) => {
               return [...preRestaurant, ...result.payload.data.shops];
             });
+
             if (currentPage === result.payload.data.totalPage) {
               setHasMore(false);
               return;
@@ -68,7 +78,29 @@ function RestaurantList({ category, type }) {
           }
         }
       });
-    } else {
+    } else if (category) {
+      // const categoryId = JSON.parse(sessionStorage.getItem('idCategorySelected'));
+      dispatch(getRestaurantsByCategory({ categoryId: '6605587526ee3946d0f565b5' })).then((result) => {
+        console.log(result);
+
+        if (result?.payload?.code === 200) {
+          console.log('category');
+          setTotalPages(result.payload.data.totalPage);
+          setTotalDocuments(result.payload.data.totalResult);
+          setRestaurantList((preRestaurant) => {
+            return [...preRestaurant, ...result.payload.data.shops];
+          });
+
+          if (currentPage === result.payload.data.totalPage) {
+            setHasMore(false);
+            return;
+          } else {
+            setCurrentPage((pre) => {
+              return ++pre;
+            });
+          }
+        }
+      });
     }
   };
 
@@ -81,7 +113,7 @@ function RestaurantList({ category, type }) {
     setHasMore(true);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, type]);
+  }, [query, type, category]);
 
   console.log(query);
   console.log('currentPage', currentPage);

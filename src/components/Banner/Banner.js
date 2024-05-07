@@ -135,6 +135,7 @@ function Banner({ className, onSearch, onSearchResult, onPage, onRemove, onHandl
                 type="text"
                 placeholder=""
                 value={searchValue}
+                autocomplete="off"
                 onKeyPress={handleKeyPress}
                 onChange={handleChange}
                 className={cx('banner__input-search')}

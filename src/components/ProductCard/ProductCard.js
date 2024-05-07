@@ -25,11 +25,11 @@ function ProductCard({ data, className }) {
 
       <img src={data?.background} className={cx('product-card__img')} alt="" />
       <div className={cx('product-card__content')}>
-        <div className={cx('product-card__name')}>{data.fullname}</div>
+        <div className={cx('product-card__name')}>{data?.fullname}</div>
 
-        <div className={cx('product-card__categorise')}>{data.categorise}</div>
+        <div className={cx('product-card__categorise')}>{data?.description}</div>
         <div className={cx('product-card__rating-container')}>
-          <div className={cx('product-card__rating')}>{data.rating}</div>
+          <div className={cx('product-card__rating')}>{data?.rating}</div>
           <div className={cx('star-container')}>
             {stars.map((star, index) => {
               return <span key={index}>{star}</span>;

@@ -13,3 +13,19 @@ export const getRestaurants = createAsyncThunk('restaurant/', async (params, { r
     return rejectWithValue({ ...error });
   }
 });
+
+export const getRestaurantsByCategory = createAsyncThunk(
+  'getRestaurantByCategory',
+  async ({ categoryId, params }, { rejectWithValue }) => {
+    try {
+      console.log(params);
+      const response = await callApi('get', `/v1/shops/category/${categoryId}`, {});
+      if (response.code === 200) {
+      }
+
+      return response;
+    } catch (error) {
+      return rejectWithValue({ ...error });
+    }
+  },
+);

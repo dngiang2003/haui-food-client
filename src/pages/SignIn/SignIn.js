@@ -14,6 +14,7 @@ import { loginUser } from '~/apiService/authService';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { loginWithGoogle } from '~/apiService/loginWithGoogleService';
+import { statistical } from '~/apiService/statisticalService';
 const cx = classNames.bind(styles);
 
 function SignIn() {
@@ -146,6 +147,19 @@ function SignIn() {
       setErrors({ ...errors, password: '' });
     }
   }, [password, passwordRegex, email, emailRegex, errors]);
+
+  useEffect(() => {
+    dispatch(statistical())
+      .then((result) => {
+        if (result.payload.code !== 200) {
+          toast.error(result.payload.message);
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={cx('login')}>

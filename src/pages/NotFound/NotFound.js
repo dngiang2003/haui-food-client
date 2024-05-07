@@ -1,16 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 import styles from './NotFound.module.scss';
 import { Link } from 'react-router-dom';
 import routes from '~/config/routes';
 import images from '~/assets/images';
+import { statistical } from '~/apiService/statisticalService';
+import { useDispatch } from 'react-redux';
 
 const cx = classNames.bind(styles);
 
 function NotFound() {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(statistical())
+      .then((result) => {
+        if (result.payload.code !== 200) {
+          toast.error(result.payload.message);
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={cx('bg-purple')}>

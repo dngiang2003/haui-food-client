@@ -23,9 +23,9 @@ function ProductCard({ data, className }) {
         <div className={cx('product-card__label-tail')}></div>
       </div>
 
-      <img src={data.image} className={cx('product-card__img')} alt="" />
+      <img src={data?.background} className={cx('product-card__img')} alt="" />
       <div className={cx('product-card__content')}>
-        <div className={cx('product-card__name')}>{data.name}</div>
+        <div className={cx('product-card__name')}>{data.fullname}</div>
 
         <div className={cx('product-card__categorise')}>{data.categorise}</div>
         <div className={cx('product-card__rating-container')}>
@@ -40,7 +40,7 @@ function ProductCard({ data, className }) {
 
         <div className={cx('product-card__discount-container')}>
           <div className={cx('product-card__discount-tag')}></div>
-          <div className={cx('product-card__discount-text')}>{data.discount}</div>
+          <div className={cx('product-card__discount-text')}>Rất nhiều ưu đãi</div>
         </div>
       </div>
     </div>

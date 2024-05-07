@@ -13,12 +13,13 @@ const cx = classNames.bind(styles);
 
 function Restaurants() {
   const { t } = useTranslation();
-  const { category } = useParams();
   const url = useLocation();
   const [currentPageType, setCurrentPageType] = useState(null);
   const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+
+  const { category } = useParams();
   const query = searchParams.get('q');
   // console.log(category);
   // console.log(searchParams);
@@ -43,7 +44,7 @@ function Restaurants() {
     }
     e.target.blur();
   };
-
+  // console.log(currentPageType);
   return (
     <div className={cx('wrapper')}>
       <div className={cx('container')}>
@@ -100,7 +101,7 @@ function Restaurants() {
             </div>
           )}
           <div className={cx('restaurant__list')}>
-            <RestaurantList category={category} query={query} type={currentPageType} />
+            <RestaurantList category={category} type={currentPageType} />
           </div>
         </div>
       </div>

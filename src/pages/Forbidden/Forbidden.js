@@ -1,16 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classNames from 'classnames/bind';
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import styles from './Forbidden.module.scss';
-import { Link } from 'react-router-dom';
 import routes from '~/config/routes';
 import images from '~/assets/images';
+import { statistical } from '~/apiService/statisticalService';
 
 const cx = classNames.bind(styles);
 
 function Forbidden() {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(statistical())
+      .then((result) => {
+        if (result.payload.code !== 200) {
+          toast.error(result.payload.message);
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={cx('bg-purple')}>

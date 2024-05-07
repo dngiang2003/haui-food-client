@@ -1,15 +1,16 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames/bind';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import styles from './ResetPassword.module.scss';
 import { PasswordIcon } from '~/components/Icons';
 import Button from '~/components/Button';
-import { useDispatch } from 'react-redux';
 import { resetPassword } from '~/apiService/authService';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 import config from '~/config';
+import { statistical } from '~/apiService/statisticalService';
 
 const cx = classNames.bind(styles);
 
@@ -107,6 +108,19 @@ function ResetPassword() {
       }
     });
   };
+
+  useEffect(() => {
+    dispatch(statistical())
+      .then((result) => {
+        if (result.payload.code !== 200) {
+          toast.error(result.payload.message);
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={cx('reset-password')}>

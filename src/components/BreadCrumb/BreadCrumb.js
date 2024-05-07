@@ -15,7 +15,7 @@ function BreadCrumb({ className }) {
     ? JSON.parse(localStorage.getItem('categorySelected'))
     : null;
 
-  console.log(nameCategory);
+  // console.log(nameCategory);
   let resString = 'restaurants';
   let cuisinesString = 'cuisines';
   if (language === 'vi') {
@@ -32,7 +32,7 @@ function BreadCrumb({ className }) {
       return path;
     });
 
-  console.log(pathname);
+  // console.log(pathname);
   const upperFirstCase = (path) => {
     if (path === 'cuisines') {
       path = cuisinesString;

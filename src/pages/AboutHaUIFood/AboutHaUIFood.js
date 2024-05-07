@@ -12,6 +12,7 @@ import routes from '~/config/routes';
 import { EmailIcon, PhoneIcon, QuotesIcon, SendIcon, UserIcon } from '~/components/Icons';
 import { contactUs } from '~/apiService/contactService';
 import { clearError } from '~/apiService/authService';
+import { statistical } from '~/apiService/statisticalService';
 
 const cx = classNames.bind(styles);
 
@@ -115,6 +116,19 @@ function AboutHaUIFood() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    dispatch(statistical())
+      .then((result) => {
+        if (result.payload.code !== 200) {
+          toast.error(result.payload.message);
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

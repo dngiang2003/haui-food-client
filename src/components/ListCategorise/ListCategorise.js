@@ -45,7 +45,6 @@ function ListCategorise() {
             key={index}
             className={cx('col-xl-3 col-6')}
             onClick={() => {
-              console.log('test');
               localStorage.setItem('categorySelected', JSON.stringify({ name: item.name, slug: item.slug }));
               // dispatch(setCategoryClicked({ name: item.name, slug: item.slug }));
             }}

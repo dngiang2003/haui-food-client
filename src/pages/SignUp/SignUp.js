@@ -11,6 +11,7 @@ import Button from '~/components/Button';
 import routes from '~/config/routes';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearError, registerUser } from '~/apiService/authService';
+import { statistical } from '~/apiService/statisticalService';
 
 const cx = classNames.bind(styles);
 
@@ -115,6 +116,19 @@ function SignUp() {
       setErrors({ ...errors, password: '' });
     }
   }, [password, passwordRegex, email, emailRegex, fullname, errors]);
+
+  useEffect(() => {
+    dispatch(statistical())
+      .then((result) => {
+        if (result.payload.code !== 200) {
+          toast.error(result.payload.message);
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={cx('signup')}>

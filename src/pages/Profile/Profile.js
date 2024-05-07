@@ -10,6 +10,7 @@ import {
   EyeIcon,
   HideIcon,
   KeyIcon,
+  HistoryOderIcon,
 } from '~/components/Icons';
 import Button from '~/components/Button';
 import { useState, useRef, useEffect } from 'react';
@@ -25,6 +26,7 @@ import { changePassword, getMe, updateMe } from '~/apiService/authService';
 import TermsOfUse from '~/components/TermsOfUse';
 import Help from '~/components/Help';
 import AuthTwinSetup from '~/components/AuthTwinSetup';
+import HistoryOder from '~/components/HistoryOrder/HistoryOrder';
 const cx = classNames.bind(style);
 
 function Profile() {
@@ -52,6 +54,10 @@ function Profile() {
   const reduxData = useSelector((prop) => prop.auth);
   // const reduxChangePassword = useSelector((prop) => prop.auth);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
   useEffect(() => {
     if (selectedOption === listOptions[1].title) {
@@ -97,6 +103,10 @@ function Profile() {
       title: t('profile.nav02'),
       icon: <PasswordIcon className={cx('icon')} />,
       navId: 'changePassword',
+    },
+    {
+      title: 'Đơn mua',
+      icon: <HistoryOderIcon className={cx('icon')} />,
     },
     {
       title: t('profile.nav05'),
@@ -298,19 +308,6 @@ function Profile() {
   }, [selectedOption]);
 
   const handleCancel = () => {
-    // {
-    //   // setFullName(userInfo?.fullname || '');
-    //   // setMsv(userInfo?.MSV || '');
-    //   // setPhoneNumber(userInfo?.phone || '');
-    //   // setEmail(userInfo?.email || '');
-    //   // setGender(
-    //   //   userInfo?.gender
-    //   //     ? userInfo.gender.toLowerCase() === 'male'
-    //   //       ? t('profile.gender.male')
-    //   //       : t('profile.gender.female')
-    //   //     : '',
-    //   // );
-    // }
     upDateUserInfo();
 
     setOldPassword('');
@@ -463,8 +460,8 @@ function Profile() {
     // console.log(date);
     validateDate(date);
   };
+  console.log(userInfo);
 
- 
   return (
     <div className={cx('wrapper')}>
       <div className={cx('container')}>
@@ -565,7 +562,6 @@ function Profile() {
                   >
                     <div className={cx('profile-content__title')}>{selectedOption}</div>
                     {selectedOption === listOptions[1].title && <div className={cx('profile__sub-row')}></div>}
-
                     {/* personal infor */}
                     {selectedOption === listOptions[1].title && (
                       <>
@@ -729,7 +725,6 @@ function Profile() {
                         </div>
                       </>
                     )}
-
                     {/* change password */}
                     {selectedOption === listOptions[2].title && (
                       <>
@@ -841,14 +836,14 @@ function Profile() {
                         </div>
                       </>
                     )}
-
                     {/* auth twin setup */}
-                    {selectedOption === listOptions[3].title && <AuthTwinSetup />}
-
+                    {selectedOption === listOptions[4].title && <AuthTwinSetup />}
                     {/* help */}
-                    {selectedOption === listOptions[5].title && <Help />}
+                    {selectedOption === listOptions[6].title && <Help />}
                     {/* Terms of use */}
-                    {selectedOption === listOptions[6].title && <TermsOfUse />}
+                    {selectedOption === listOptions[7].title && <TermsOfUse />}
+                    {/* history oder */}
+                    {selectedOption === listOptions[3].title && <HistoryOder />}
                   </div>
 
                   {/* listOption[1].title là "Personal info" */}

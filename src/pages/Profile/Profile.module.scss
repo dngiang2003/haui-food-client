@@ -26,8 +26,8 @@
 }
 
 .icon {
-  width: 16px;
-  height: 16px;
+  width: 16px !important;
+  height: 16px !important;
   color: var(--text-color);
   display: block;
   transition: 0.5s;
@@ -269,6 +269,7 @@
   &-content__title {
     font-size: 2rem;
     font-weight: 600;
+    padding: 9px 0 0 16px;
   }
 
   &-content-container {
@@ -283,6 +284,10 @@
     @include media-breakpoint-down(xl) {
       min-height: 50vh;
     }
+
+    @include media-breakpoint-down(md) {
+      padding: 10px;
+    }
   }
 
   &-input-container {
@@ -292,11 +297,12 @@
     grid-template-columns: repeat(2, 1fr);
 
     @include media-breakpoint-down(lg) {
+      row-gap: 15px;
       grid-template-columns: 1fr;
     }
 
     @include media-breakpoint-down(md) {
-      row-gap: 25px;
+      row-gap: 10px;
     }
   }
 

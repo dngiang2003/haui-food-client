@@ -10,6 +10,7 @@ import routes from '~/config/routes';
 import { useDispatch } from 'react-redux';
 import { LoginWith2FA as login2FA } from '~/apiService/authService';
 import { toast } from 'react-toastify';
+import { statistical } from '~/apiService/statisticalService';
 
 const cx = classNames.bind(styles);
 
@@ -88,6 +89,19 @@ function LoginWith2FA() {
       }
     });
   };
+
+  useEffect(() => {
+    dispatch(statistical())
+      .then((result) => {
+        if (result.payload.code !== 200) {
+          toast.error(result.payload.message);
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={cx('verify-otp')}>

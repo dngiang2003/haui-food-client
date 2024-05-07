@@ -1,38 +1,58 @@
 import classNames from 'classnames/bind';
-import style from './ListResutl.module.scss';
-import ProductCard from '../ProductCard/ProductCard';
-import ReactPaginate from 'react-paginate';
-import { ChevronRight } from '../Icons';
+import style from './ListResult.module.scss';
+
+// import ReactPaginate from 'react-paginate';
+// import { ChevronRight } from '../Icons';
 import NoResult from '../NoResult';
+
+import { useDispatch, useSelector } from 'react-redux';
 const cx = classNames.bind(style);
 
-function ListResutl({ data, className, onChangePage }) {
+function ListResult({ data, className, onChangePage }) {
   // console.log('data list', data);
 
-  if (data === undefined || !Array.isArray(data.data) || data.length === 0) {
+  // console.log(data);
+  // const dispatch = useDispatch();
+  const reduxData = useSelector((prop) => prop.product);
+  console.log(reduxData);
+
+  if (data.length === 0 && !reduxData.loading) {
     return <NoResult />;
   }
 
-  const handlePageChange = (event) => {
-    onChangePage(event.selected + 1);
-  };
+  // const handlePageChange = (event) => {
+  //   onChangePage(event.selected + 1);
+  // };
 
   return (
     <div className={cx('list')}>
       {data && (
         <div className={cx('list-container')}>
-          <div className={cx('row gy-5 g-0')}>
-            {data.data.map((item, index) => {
+          <div className={cx('row g-5 g-0')}>
+            {data.map((item, index) => {
               return (
-                <div key={index} className={cx('col-xl-3 col-6')}>
-                  <ProductCard data={item} />
+                <div key={index} className={cx('col-xl-4 col-12')}>
+                  <div className={cx('item__wrapper')}>
+                    <div className={cx('item__img-container')}>
+                      <img className={cx('item__img')} src={item?.image} alt={item?.name} />
+                    </div>
+
+                    <div className={cx('item__info')}>
+                      <div className={cx('item__name')}>{item?.name}</div>
+                      <div className={cx('item__desc')}>{item?.description}</div>
+                      <div className={cx('item__last-row')}>
+                        <div className={cx('item__price')}>{item?.price}</div>
+                        <div className={cx('item__add-cart-btn')}></div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               );
             })}
           </div>
         </div>
       )}
-      <div className={cx('pagination-container')}>
+      {/* <div className={cx('pagination-container')}>
         <ReactPaginate
           previousLabel={<ChevronRight className={cx('prev-icon')} />}
           nextLabel={<ChevronRight className={cx('next-icon')} />}
@@ -53,9 +73,9 @@ function ListResutl({ data, className, onChangePage }) {
           forcePage={+(data.currentPage - 1)}
           onPageChange={handlePageChange}
         />
-      </div>
+      </div> */}
     </div>
   );
 }
 
-export default ListResutl;
+export default ListResult;

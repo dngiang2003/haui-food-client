@@ -1,8 +1,12 @@
 import { useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 
 import styles from './AboutDevelopmentTeam.module.scss';
+
+import { statistical } from '~/apiService/statisticalService';
 import images from '~/assets/images';
 import { FacebookIcon, GithubIcon, InstagramIcon, SettingIcon } from '~/components/Icons';
 
@@ -10,9 +14,23 @@ const cx = classNames.bind(styles);
 
 function AboutDevelopmentTeam() {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    dispatch(statistical())
+      .then((result) => {
+        if (result.payload.code !== 200) {
+          toast.error(result.payload.message);
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

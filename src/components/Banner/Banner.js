@@ -6,6 +6,8 @@ import styles from './Banner.module.scss';
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LoadingIcon, SearchIcon, CircleCloseIcon } from '../Icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { searchProduct } from '~/apiService/productService';
 
 const cx = classNames.bind(styles);
 
@@ -24,23 +26,22 @@ function Banner({ className, onSearch, onSearchResult, onPage, onRemove, onHandl
   const [isMounted, setIsMounted] = useState(false);
   const inputRef = useRef();
 
+  const dispatch = useDispatch();
+  const reduxData = useSelector((state) => state.product);
+
   // hàm call api
   const fetchApi = async () => {
     setIsLoading(true);
     onSearch('loading');
     onSearchResult(searchResult);
-    // const url = `https://api.mockfly.dev/mocks/b4cb85f6-7fe5-4258-85f4-1a73d7eef7f1/product${onPage}`;
-    const url = `https://testapi.io/api/lenghia0108/product${onPage}`;
-    const result = await fetch(url)
-      .then((respone) => {
-        return respone.json();
-      })
-      .catch((err) => {
-        alert(err);
-      });
 
-    // console.log(result);
-    onSearchResult(result);
+    dispatch(searchProduct({ limit: 9, keyword: searchValue, page: 1 })).then((result) => {
+      console.log(result.payload.data.product);
+
+      if (result.payload.code === 200) {
+        onSearchResult(result.payload.data.products);
+      }
+    });
     onSearch('true');
     setIsLoading(false);
   };

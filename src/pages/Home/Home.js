@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import styles from './Home.module.scss';
 
@@ -10,7 +11,7 @@ import ListCategorise from '~/components/ListCategorise/ListCategorise';
 import { CheckIcon, CircleCloseIcon } from '~/components/Icons';
 import images from '~/assets/images';
 import { useState, useRef, useEffect } from 'react';
-import ListResutl from '~/components/ListResult/ListResult';
+import ListResult from '~/components/ListResult/ListResult';
 import Loader from '~/components/Loader';
 
 const cx = classNames.bind(styles);
@@ -22,6 +23,8 @@ function Home() {
   const [isRemove, setIsRemove] = useState(false);
   const [isFirstMount, setFirstMount] = useState(true);
   const loadingRef = useRef();
+
+  const reduxData = useSelector((prop) => prop.product);
 
   useEffect(() => {
     setFirstMount(false);
@@ -91,6 +94,7 @@ function Home() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
+  console.log(searchResult);
 
   return (
     <div className={cx('home')}>
@@ -105,7 +109,7 @@ function Home() {
       </div>
       <div className={cx('sparate')}></div>
       <div className={cx('container')}>
-        {isSearch === 'loading' && (
+        {reduxData.loading && (
           <div className={cx('home__search-loading-container')}>
             <Loader className={cx('home__loading-icon')} />
           </div>
@@ -136,7 +140,7 @@ function Home() {
               {/* <TrashIcon className={cx('home__trash-icon')} /> */}
             </div>
           </div>
-          <ListResutl data={searchResult} onChangePage={handleChangePage} />
+          <ListResult data={searchResult} onChangePage={handleChangePage} />
         </div>
         {/* )} */}
 

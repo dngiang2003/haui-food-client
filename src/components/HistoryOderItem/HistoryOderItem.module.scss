@@ -1,0 +1,155 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+.item-wrapper {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #ffff;
+  border-radius: 4px;
+  box-shadow: 0 0px 4px 0px rgba(0, 0, 0, 0.08);
+
+  @include media-breakpoint-down(md) {
+    padding: 10px;
+  }
+}
+
+.item {
+  &__shop-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.8rem;
+    font-weight: 500;
+    padding: 20px 0;
+    //   border-bottom: 1px solid #ccc;
+    border-bottom: 1px dashed #ccc;
+
+    @include media-breakpoint-down(md) {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__shop-name {
+    display: flex;
+    gap: 10px;
+    color: var(--primary-color);
+  }
+
+  &__status {
+    color: var(--status-color, var(--primary-color));
+    cursor: pointer;
+  }
+}
+
+.sub-item {
+  &__info-container {
+    display: flex;
+    padding: 20px 0;
+    // align-items: center;
+    // border-bottom: 1px h #ccc;
+    border-bottom: 1px dashed #ccc;
+
+    @include media-breakpoint-down(md) {
+      padding: 15px 0;
+      // flex-direction: column;
+    }
+  }
+
+  &__img {
+    width: 120px;
+    height: 120px;
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #e1e1e3;
+    background-color: #f1f2f6;
+    // padding: 1px;
+
+    @include media-breakpoint-down(lg) {
+      width: 100px;
+      height: 100px;
+    }
+
+    @include media-breakpoint-down(md) {
+      width: 80px;
+      height: 80px;
+    }
+  }
+
+  &__info {
+    margin-left: 20px;
+    // gap: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 1.6rem;
+    font-weight: 500;
+
+    @include media-breakpoint-down(md) {
+      margin-left: 10px;
+    }
+  }
+
+  &__name {
+    width: 80%;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Số dòng bạn muốn giới hạn */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 1.6rem;
+    font-weight: 500;
+
+    @include media-breakpoint-down(lg) {
+      width: 95%;
+    }
+  }
+
+  &__quantity {
+    color: var(--secondary-text-color);
+  }
+
+  &__price {
+    margin: auto 0;
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--primary-color);
+
+    @include media-breakpoint-down(md) {
+      font-size: 1.6rem;
+    }
+  }
+}
+
+.total {
+  &__container {
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @include media-breakpoint-down(md) {
+      gap: 10px;
+    }
+
+    &-btn {
+      width: 30%;
+      margin-left: auto;
+
+      @include media-breakpoint-down(lg) {
+        width: 100%;
+      }
+    }
+  }
+
+  &__content {
+    display: flex;
+    font-size: 2rem;
+    font-weight: 500;
+    justify-content: space-between;
+    color: var(--primary-color);
+
+    @include media-breakpoint-down(md) {
+      font-size: 1.8rem;
+    }
+  }
+}

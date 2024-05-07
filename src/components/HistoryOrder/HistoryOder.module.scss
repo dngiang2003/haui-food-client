@@ -1,0 +1,47 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+.wrapper {
+}
+
+.order-status {
+  &__nav {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+
+    @include media-breakpoint-down(lg) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    @include media-breakpoint-down(md) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &__item {
+    padding: 10px 0;
+    flex-grow: 1;
+    font-size: 1.6rem;
+    font-weight: 500;
+    text-align: center;
+    border-top: 2px solid rgba(0, 0, 0, 0.07);
+    border-bottom: 3px solid transparent;
+    transition: 0.5s;
+    cursor: pointer;
+    user-select: none;
+
+    @include media-breakpoint-down(lg) {
+      border-top-color: transparent;
+    }
+
+    &:hover {
+      color: var(--primary-color);
+    }
+
+    &--active {
+      color: var(--primary-color);
+      border-bottom: 3px solid var(--primary-color);
+    }
+  }
+}

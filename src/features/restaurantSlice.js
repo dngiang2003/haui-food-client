@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getRestaurants } from '~/apiService/restaurantService';
+import { getRestaurants, getRestaurantsForListSlider } from '~/apiService/restaurantService';
 
 const restaurantSlice = createSlice({
   name: 'restaurant',
@@ -8,11 +8,33 @@ const restaurantSlice = createSlice({
     loading: null,
     error: null,
     length: 0,
+    listSlider: [],
   },
 
   reducers: {},
   extraReducers(builder) {
     builder
+
+      // get restaurants for listSlider
+      .addCase(getRestaurantsForListSlider.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.listSlider = null;
+      })
+      .addCase(getRestaurantsForListSlider.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.loading = false;
+        state.listSlider = action.payload.data.shops;
+        state.error = null;
+      })
+      .addCase(getRestaurantsForListSlider.rejected, (state, action) => {
+        state.loading = false;
+        state.restaurants = null;
+        state.error = action.error.message;
+        state.length = 0;
+      })
+
+      //getRestaurant
       .addCase(getRestaurants.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -33,5 +55,5 @@ const restaurantSlice = createSlice({
       });
   },
 });
-// export const { setCategoryClicked } = categorySlice.actions;
+
 export default restaurantSlice.reducer;

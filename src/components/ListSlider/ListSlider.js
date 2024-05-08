@@ -5,8 +5,8 @@ import 'slick-carousel/slick/slick-theme.css';
 import RestaurantCard from '~/components/RestaurantCard/RestaurantCard';
 import Slider from 'react-slick';
 import { memo, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { getRestaurants } from '~/apiService/restaurantService';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRestaurantsForListSlider } from '~/apiService/restaurantService';
 import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
@@ -33,62 +33,29 @@ function PrevArrow(props) {
   );
 }
 
-// const data = [
-//   {
-//     image:
-//       'https://food-cms.grab.com/compressed_webp/merchants/5-C4EKLZN2CBEUUE/hero/faff5dbaf7024a2c98f33303920f8ef1_1688956019240286277.webp',
-
-//     name: 'Xôi Chú Ngọng - Đê La Thành',
-//     categorise: 'Bánh Mì - Xôi',
-//     rating: 4.5,
-//     discount: 'ƯU đãi đến 10k',
-//   },
-//   {
-//     image:
-//       'https://food-cms.grab.com/compressed_webp/merchants/VNGFVN000006ic/hero/24fbc54429f749338dee3df63eeec532_1709525928028380920.webp',
-//     name: "McDonald's - Hồ Gươm",
-//     categorise: 'Gà rán-Burger, đồ ăn quốc tế',
-//     rating: 2.5,
-//     discount: 'Ưu đãi đến 15k',
-//   },
-//   {
-//     image:
-//       'https://food-cms.grab.com/compressed_webp/merchants/5-C4CEPAAEL4CJJA/hero/782d2085-530e-48fa-9fa2-f392d8f54a4f__store_cover__2023__08__01__06__31__39.webp',
-//     name: 'Quán Cơm Rang 1989 - Cơm Rang Văn Phòng',
-//     categorise: 'cơm',
-//     rating: 3,
-//     discount: 'Ưu đãi đến 25k',
-//   },
-//   {
-//     image:
-//       'https://food-cms.grab.com/compressed_webp/merchants/5-C2WXPA4DUGBXLT/hero/6a6aca09-adbb-4a42-95d9-1b774c5a0d85__store_cover__2023__09__27__14__59__26.webp',
-
-//     name: 'Gimbap PingPong',
-//     categorise: 'Món Quốc Tế',
-//     rating: 5,
-//     discount: 'Ưu đãi đến 55k',
-//   },
-//   {
-//     image:
-//       'https://food-cms.grab.com/compressed_webp/merchants/5-C4EGNT6GRU4XJN/hero/a633f82f-14ca-479b-9301-993145ac7c3c__store_cover__2023__08__02__20__56__41.webp',
-
-//     name: 'A đây rồi - Spaghetti & Salad',
-//     categorise: 'Món quốc tế, Salad Heathy - Đồ Chay',
-//     rating: 5,
-//     discount: 'Ưu đãi đến 55k',
-//   },
-// ];
-
 function ListPromo() {
   const [data, setData] = useState([]);
+  const [hasData, setHasData] = useState(false);
+
   const dispatch = useDispatch();
+  const reduxData = useSelector((prop) => prop.restaurant);
+
+  console.log(reduxData);
+
   useEffect(() => {
-    dispatch(getRestaurants({ limit: 5, page: 1 })).then((result) => {
-      if (result.payload.code === 200) {
-        // console.log(result.payload);
-        setData(result.payload.data.shops);
-      }
-    });
+    if (reduxData.listSlider.length > 0) {
+      setHasData(true);
+      setData(reduxData.listSlider);
+    } else {
+      dispatch(getRestaurantsForListSlider({ limit: 5, page: 1 })).then((result) => {
+        if (result.payload.code === 200) {
+          // console.log(result.payload);
+          setData(result.payload.data.shops);
+        }
+      });
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const settings = {
@@ -140,7 +107,7 @@ function ListPromo() {
     <div className={cx('list-promo')}>
       <div className={cx()}>
         {data.length > 0 && (
-          <div className={cx('list-wrapper')}>
+          <div className={cx({ 'list-wrapper': !hasData })}>
             <Slider {...settings}>
               {data.length > 0 &&
                 data.map((item, index) => {

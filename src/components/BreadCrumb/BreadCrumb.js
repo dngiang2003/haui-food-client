@@ -11,11 +11,16 @@ const cx = classNames.bind(styles);
 
 function BreadCrumb({ className }) {
   const language = Cookies.get('lang');
-  const nameCategory = localStorage.getItem('categorySelected')
-    ? JSON.parse(localStorage.getItem('categorySelected'))
+  const categorySelected = sessionStorage.getItem('categorySelected')
+    ? JSON.parse(sessionStorage.getItem('categorySelected'))
     : null;
 
-  // console.log(nameCategory);
+  const restaurantSelected = sessionStorage.getItem('restaurantSelected')
+    ? JSON.parse(sessionStorage.getItem('restaurantSelected'))
+    : null;
+
+  console.log(restaurantSelected);
+  // console.log(categorySelected);
   let resString = 'restaurants';
   let cuisinesString = 'cuisines';
   if (language === 'vi') {
@@ -26,18 +31,22 @@ function BreadCrumb({ className }) {
   const pathname = useLocation()
     .pathname.split('/')
     .map((path) => {
-      if (path === nameCategory?.slug ? nameCategory.slug : '') {
-        return nameCategory.name;
+      console.log(path);
+      if (path === categorySelected?.slug ? categorySelected.slug : '') {
+        return categorySelected.name;
+      }
+      if (path === restaurantSelected?.slug ? restaurantSelected.slug : '') {
+        return restaurantSelected.name;
       }
       return path;
     });
 
-  // console.log(pathname);
+  console.log(pathname);
   const upperFirstCase = (path) => {
     if (path === 'cuisines') {
       path = cuisinesString;
     }
-    if (path === 'restaurants') {
+    if (path === 'restaurants' || path === 'restaurant') {
       path = resString;
     }
 
@@ -53,7 +62,15 @@ function BreadCrumb({ className }) {
           ) : (
             <Link
               className={cx('breadcrumb__item')}
-              to={index === 0 ? '/' : `/${path === routes.category.split('/')[0] ? `restaurants` : path}`}
+              to={
+                index === 0
+                  ? '/'
+                  : `/${
+                      path === routes.category.split('/')[0] || path === routes.restaurant.split('/')[1]
+                        ? `restaurants`
+                        : path
+                    }`
+              }
             >
               {index === 0 ? (language === 'vi' ? 'Trang chủ' : 'Home') : upperFirstCase(path)}
             </Link>

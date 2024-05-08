@@ -19,6 +19,7 @@ import Forbidden from '~/pages/Forbidden';
 import ServerError from '~/pages/ServerError';
 import LoginWith2FA from '~/pages/LoginWith2FA/LoginWith2FA';
 import ForgotPasswordOTP from '~/pages/ForgotPasswordOTP';
+import RestaurantDetail from '~/pages/RestaurantDetail';
 
 const publicRoutes = [
   { path: config.routes.home, component: Home },
@@ -32,7 +33,7 @@ const publicRoutes = [
   },
   {
     path: config.routes.restaurant,
-    component: Restaurant,
+    component: RestaurantDetail,
   },
 
   { path: config.routes.forgotPassword, component: ForgotPassword, layout: AuthLayout },

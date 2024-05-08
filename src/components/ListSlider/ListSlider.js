@@ -33,14 +33,14 @@ function PrevArrow(props) {
   );
 }
 
-function ListPromo() {
+function ListSlider() {
   const [data, setData] = useState([]);
   const [hasData, setHasData] = useState(false);
 
   const dispatch = useDispatch();
   const reduxData = useSelector((prop) => prop.restaurant);
 
-  console.log(reduxData);
+  // console.log(reduxData);
 
   useEffect(() => {
     if (reduxData.listSlider.length > 0) {
@@ -78,30 +78,30 @@ function ListPromo() {
       },
     ],
   };
-  function ChangeToSlug(title) {
-    let slug = title.toLowerCase();
+  // function ChangeToSlug(title) {
+  //   let slug = title.toLowerCase();
 
-    slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
-    slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
-    slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i');
-    slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
-    slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, 'u');
-    slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
-    slug = slug.replace(/đ/gi, 'd');
+  //   slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
+  //   slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
+  //   slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i');
+  //   slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
+  //   slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, 'u');
+  //   slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
+  //   slug = slug.replace(/đ/gi, 'd');
 
-    slug = slug.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '');
+  //   slug = slug.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '');
 
-    slug = slug.replace(/\s+/g, '-');
+  //   slug = slug.replace(/\s+/g, '-');
 
-    slug = slug.replace(/\-\-\-\-\-/gi, '-');
-    slug = slug.replace(/\-\-\-\-/gi, '-');
-    slug = slug.replace(/\-\-\-/gi, '-');
-    slug = slug.replace(/\-\-/gi, '-');
-    slug = '@' + slug + '@';
-    slug = slug.replace(/\@\-|\-\@|\@/gi, '');
-    slug += '-delivery';
-    return slug;
-  }
+  //   slug = slug.replace(/\-\-\-\-\-/gi, '-');
+  //   slug = slug.replace(/\-\-\-\-/gi, '-');
+  //   slug = slug.replace(/\-\-\-/gi, '-');
+  //   slug = slug.replace(/\-\-/gi, '-');
+  //   slug = '@' + slug + '@';
+  //   slug = slug.replace(/\@\-|\-\@|\@/gi, '');
+  //   slug += '-delivery';
+  //   return slug;
+  // }
   // console.log(data);
   return (
     <div className={cx('list-promo')}>
@@ -112,16 +112,12 @@ function ListPromo() {
               {data.length > 0 &&
                 data.map((item, index) => {
                   return (
-                    <Link
-                      to={`/restaurant/${ChangeToSlug(item?.fullname ? item.fullname : '')}`}
-                      key={index}
-                      className={cx('item')}
-                    >
+                    <div key={index} className={cx('item')}>
                       <RestaurantCard
                         className={cx({ 'first-item': index === 0 }, { 'last-item': index === data.length - 1 })}
                         data={item}
                       />
-                    </Link>
+                    </div>
                   );
                 })}
             </Slider>
@@ -132,4 +128,4 @@ function ListPromo() {
   );
 }
 
-export default memo(ListPromo);
+export default memo(ListSlider);

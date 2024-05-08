@@ -1,6 +1,8 @@
 .breadcrumb {
   display: flex;
   font-size: 1.8rem;
+  row-gap: 10px;
+  flex-wrap: wrap;
   &__item-container {
     display: flex;
     align-items: center;

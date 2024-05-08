@@ -3,9 +3,9 @@ import style from './ProductCard.module.scss';
 
 const cx = classNames.bind(style);
 
-function ProductCard({ data }) {
+function ProductCard({ data, className }) {
   return (
-    <div className={cx('product__wrapper')}>
+    <div className={cx('product__wrapper', className)}>
       <div className={cx('product__img-container')}>
         <img className={cx('product__img')} src={data?.image} alt={data?.name} />
       </div>

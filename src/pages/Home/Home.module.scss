@@ -83,13 +83,12 @@
     opacity: 1;
     height: fit-content;
 
-    @include media-breakpoint-down(lg){
-      max-height: 1600px;
+    @include media-breakpoint-down(lg) {
+      max-height: 1900px;
     }
 
-
     @include media-breakpoint-down(md) {
-      max-height: 1500px;
+      max-height: 1900px;
     }
   }
 

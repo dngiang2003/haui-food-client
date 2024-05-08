@@ -1,6 +1,15 @@
-import images from '~/assets/images';
-import style from './Profile.module.scss';
+import { useState, useRef, useEffect } from 'react';
 import classNames from 'classnames/bind';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import 'flatpickr/dist/flatpickr.css';
+import Flatpickr from 'react-flatpickr';
+import moment from 'moment';
+
+import style from './Profile.module.scss';
+
+import images from '~/assets/images';
 import {
   PasswordIcon,
   PersonalInfoIcon,
@@ -13,20 +22,14 @@ import {
   HistoryOderIcon,
 } from '~/components/Icons';
 import Button from '~/components/Button';
-import { useState, useRef, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 // import { updateUserById, getUser } from '~/apiService/userService';
 import Loader from '~/components/Loader';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
-import 'flatpickr/dist/flatpickr.css';
-import Flatpickr from 'react-flatpickr';
-import moment from 'moment';
 import { changePassword, getMe, updateMe } from '~/apiService/authService';
 import TermsOfUse from '~/components/TermsOfUse';
 import Help from '~/components/Help';
 import AuthTwinSetup from '~/components/AuthTwinSetup';
 import HistoryOder from '~/components/HistoryOrder/HistoryOrder';
+
 const cx = classNames.bind(style);
 
 function Profile() {
@@ -105,7 +108,7 @@ function Profile() {
       navId: 'changePassword',
     },
     {
-      title: 'Đơn mua',
+      title: t('profile.nav06'),
       icon: <HistoryOderIcon className={cx('icon')} />,
     },
     {

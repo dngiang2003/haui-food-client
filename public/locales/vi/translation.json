@@ -30,7 +30,9 @@
     "btn13": "Quay lại trang chủ",
     "btn14": "Tìm hiểu thêm",
     "btn15": "Gửi",
-    "btn16": "Đặt đơn"
+    "btn16": "Đặt đơn",
+    "btn17": "Hoàn thành",
+    "btn18": "Mua lại"
   },
   "form": {
     "tp01": "Email",
@@ -210,6 +212,7 @@
     "nav03": "Trợ giúp",
     "nav04": "Điều khoản sử dụng",
     "nav05": "Bảo mật 2 lớp",
+    "nav06": "Đơn mua",
     "btn-update": "Cập Nhật",
     "btn-cancel": "Hủy",
     "btn-edit": "Chỉnh sửa",
@@ -221,6 +224,16 @@
       "error": "Cập nhật thất bại.",
       "noExactlyPasswords": "Mật khẩu cũ không chính xác"
     }
+  },
+  "historyOrder": {
+    "status01": "Tất cả",
+    "status02": "Chờ xác nhận",
+    "status03": "Xác nhận",
+    "status04": "Đang giao",
+    "status05": "Hoàn thành",
+    "status06": "Đã hủy",
+    "label01": "Tổng tiền",
+    "desc01": "Bạn hiện không có đơn hàng nào"
   },
   "termsOfUse": {
     "title1": "Chấp Nhận",

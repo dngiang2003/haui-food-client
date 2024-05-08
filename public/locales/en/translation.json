@@ -30,7 +30,9 @@
     "btn13": "Go to home page",
     "btn14": "Learn more",
     "btn15": "Send",
-    "btn16": "Place order"
+    "btn16": "Place Order",
+    "btn17": "Complete",
+    "btn18": "Buy Again"
   },
   "form": {
     "tp01": "Email",
@@ -209,6 +211,7 @@
     "nav03": "Help",
     "nav04": "Terms of Use",
     "nav05": "Two-Factor Authentication",
+    "nav06": "Purchase Order",
     "btn-update": "Update",
     "btn-cancel": "Cancel",
     "btn-edit": "Edit",
@@ -220,6 +223,16 @@
       "error": "Update failed.",
       "noExactlyPasswords": "Incorrect old password"
     }
+  },
+  "historyOrder": {
+    "status01": "All",
+    "status02": "Awaiting",
+    "status03": "Confirmed",
+    "status04": "Delivering",
+    "status05": "Completed",
+    "status06": "Cancelled",
+    "label01": "Total amount",
+    "desc01": "You currently have no orders"
   },
   "termsOfUse": {
     "title1": "Acceptance",

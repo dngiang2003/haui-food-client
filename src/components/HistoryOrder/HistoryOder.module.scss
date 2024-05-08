@@ -45,3 +45,26 @@
     }
   }
 }
+
+.empty-order {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+  min-height: 350px;
+  border-radius: 6px;
+  background-color: var(--white);
+
+  &__img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+
+  &__desc {
+    margin-top: 20px;
+    font-size: 1.8rem;
+    line-height: 1.5;
+  }
+}

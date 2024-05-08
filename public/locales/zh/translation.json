@@ -30,7 +30,9 @@
     "btn13": "返回主页",
     "btn14": "了解更多",
     "btn15": "发送",
-    "btn16": "下单"
+    "btn16": "下单",
+    "btn17": "完成",
+    "btn18": "再次购买"
   },
   "form": {
     "tp01": "电子邮件",
@@ -209,6 +211,7 @@
     "nav03": "帮助",
     "nav04": "使用条款",
     "nav05": "双因素认证",
+    "nav06": "购买订单",
     "btn-update": "更新",
     "btn-cancel": "取消",
     "btn-edit": "编辑",
@@ -220,6 +223,16 @@
     "successed": "更新成功。",
     "error": "更新失败。",
     "noExactlyPasswords": "旧密码不正确"
+  },
+  "historyOrder": {
+    "status01": "全部",
+    "status02": "等待确认",
+    "status03": "已确认",
+    "status04": "正在配送",
+    "status05": "已完成",
+    "status06": "已取消",
+    "label01": "总金额",
+    "desc01": "您当前没有任何订单"
   },
   "termsOfUse": {
     "title1": "接受",

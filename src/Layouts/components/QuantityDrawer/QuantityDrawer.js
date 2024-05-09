@@ -8,14 +8,18 @@ import style from './QuantityDrawer.module.scss';
 import { CloseIcon, MinusIcon, PlusIcon } from '~/components/Icons';
 import Button from '~/components/Button';
 import formatCurrency from '~/utils/formatCurrency';
+import { addProductToCart } from '~/apiService/cartService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(style);
 
 const QuantityDrawer = () => {
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(98);
 
   const isOpen = useSelector((state) => state.product.isOpenQuantityDrawer);
   const data = useSelector((state) => state.product.updatingQuantityProduct);
+  const loading = useSelector((state) => state.cart.loading);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,6 +40,14 @@ const QuantityDrawer = () => {
     }
 
     if (type === 'plus') {
+      if (quantity === 100) {
+        toast.info('Số lượng sản phẩm không được vượt quá 100 sản phẩm', {
+          style: {
+            zIndex: 999999999, // Thiết lập giá trị z-index mong muốn
+          },
+        });
+        return;
+      }
       setQuantity(quantity + 1);
     }
   };
@@ -67,7 +79,12 @@ const QuantityDrawer = () => {
           </div>
         </div>
 
-        <div className={cx('quantity-drawer__footer')}>
+        <div
+          className={cx('quantity-drawer__footer')}
+          style={{
+            pointerEvents: loading ? 'none' : '',
+          }}
+        >
           <div className={cx('quantity-drawer__quantity-container')}>
             <div
               className={cx('quantity-drawer__quantity-minus')}
@@ -92,6 +109,7 @@ const QuantityDrawer = () => {
 
           <Button
             primary
+            disabled={loading}
             className={cx('quantity-drawer__add-btn')}
             style={{
               backgroundColor: quantity === 0 ? '#ee6352' : '',
@@ -100,6 +118,19 @@ const QuantityDrawer = () => {
             onClick={() => {
               if (quantity === 0) {
                 handleCloseDrawer();
+              } else {
+                // console.log(data?._id);
+                dispatch(addProductToCart({ product: data?._id, quantity: quantity })).then((result) => {
+                  console.log(result);
+
+                  if (result.payload.code === 200) {
+                    toast.success(result.payload.message);
+                    handleCloseDrawer();
+                  } else {
+                    handleCloseDrawer();
+                    toast.error(result.payload.message);
+                  }
+                });
               }
             }}
           >

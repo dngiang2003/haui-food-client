@@ -5,6 +5,8 @@ import userReducer from '../features/userSlice';
 import captchaReducer from '../features/captchaSlide';
 import restaurantReducer from '~/features/restaurantSlice';
 import productReducer from '~/features/productSlice';
+import cartReducer from '~/features/cartSlice';
+
 export default configureStore({
   reducer: {
     auth: authReducer,
@@ -13,5 +15,6 @@ export default configureStore({
     captcha: captchaReducer,
     restaurant: restaurantReducer,
     product: productReducer,
+    cart: cartReducer,
   },
 });

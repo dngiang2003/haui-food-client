@@ -7,42 +7,32 @@ import { toast } from 'react-toastify';
 
 import styles from './Header.module.scss';
 
-import { useBasket } from '~/contexts/BasketContext';
 import routes from '~/config/routes';
 import images from '~/assets/images';
 import Button from '~/components/Button';
-import {
-  ArrowDownIcon,
-  CartIcon,
-  ClockIcon,
-  CloseIcon,
-  HomeIcon,
-  LogOutIcon,
-  MenuIcon,
-  UserIcon,
-} from '~/components/Icons';
-import CartItem from '~/components/CartItem';
-import { useSelector } from 'react-redux';
+import { ArrowDownIcon, CartIcon, HomeIcon, LogOutIcon, MenuIcon, UserIcon } from '~/components/Icons';
+import { useDispatch, useSelector } from 'react-redux';
 import { getLocalStorageItem } from '~/utils/localStorage';
+import { displayProductInCart } from '~/apiService/cartService';
+import Cart from '~/components/Cart';
+
 const cx = classNames.bind(styles);
 
 function Header() {
   const { t } = useTranslation();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   let userInfo = getLocalStorageItem('user');
   // console.log(userInfo);
-  const { cartItems, clearCart } = useBasket();
 
+  const [cartsData, setCartsData] = useState({});
   const [logo, setLogo] = useState(images.logoVip1);
   const [showLanguages, setShowLanguages] = useState(false);
   const [showUserOptions, setShowUserOptions] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
-  const [displayPrice, setDisplayPrice] = useState(cartItems.totalPrice);
-  const [displayQuantity, setDisplayQuantity] = useState(cartItems.quantity);
-  const isProduct = cartItems.items.length > 0 ? true : false;
-  const isCarts = cartItems.items.length > 0 ? true : false;
+  const isCarts = cartsData.carts && cartsData.carts.length > 0 ? true : false;
   const [isLogin, setIsLogin] = useState(false);
   const [avatar, setAvatar] = useState(userInfo?.avatar ? userInfo.avatar : images.avatarDefault);
 
@@ -51,10 +41,11 @@ function Header() {
   const languageBtnRef = useRef(null);
   const userOptionsRef = useRef(null);
   const avatarRef = useRef(null);
-  const cartRef = useRef(null);
 
   const auth = useSelector((state) => state.auth.isLogin);
   const userData = useSelector((state) => state.auth);
+  const isAddProduct = useSelector((state) => state.cart.isAddProduct);
+  const isDeleteProduct = useSelector((state) => state.cart.isDeleteProduct);
   const token = localStorage.getItem('accessToken');
 
   useEffect(() => {
@@ -97,12 +88,6 @@ function Header() {
     }
   }, []);
 
-  const handleWheel = (e) => {
-    if (cartRef.current) {
-      cartRef.current.scrollTop += e.deltaY * 0.4;
-    }
-  };
-
   const handleCloseCart = () => {
     if (showCart) {
       setShowCart(false);
@@ -121,6 +106,14 @@ function Header() {
     // Lưu trạng thái thông báo vào localStorage
     localStorage.setItem('showToast', 'true');
     window.location.href = '/';
+  };
+
+  const displayCart = () => {
+    dispatch(displayProductInCart()).then((result) => {
+      if (result.payload.code === 200) {
+        setCartsData(result.payload.data);
+      }
+    });
   };
 
   // kiểm tra trạng thái thông báo khi trang web tải lại
@@ -209,9 +202,8 @@ function Header() {
   }, [showCart]);
 
   useEffect(() => {
-    setDisplayPrice(cartItems.totalPrice);
-    setDisplayQuantity(cartItems.quantity);
-  }, [cartItems.totalPrice, cartItems.quantity]);
+    displayCart();
+  }, [isAddProduct, isDeleteProduct]);
 
   return (
     <div ref={headerRef} className={cx('wrapper')}>
@@ -261,15 +253,12 @@ function Header() {
           {/* Actions */}
           <nav className={cx('header__actions')}>
             <div onClick={() => setShowCart(!showCart)} className={cx('header__actions-group', 'header__actions-cart')}>
-              <Button
-                haveProducts={isCarts && (auth || token)}
-                action
-                outline
-                leftIcon={<CartIcon className={cx('icon')} />}
-              >
-                {displayPrice !== 0 && (auth || token) ? `${displayPrice.toLocaleString('vi-VN')} ₫` : ''}
+              <Button haveProducts={isCarts && isLogin} action outline leftIcon={<CartIcon className={cx('icon')} />}>
+                {cartsData.totalMoneyAllCarts !== 0 && isLogin
+                  ? `${cartsData.totalMoneyAllCarts && cartsData.totalMoneyAllCarts.toLocaleString('vi-VN')} ₫`
+                  : ''}
               </Button>
-              {isCarts && (auth || token) && <span className={cx('header__actions-quantity')}>{displayQuantity}</span>}
+              {isCarts && isLogin && <span className={cx('header__actions-quantity')}>{cartsData.totalProducts}</span>}
             </div>
             {!isLogin && (
               <div className={cx('header__actions-group')}>
@@ -367,98 +356,7 @@ function Header() {
         </div>
 
         {/* Cart */}
-        <div className={cx('cart', showCart ? 'cart--show' : '')}>
-          <div className={cx('cart__top')}>
-            <button onClick={handleCloseCart} className={cx('cart__close')}>
-              <CloseIcon />
-            </button>
-            {isProduct && (auth || token) && (
-              <div className={cx('cart__top-block')}>
-                <h5 className={cx('cart__top-title')}>{t('cart.title01')}</h5>
-                <p className={cx('cart__top-desc')}>
-                  <ClockIcon className={cx('cart__top-clock')} />
-                  <span>
-                    {t('cart.desc01')} 15 {t('cart.desc05')}
-                  </span>
-                </p>
-              </div>
-            )}
-          </div>
-          <div className={cx('cart__container', !isProduct || !auth || !token ? 'cart__container--center' : '')}>
-            {!auth && !token && (
-              <div className={cx('cart__empty')}>
-                <img className={cx('cart__empty-img')} src={images.cart} alt="cart" />
-                <h5 className={cx('cart__empty-title')}>{t('cart.title04')}</h5>
-                <p className={cx('cart__empty-desc')}>{t('cart.desc06')}</p>
-                <Link to={routes.login}>
-                  <button className={cx('cart__empty-btn')}>{t('button.btn05')}</button>
-                </Link>
-              </div>
-            )}
-            {!isProduct && (auth || token) && (
-              <div className={cx('cart__empty')}>
-                <img className={cx('cart__empty-img')} src={images.cart} alt="cart" />
-                <h5 className={cx('cart__empty-title')}>{t('cart.title02')}</h5>
-                <p className={cx('cart__empty-desc')}>{t('cart.desc02')}</p>
-                <button onClick={handleCloseCart} className={cx('cart__empty-btn')}>
-                  {t('button.btn02')}
-                </button>
-              </div>
-            )}
-
-            {isProduct && (auth || token) && (
-              <div ref={cartRef} onWheel={handleWheel} className={cx('cart__scroll')}>
-                <div className={cx('cart__content')}>
-                  <div className={cx('cart__products')}>
-                    <div className={cx('cart__products-top')}>
-                      <Link to={'#!'}>
-                        <h5 className={cx('cart__products-heading')}>HaUI Food</h5>
-                      </Link>
-                      <button onClick={() => clearCart()} className={cx('cart__products-delete-all')}>
-                        {t('button.btn04')}
-                      </button>
-                    </div>
-                    <div className={cx('cart__products-list')}>
-                      {cartItems.items.map((cartItem) => (
-                        <CartItem key={cartItem.id} data={cartItem} />
-                      ))}
-                    </div>
-                  </div>
-                  <div className={cx('cart__summary')}>
-                    <div className={cx('cart__summary-info')}>
-                      <span className={cx('cart__summary-price')}>{t('cart.desc03')}</span>
-                      <span className={cx('cart__summary-price')}>
-                        {cartItems.totalPrice.toLocaleString('vi-VN')} ₫
-                      </span>
-                    </div>
-                    <p className={cx('cart__summary-desc')}>{t('cart.desc04')}</p>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-          {isProduct && (auth || token) && (
-            <div className={cx('cart__bottom')}>
-              <div className={cx('cart__bottom-info')}>
-                <span className={cx('cart__bottom-price')}>{t('cart.desc03')}</span>
-                <span className={cx('cart__bottom-price')}>{cartItems.totalPrice.toLocaleString('vi-VN')} ₫</span>
-              </div>
-              <Link to={routes.checkout}>
-                <Button
-                  onClick={() => {
-                    if (location.pathname === '/checkout') {
-                      handleCloseCart();
-                    }
-                  }}
-                  checkout
-                  primary
-                >
-                  {t('button.btn01')}
-                </Button>
-              </Link>
-            </div>
-          )}
-        </div>
+        <Cart showCart={showCart} handleCloseCart={handleCloseCart} data={cartsData} />
       </div>
       {/* Overlay */}
       {(showCart || showMenu) && (

@@ -1,58 +1,38 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
+import { useDispatch } from 'react-redux';
 
 import styles from './CartItem.module.scss';
 import Button from '../Button';
 import { CloseIcon, MinusIcon, PlusIcon } from '../Icons';
-import { useBasket } from '~/contexts/BasketContext';
+import { removeProductToCart } from '~/apiService/cartService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
 function CartItem({ data }) {
-  const { cartItems, removeFromCart, updateCartItems } = useBasket();
+  const dispatch = useDispatch();
+
   const [quantity, setQuantity] = useState(data.quantity);
   const [openChange, setOpenChange] = useState(false);
   const [changeQuantity, setChangeQuantity] = useState(data.quantity);
 
-  const totalProductPrice = data.price * quantity;
+  const [totalProductPrice, setTotalProductPrice] = useState(data.totalPrice);
 
-  const handleIncreasedQuantities = useCallback(() => {
+  const handleIncreasedQuantities = () => {
     setQuantity((preQuantity) => {
       const newQuantity = preQuantity + 1;
 
-      const newCartItems = cartItems.items.map((cartItem) => {
-        if (cartItem.id === data.id) {
-          return { ...cartItem, quantity: newQuantity };
-        }
-        return cartItem;
-      });
-
-      updateCartItems(newCartItems);
-
       return newQuantity;
     });
-  }, [cartItems, data.id, updateCartItems]);
+  };
 
   const handleReducedQuantities = () => {
     if (quantity > 1) {
       setQuantity((preQuantity) => {
         const newQuantity = preQuantity - 1;
-
-        const newCartItems = cartItems.items.map((cartItem) => {
-          if (cartItem.id === data.id) {
-            return { ...cartItem, quantity: newQuantity };
-          }
-          return cartItem;
-        });
-
-        updateCartItems(newCartItems);
-
         return newQuantity;
       });
-    }
-
-    if (quantity === 1) {
-      setQuantity((preQuantity) => preQuantity - 1);
     }
   };
 
@@ -61,28 +41,25 @@ function CartItem({ data }) {
   };
 
   const temporaryReducedQuantity = () => {
-    if (changeQuantity > 0) {
+    if (changeQuantity > 1) {
       setChangeQuantity((preQuantity) => preQuantity - 1);
     }
   };
 
   const handleUpdateQuantity = () => {
     setQuantity(changeQuantity);
-    const newCartItems = cartItems.items.map((cartItem) => {
-      if (cartItem.id === data.id) {
-        return { ...cartItem, quantity: changeQuantity };
-      }
-      return cartItem;
-    });
-    updateCartItems(newCartItems);
   };
 
-  useEffect(() => {
-    const matchingItem = cartItems.items.find((item) => item.id === data.id);
-    if (matchingItem) {
-      setQuantity(matchingItem.quantity);
-    }
-  }, [cartItems, data.id]);
+  const deleteProduct = (data) => {
+    dispatch(removeProductToCart(data)).then((result) => {
+      console.log(result);
+      if (result.payload.code === 200) {
+        toast.success(result.payload.message);
+      } else {
+        toast.warning(result.payload.message);
+      }
+    });
+  };
 
   useEffect(() => {
     setChangeQuantity(quantity);
@@ -106,26 +83,28 @@ function CartItem({ data }) {
       </div>
 
       <div className={cx('product__img-wrap')}>
-        <img src={data.image} alt="" className={cx('product__thumb')} />
+        <img src={data.product.image} alt="" className={cx('product__thumb')} />
       </div>
 
       <div className={cx('product__detail')}>
-        <p className={cx('product__detail-name')}>{data.name}</p>
-        {quantity !== 0 && (
+        <p className={cx('product__detail-name')}>{data.product.name}</p>
+
+        <div className={cx('product__detail-group')}>
           <span className={cx('product__detail-price')}>{totalProductPrice.toLocaleString('vi-VN')} ₫</span>
-        )}
-        {quantity === 0 && (
-          <button onClick={() => removeFromCart(data.id)} className={cx('product__detail-delete')}>
+          <button
+            onClick={() => deleteProduct({ product: data.product._id, quantity: quantity })}
+            className={cx('product__detail-delete')}
+          >
             Xóa
           </button>
-        )}
+        </div>
       </div>
 
       <div className={cx('change-quantity', openChange ? 'change-quantity--show' : '')}>
         <button onClick={() => setOpenChange(false)} className={cx('change-quantity__close')}>
           <CloseIcon className={cx('change-quantity__icon')} />
         </button>
-        <img src={data.image} className={cx('change-quantity__img')} alt="" />
+        <img src={data.product.image} className={cx('change-quantity__img')} alt="" />
         <div className={cx('change-quantity__first')}>
           <h1 className={cx('change-quantity__name')}>{data.name}</h1>
           <p className={cx('change-quantity__desc')}>{data.name}</p>

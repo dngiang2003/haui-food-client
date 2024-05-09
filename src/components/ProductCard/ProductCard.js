@@ -4,6 +4,8 @@ import style from './ProductCard.module.scss';
 import { useDispatch } from 'react-redux';
 import { openQuantityDrawer } from '~/features/productSlice';
 
+import formatCurrency from '~/utils/formatCurrency';
+
 const cx = classNames.bind(style);
 
 function ProductCard({ data, className }) {
@@ -19,7 +21,7 @@ function ProductCard({ data, className }) {
         <div className={cx('product__name')}>{data?.name}</div>
         <div className={cx('product__desc')}>{data?.description}</div>
         <div className={cx('product__last-row')}>
-          <div className={cx('product__price')}>{data?.price}</div>
+          <div className={cx('product__price')}>{formatCurrency(data?.price)}</div>
           <div
             className={cx('product__add-cart-btn')}
             onClick={() => {

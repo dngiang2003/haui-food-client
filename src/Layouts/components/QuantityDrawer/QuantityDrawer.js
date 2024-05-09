@@ -7,6 +7,7 @@ import classNames from 'classnames/bind';
 import style from './QuantityDrawer.module.scss';
 import { CloseIcon, MinusIcon, PlusIcon } from '~/components/Icons';
 import Button from '~/components/Button';
+import formatCurrency from '~/utils/formatCurrency';
 
 const cx = classNames.bind(style);
 
@@ -62,7 +63,7 @@ const QuantityDrawer = () => {
               <div className={cx('quantity-drawer__product-desc')}>{data?.description}</div>
             </div>
 
-            <div className={cx('quantity-drawer__product-price')}>{data?.price}</div>
+            <div className={cx('quantity-drawer__product-price')}>{formatCurrency(data?.price)}</div>
           </div>
         </div>
 
@@ -102,7 +103,7 @@ const QuantityDrawer = () => {
               }
             }}
           >
-            {quantity > 0 ? `Thêm vào giỏ hàng ${data?.price * quantity}` : 'Huỷ'}
+            {quantity > 0 ? `Thêm vào giỏ hàng ${formatCurrency(data?.price * quantity)}` : 'Huỷ'}
           </Button>
         </div>
       </div>

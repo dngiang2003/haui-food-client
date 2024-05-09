@@ -2,6 +2,33 @@
 @import 'bootstrap/scss/variables';
 @import 'bootstrap/scss/mixins';
 
+.overlay-hidden {
+  display: none;
+  transition: all 0.5s;
+}
+
+.overlay {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.3;
+  top: 0;
+  left: 0;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.65);
+  z-index: 9999;
+}
+
+.drawer-container {
+  width: 30%;
+  height: 100%;
+  background-color: #fff;
+  // position: fixed;
+  inset: 0;
+  z-index: 99999;
+  // top: 0;
+}
+
 .product {
   &__wrapper {
     padding: 20px;

@@ -9,9 +9,21 @@ const productSlice = createSlice({
     error: null,
     length: 0,
     data: null,
+    isOpenQuantityDrawer: false,
+    updatingQuantityProduct: null,
   },
 
-  reducers: {},
+  reducers: {
+    openQuantityDrawer: (state, action) => {
+      // console.log(action);
+      state.isOpenQuantityDrawer = true;
+      state.updatingQuantityProduct = action.payload;
+    },
+    closeQuantityDrawer: (state) => {
+      state.isOpenQuantityDrawer = false;
+      state.updatingQuantityProduct = null;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(searchProduct.pending, (state) => {
@@ -33,4 +45,5 @@ const productSlice = createSlice({
   },
 });
 // export const { setCategoryClicked } = categorySlice.actions;
+export const { openQuantityDrawer, closeQuantityDrawer } = productSlice.actions;
 export default productSlice.reducer;

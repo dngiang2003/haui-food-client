@@ -1,0 +1,157 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+.quantity-drawer {
+  &__overlay {
+    opacity: 0;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    top: 0;
+    right: 0;
+    visibility: hidden;
+    transition: all 0.5s;
+    background-color: rgba(0, 0, 0, 0.35);
+    overflow-y: hidden;
+
+    &--show {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  &__wrapper {
+    width: 35%;
+    height: 100%;
+    padding: 0 20px 20px 20px;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    transform: translateX(100%);
+    background-color: #fff;
+    z-index: 99999;
+    transition: all 0.5s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @include media-breakpoint-down(lg) {
+      width: 60%;
+    }
+
+    @include media-breakpoint-down(md) {
+      width: 100%;
+      //   transform: translateX(0);
+      transform: translateY(100%);
+    }
+
+    &--show {
+      transform: translateX(0);
+      opacity: 1;
+
+      @include media-breakpoint-down(md) {
+        // transform: translateX(0);
+        transform: translateY(0);
+      }
+    }
+  }
+
+  &__header {
+    &-close {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      display: flex;
+      align-items: center;
+
+      & span {
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__product {
+    &-container {
+      padding-top: 25px;
+      border-top: 2px solid #f0efef;
+      display: flex;
+      gap: 20px;
+    }
+
+    &-img {
+      width: 25%;
+      height: 25%;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    &-info {
+      width: 60%;
+    }
+
+    &-name {
+      font-size: 2.2rem;
+      font-weight: 600;
+    }
+
+    &-desc {
+      margin-top: 10px;
+      font-size: 1.5rem;
+      color: var(--secondary-text-color);
+    }
+
+    &-price {
+      font-size: 2.2rem;
+      width: 20%;
+      font-weight: 600;
+    }
+  }
+
+  &__footer {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    padding: 30px 0 0 0;
+    border-top: 2px solid #f0efef;
+    gap: 20px;
+
+    @include media-breakpoint-down(md) {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &__quantity {
+    &-container {
+      display: flex;
+      height: 50px;
+      align-items: center;
+      gap: 20px;
+    }
+
+    &-value {
+      user-select: none;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    &-minus,
+    &-plus {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.5s;
+      border: 1px solid #f0efef;
+    }
+  }
+  &__add-btn {
+    height: 50px;
+    width: 100%;
+  }
+}

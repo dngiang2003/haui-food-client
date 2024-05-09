@@ -67,7 +67,7 @@
     box-shadow: 0 4px 6px 0 rgba(28, 28, 28, 0.06);
     top: 85px;
     background: #fff;
-    z-index: 9999999;
+    z-index: 999;
 
     @include media-breakpoint-down(md) {
       top: 0;

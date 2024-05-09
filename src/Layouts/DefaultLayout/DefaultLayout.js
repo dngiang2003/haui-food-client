@@ -6,6 +6,7 @@ import Header from '~/Layouts/components/Header';
 import Footer from '~/Layouts/components/Footer';
 import GoToTop from '~/Layouts/components/GoToTop';
 import Chats from '../components/Chats';
+import QuantityDrawer from '../components/QuantityDrawer/QuantityDrawer';
 
 const cx = classNames.bind(styles);
 
@@ -17,6 +18,7 @@ function DefaultLayout({ children }) {
       <Footer />
       <Chats />
       <GoToTop />
+      <QuantityDrawer />
     </div>
   );
 }

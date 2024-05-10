@@ -54,6 +54,12 @@
     }
   }
 
+  &__carts {
+    padding: 0 10px;
+    max-height: 60vh;
+    overflow: auto;
+  }
+
   &__group,
   &__right {
     // height: 500px;
@@ -441,6 +447,58 @@
     .MuiTypography-root {
       font-size: 1.6rem !important;
       font-family: var(--font-family) !important;
+    }
+  }
+}
+
+.cart {
+  &__products {
+    &-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &-heading {
+      font-size: 1.8rem;
+      font-weight: 600;
+      line-height: 144.444%;
+    }
+
+    &-delete-all {
+      padding: 4px;
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #f44336;
+      cursor: pointer;
+      background-color: transparent;
+    }
+  }
+
+  &__products + &__products {
+    margin-top: 20px;
+  }
+
+  &__summary {
+    padding-top: 24px;
+
+    &-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #f0efef;
+    }
+
+    &-price {
+      color: var(--primary-color);
+    }
+
+    &-price,
+    &-desc {
+      font-size: 1.5rem;
+      font-weight: 500;
+      line-height: 144.444%;
     }
   }
 }

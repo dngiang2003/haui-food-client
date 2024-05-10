@@ -23,13 +23,17 @@
   }
 
   @include media-breakpoint-down(md) {
-    display: none;
+    transform: translateY(100%);
   }
 
   &--show {
     visibility: visible;
     opacity: 1;
     transform: translateX(0);
+
+    @include media-breakpoint-down(md) {
+      transform: translateY(0);
+    }
   }
 
   &__top {
@@ -180,6 +184,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #f0efef;
+    }
+
+    &-price {
+      color: var(--primary-color);
     }
 
     &-price,

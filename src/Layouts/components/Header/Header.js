@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getLocalStorageItem } from '~/utils/localStorage';
 import { displayProductInCart } from '~/apiService/cartService';
 import Cart from '~/components/Cart';
+import { Oval } from '@agney/react-loading';
 
 const cx = classNames.bind(styles);
 
@@ -43,10 +44,11 @@ function Header() {
   const avatarRef = useRef(null);
 
   const auth = useSelector((state) => state.auth.isLogin);
+  const token = localStorage.getItem('accessToken');
   const userData = useSelector((state) => state.auth);
+  const isLoadingCart = useSelector((state) => state.cart.loading);
   const isAddProduct = useSelector((state) => state.cart.isAddProduct);
   const isDeleteProduct = useSelector((state) => state.cart.isDeleteProduct);
-  const token = localStorage.getItem('accessToken');
 
   useEffect(() => {
     if (userData.isUpdate) {
@@ -112,6 +114,8 @@ function Header() {
     dispatch(displayProductInCart()).then((result) => {
       if (result.payload.code === 200) {
         setCartsData(result.payload.data);
+      } else {
+        toast.warning(result.payload.message);
       }
     });
   };
@@ -190,7 +194,7 @@ function Header() {
       event.preventDefault();
     };
 
-    if (showCart) {
+    if (showCart || isLoadingCart) {
       window.addEventListener('wheel', disableScroll, { passive: false });
     } else {
       window.removeEventListener('wheel', disableScroll);
@@ -199,10 +203,11 @@ function Header() {
     return () => {
       window.removeEventListener('wheel', disableScroll);
     };
-  }, [showCart]);
+  }, [showCart, isLoadingCart]);
 
   useEffect(() => {
     displayCart();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAddProduct, isDeleteProduct]);
 
   return (
@@ -225,17 +230,16 @@ function Header() {
               <HomeIcon className={cx('icon')} />
               {t('header.na01')}
             </Link>
-            <Link
-              to={routes.checkout}
+            <li
               onClick={() => {
-                setShowCart(false);
+                setShowCart(!showCart);
                 setShowMenu(false);
               }}
               className={cx('header__menu-option')}
             >
               <CartIcon className={cx('icon')} />
               {t('cart.title03')}
-            </Link>
+            </li>
             <li className={cx('header__menu-bottom')}></li>
           </ul>
 
@@ -255,7 +259,9 @@ function Header() {
             <div onClick={() => setShowCart(!showCart)} className={cx('header__actions-group', 'header__actions-cart')}>
               <Button haveProducts={isCarts && isLogin} action outline leftIcon={<CartIcon className={cx('icon')} />}>
                 {cartsData.totalMoneyAllCarts !== 0 && isLogin
-                  ? `${cartsData.totalMoneyAllCarts && cartsData.totalMoneyAllCarts.toLocaleString('vi-VN')} ₫`
+                  ? cartsData.totalMoneyAllCarts
+                    ? `${cartsData.totalMoneyAllCarts.toLocaleString('vi-VN')} ₫`
+                    : ''
                   : ''}
               </Button>
               {isCarts && isLogin && <span className={cx('header__actions-quantity')}>{cartsData.totalProducts}</span>}
@@ -361,6 +367,13 @@ function Header() {
       {/* Overlay */}
       {(showCart || showMenu) && (
         <div onClick={handleCloseCart} className={cx('overlay', showMenu || showCart ? 'overlay--show' : '')}></div>
+      )}
+      {isLoadingCart && (
+        <div className={cx('modal-loading')}>
+          <div className={cx('modal-loading__content')}>
+            <Oval width="50" color="#00b14f" />
+          </div>
+        </div>
       )}
     </div>
   );

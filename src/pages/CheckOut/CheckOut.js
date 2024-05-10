@@ -1,53 +1,46 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
-import { useTranslation } from 'react-i18next';
-import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { Oval } from '@agney/react-loading';
+import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
 
 import styles from './CheckOut.module.scss';
 import Button from '~/components/Button';
-import { ArrowDownIcon, InfoIcon, NoteIcon } from '~/components/Icons';
-import { toast } from 'react-toastify';
-import CartItem from '~/components/CartItem';
 import images from '~/assets/images';
 import routes from '~/config/routes';
+import CartItem from '~/components/CartItem';
+import { ArrowDownIcon, InfoIcon, NoteIcon } from '~/components/Icons';
+import { displayProductInCart } from '~/apiService/cartService';
 
 const cx = classNames.bind(styles);
 
 function CheckOut() {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
-  const auth = useSelector((state) => state.auth.isLogin);
   const token = localStorage.getItem('accessToken');
+  const auth = useSelector((state) => state.auth.isLogin);
+  const isLoading = useSelector((state) => state.cart.loading);
+  const isAddProduct = useSelector((state) => state.cart.isAddProduct);
+  const isDeleteProduct = useSelector((state) => state.cart.isDeleteProduct);
 
-  const data = [
-    {
-      id: 1,
-      name: 'Product 1',
-      image: 'image-url-1.jpg',
-      quantity: 2,
-      price: 1000,
-    },
-    {
-      id: 2,
-      name: 'Product 2',
-      image: 'image-url-2.jpg',
-      quantity: 1,
-      price: 2000,
-    },
-  ];
+  const [cartsData, setCartsData] = useState({});
 
   const buildings = ['A1', 'A7', 'A8', 'A9', 'A10', 'A12'];
   const [buildingFloors, setBuildingFloors] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [selectedFloor, setSelectedFloor] = useState(null);
 
+  // Shopping cart information - start
   const [building, setBuilding] = useState(t('checkout.title04'));
   const [floor, setFloor] = useState(t('checkout.title05'));
   const [classroom, setClassroom] = useState(t('checkout.title07'));
   const [note, setNote] = useState('');
   const [payment, setPayment] = useState('cash');
+  // - end
 
   const [showFloors, setShowFloors] = useState(false);
   const [showBuildings, setShowBuildings] = useState(false);
@@ -200,6 +193,33 @@ function CheckOut() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [building, floor, classroom]);
 
+  useEffect(() => {
+    dispatch(displayProductInCart()).then((result) => {
+      if (result.payload.code === 200) {
+        setCartsData(result.payload.data);
+      } else {
+        toast.warning(result.payload.message);
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAddProduct, isDeleteProduct]);
+
+  useEffect(() => {
+    const disableScroll = (event) => {
+      event.preventDefault();
+    };
+
+    if (isLoading) {
+      window.addEventListener('wheel', disableScroll, { passive: false });
+    } else {
+      window.removeEventListener('wheel', disableScroll);
+    }
+
+    return () => {
+      window.removeEventListener('wheel', disableScroll);
+    };
+  }, [isLoading]);
+
   return (
     <div className={cx('checkout')}>
       {(auth || token) && (
@@ -209,7 +229,16 @@ function CheckOut() {
               <div className={cx('checkout__info')}>
                 <div>
                   <h1 className={cx('checkout__heading')}>{t('checkout.heading')}</h1>
-                  <h4 className={cx('checkout__name')}>LÂM SUSHI - Cơm Cà Ri Vị Nhật</h4>
+                  <h4 className={cx('checkout__name')}>
+                    {cartsData.carts
+                      ? cartsData.carts.map((cartItem, index) => {
+                          if (index === cartsData.carts.length - 1) {
+                            return cartItem.shop.fullname;
+                          }
+                          return `${cartItem.shop.fullname}, `;
+                        })
+                      : ' '}
+                  </h4>
                 </div>
               </div>
             </div>
@@ -374,14 +403,47 @@ function CheckOut() {
                     style={{ '--separate-bg': '#d1d3d6', '--separate-mg': '12px 0 20px' }}
                   ></div>
 
-                  {data.map((item, index) => (
+                  {/* {cartsData.carts.cartDetails.map((item, index) => (
                     <CartItem key={index} data={item} />
-                  ))}
+                  ))} */}
+
+                  <div className={cx('checkout__carts')}>
+                    {cartsData.carts &&
+                      cartsData.carts.map((cartItem, index) => {
+                        return (
+                          <div key={index} className={cx('cart__products')}>
+                            <div className={cx('cart__products-top')}>
+                              <Link to={'#!'}>
+                                <h5 className={cx('cart__products-heading')}>{cartItem.shop.fullname}</h5>
+                              </Link>
+                              <button className={cx('cart__products-delete-all')}>{t('button.btn04')}</button>
+                            </div>
+                            <div className={cx('cart__products-list')}>
+                              {cartItem.cartDetails.map((cartDetail, index) => (
+                                <CartItem key={index} data={cartDetail} />
+                              ))}
+                            </div>
+                            <div className={cx('cart__summary')}>
+                              <div className={cx('cart__summary-info')}>
+                                <span className={cx('cart__summary-price')}>{t('cart.desc03')}</span>
+                                <span className={cx('cart__summary-price')}>
+                                  {cartItem.totalMoney.toLocaleString('vi-VN')} ₫
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
 
                   <div className={cx('checkout__total')}>
                     <div className={cx('checkout__total-group')}>
                       <h6 className={cx('checkout__total-title')}>{t('checkout.title10')}</h6>
-                      <h6 className={cx('checkout__total-value')}>100.000 ₫</h6>
+                      <h6 className={cx('checkout__total-value')}>
+                        {cartsData.totalMoneyAllCarts
+                          ? `${cartsData.totalMoneyAllCarts.toLocaleString('vi-VN')} ₫`
+                          : '0 ₫'}
+                      </h6>
                     </div>
                     <div className={cx('checkout__total-group')}>
                       <h6 className={cx('checkout__total-title')}>
@@ -453,7 +515,11 @@ function CheckOut() {
                 <div className={cx('checkout__right')}>
                   <div className={cx('checkout__right-info')}>
                     <h4 className={cx('checkout__right-title')}>{t('cart.desc03')}</h4>
-                    <span className={cx('checkout__right-cost')}>73.100 ₫</span>
+                    <span className={cx('checkout__right-cost')}>
+                      {cartsData.totalMoneyAllCarts
+                        ? `${(cartsData.totalMoneyAllCarts + 10000).toLocaleString('vi-VN')} ₫`
+                        : '0 ₫'}
+                    </span>
                   </div>
                   <Button disabled={!isSubmit} order primary>
                     {t('button.btn16')}
@@ -474,6 +540,14 @@ function CheckOut() {
             <Link to={routes.restaurant} className={cx('no-products__link')}>
               {t('checkout.link01')}
             </Link>
+          </div>
+        </div>
+      )}
+
+      {isLoading && (
+        <div className={cx('modal-loading')}>
+          <div className={cx('modal-loading__content')}>
+            <Oval width="50" color="#00b14f" />
           </div>
         </div>
       )}

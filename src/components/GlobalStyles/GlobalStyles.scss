@@ -22,6 +22,7 @@
 
 html {
   font-size: 62.5%;
+  overflow-x: hidden;
 }
 
 body {
@@ -30,6 +31,7 @@ body {
   line-height: 1.5;
   text-rendering: optimizeSpeed;
   color: var(--text-color);
+  overflow-x: hidden;
 }
 
 ::selection {
@@ -113,5 +115,18 @@ img {
 
   &--show {
     opacity: 0.4;
+  }
+}
+
+.modal-loading {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background-color: rgba(0, 0, 0, 0.2);
+
+  &__content {
+    position: fixed;
+    inset: 50%;
+    z-index: 999999;
   }
 }

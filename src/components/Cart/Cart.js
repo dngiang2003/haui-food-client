@@ -81,6 +81,7 @@ function Cart({ showCart, handleCloseCart, data }) {
           <div ref={cartRef} onWheel={handleWheel} className={cx('cart__scroll')}>
             <div className={cx('cart__content')}>
               {data.carts.map((cartItem, index) => {
+                console.log(data);
                 return (
                   <div key={index} className={cx('cart__products')}>
                     <div className={cx('cart__products-top')}>
@@ -94,14 +95,18 @@ function Cart({ showCart, handleCloseCart, data }) {
                         <CartItem key={index} data={cartDetail} />
                       ))}
                     </div>
+                    <div className={cx('cart__summary')}>
+                      <div className={cx('cart__summary-info')}>
+                        <span className={cx('cart__summary-price')}>{t('cart.desc03')}</span>
+                        <span className={cx('cart__summary-price')}>
+                          {cartItem.totalMoney.toLocaleString('vi-VN')} ₫
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 );
               })}
               <div className={cx('cart__summary')}>
-                <div className={cx('cart__summary-info')}>
-                  <span className={cx('cart__summary-price')}>{t('cart.desc03')}</span>
-                  <span className={cx('cart__summary-price')}>{data.totalMoneyAllCarts.toLocaleString('vi-VN')} ₫</span>
-                </div>
                 <p className={cx('cart__summary-desc')}>{t('cart.desc04')}</p>
               </div>
             </div>

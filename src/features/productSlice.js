@@ -24,6 +24,7 @@ const productSlice = createSlice({
       state.updatingQuantityProduct = null;
     },
   },
+
   extraReducers(builder) {
     builder
       .addCase(searchProduct.pending, (state) => {

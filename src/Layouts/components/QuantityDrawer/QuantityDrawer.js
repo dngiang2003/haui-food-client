@@ -10,6 +10,7 @@ import Button from '~/components/Button';
 import formatCurrency from '~/utils/formatCurrency';
 import { addProductToCart } from '~/apiService/cartService';
 import { toast } from 'react-toastify';
+import { getLocalStorageItem } from '~/utils/localStorage';
 
 const cx = classNames.bind(style);
 
@@ -119,18 +120,23 @@ const QuantityDrawer = () => {
               if (quantity === 0) {
                 handleCloseDrawer();
               } else {
-                // console.log(data?._id);
-                dispatch(addProductToCart({ product: data?._id, quantity: quantity })).then((result) => {
-                  console.log(result);
+                if (getLocalStorageItem('user')) {
+                  dispatch(addProductToCart({ product: data?._id, quantity: quantity })).then((result) => {
+                    console.log(result);
 
-                  if (result.payload.code === 200) {
-                    toast.success(result.payload.message);
-                    handleCloseDrawer();
-                  } else {
-                    handleCloseDrawer();
-                    toast.error(result.payload.message);
-                  }
-                });
+                    if (result.payload.code === 200) {
+                      toast.success(result.payload.message);
+                      handleCloseDrawer();
+                    } else {
+                      handleCloseDrawer();
+                      toast.error(result.payload.message);
+                    }
+                  });
+                } else {
+                  toast.info('Vui lòng đăng nhập để thêm vào giỏ hàng');
+                }
+
+                
               }
             }}
           >

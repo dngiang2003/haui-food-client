@@ -21,6 +21,7 @@
   @include media-breakpoint-down(lg) {
     position: fixed;
     width: 100%;
+    overflow-y: hidden;
   }
 
   @include media-breakpoint-down(md) {

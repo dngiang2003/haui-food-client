@@ -28,6 +28,8 @@ function CheckOut() {
   const isDeleteProduct = useSelector((state) => state.cart.isDeleteProduct);
 
   const [cartsData, setCartsData] = useState({});
+  const cartsLength = cartsData.carts ? cartsData.carts.length : 0;
+  const [havePower, setHavePower] = useState(false);
 
   const buildings = ['A1', 'A7', 'A8', 'A9', 'A10', 'A12'];
   const [buildingFloors, setBuildingFloors] = useState([]);
@@ -197,8 +199,10 @@ function CheckOut() {
     dispatch(displayProductInCart()).then((result) => {
       if (result.payload.code === 200) {
         setCartsData(result.payload.data);
+        setHavePower(true);
       } else {
         toast.warning(result.payload.message);
+        setHavePower(false);
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -222,7 +226,7 @@ function CheckOut() {
 
   return (
     <div className={cx('checkout')}>
-      {(auth || token) && (
+      {(auth || token) && havePower && cartsLength > 0 && (
         <>
           <div className={cx('checkout__top')}>
             <div className={cx('container gx-5')}>
@@ -518,7 +522,7 @@ function CheckOut() {
                     <span className={cx('checkout__right-cost')}>
                       {cartsData.totalMoneyAllCarts
                         ? `${(cartsData.totalMoneyAllCarts + 10000).toLocaleString('vi-VN')} ₫`
-                        : '0 ₫'}
+                        : '10.000 ₫'}
                     </span>
                   </div>
                   <Button disabled={!isSubmit} order primary>
@@ -531,7 +535,7 @@ function CheckOut() {
         </>
       )}
 
-      {!auth && !token && (
+      {((!auth && !token) || !havePower || cartsLength <= 0) && (
         <div className={cx('no-products')}>
           <img src={images.cart} alt="cart" className={cx('no-products__thumb')} />
           <div className={cx('no-products__info')}>

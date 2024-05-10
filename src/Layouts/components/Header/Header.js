@@ -114,7 +114,8 @@ function Header() {
     dispatch(displayProductInCart()).then((result) => {
       if (result.payload.code === 200) {
         setCartsData(result.payload.data);
-      } else {
+      }
+      if (![200, 403].includes(result.payload.code)) {
         toast.warning(result.payload.message);
       }
     });
@@ -206,7 +207,10 @@ function Header() {
   }, [showCart, isLoadingCart]);
 
   useEffect(() => {
-    displayCart();
+    if (auth || token) {
+      displayCart();
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAddProduct, isDeleteProduct]);
 

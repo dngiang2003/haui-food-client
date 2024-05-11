@@ -407,10 +407,6 @@ function CheckOut() {
                     style={{ '--separate-bg': '#d1d3d6', '--separate-mg': '12px 0 20px' }}
                   ></div>
 
-                  {/* {cartsData.carts.cartDetails.map((item, index) => (
-                    <CartItem key={index} data={item} />
-                  ))} */}
-
                   <div className={cx('checkout__carts')}>
                     {cartsData.carts &&
                       cartsData.carts.map((cartItem, index) => {
@@ -424,7 +420,7 @@ function CheckOut() {
                             </div>
                             <div className={cx('cart__products-list')}>
                               {cartItem.cartDetails.map((cartDetail, index) => (
-                                <CartItem key={index} data={cartDetail} />
+                                <CartItem key={index} data={cartDetail} isCheckout />
                               ))}
                             </div>
                             <div className={cx('cart__summary')}>

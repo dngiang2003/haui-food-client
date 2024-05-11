@@ -372,7 +372,7 @@ function Header() {
       {(showCart || showMenu) && (
         <div onClick={handleCloseCart} className={cx('overlay', showMenu || showCart ? 'overlay--show' : '')}></div>
       )}
-      {isLoadingCart && (
+      {isLoadingCart && !showCart && (
         <div className={cx('modal-loading')}>
           <div className={cx('modal-loading__content')}>
             <Oval width="50" color="#00b14f" />

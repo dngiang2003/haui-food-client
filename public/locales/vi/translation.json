@@ -32,7 +32,8 @@
     "btn15": "Gửi",
     "btn16": "Đặt đơn",
     "btn17": "Hoàn thành",
-    "btn18": "Mua lại"
+    "btn18": "Mua lại",
+    "btn19": "Xóa"
   },
   "form": {
     "tp01": "Email",
@@ -84,6 +85,7 @@
     "title02": "Giỏ hàng trống",
     "title03": "Giỏ hàng",
     "title04": "Chưa đăng nhập",
+    "title05": "Thay đổi số lượng",
     "desc01": "Thời gian giao:",
     "desc02": "Thêm sản phẩm vào giỏ hàng của bạn và đặt hàng tại đây.",
     "desc03": "Tổng cộng",

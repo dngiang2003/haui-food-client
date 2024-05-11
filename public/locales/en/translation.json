@@ -32,7 +32,8 @@
     "btn15": "Send",
     "btn16": "Place Order",
     "btn17": "Complete",
-    "btn18": "Buy Again"
+    "btn18": "Buy Again",
+    "btn19": "Delete"
   },
   "form": {
     "tp01": "Email",
@@ -83,6 +84,7 @@
     "title02": "Empty Cart",
     "title03": "Cart",
     "title04": "Not logged in",
+    "title05": "Change quantity",
     "desc01": "Delivery Time:",
     "desc02": "Add products to your cart and place your order here.",
     "desc03": "Total",
@@ -337,7 +339,6 @@
   "system": {
     "error": "An error occurred. Please try again later"
   },
-
   "quantity-drawer": {
     "add-to-cart": "Add to Cart",
     "cancel": "Cancel",

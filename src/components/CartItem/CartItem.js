@@ -1,53 +1,53 @@
 import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import styles from './CartItem.module.scss';
 import Button from '../Button';
 import { CloseIcon, MinusIcon, PlusIcon } from '../Icons';
-import { removeProductToCart } from '~/apiService/cartService';
+import { addProductToCart, removeProductToCart } from '~/apiService/cartService';
 import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
-function CartItem({ data }) {
+function CartItem({ data, isCheckout = false, showCart }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const [quantity, setQuantity] = useState(data.quantity);
+  const [isNotUpdate, setIsNotUpdate] = useState(false);
+
   const [openChange, setOpenChange] = useState(false);
   const [changeQuantity, setChangeQuantity] = useState(data.quantity);
-
-  const [totalProductPrice, setTotalProductPrice] = useState(data.totalPrice);
-
-  const handleIncreasedQuantities = () => {
-    setQuantity((preQuantity) => {
-      const newQuantity = preQuantity + 1;
-
-      return newQuantity;
-    });
-  };
-
-  const handleReducedQuantities = () => {
-    if (quantity > 1) {
-      setQuantity((preQuantity) => {
-        const newQuantity = preQuantity - 1;
-        return newQuantity;
-      });
-    }
-  };
 
   const temporaryIncreasedQuantity = () => {
     setChangeQuantity((preQuantity) => preQuantity + 1);
   };
 
   const temporaryReducedQuantity = () => {
-    if (changeQuantity > 1) {
+    if (changeQuantity > 0) {
       setChangeQuantity((preQuantity) => preQuantity - 1);
     }
   };
 
   const handleUpdateQuantity = () => {
-    setQuantity(changeQuantity);
+    if (changeQuantity > data.quantity) {
+      dispatch(addProductToCart({ product: data.product._id, quantity: changeQuantity - data.quantity })).then(
+        (result) => {
+          if (result.payload.code !== 200) {
+            toast.warning(result.payload.message);
+          }
+        },
+      );
+    } else {
+      dispatch(removeProductToCart({ product: data.product._id, quantity: data.quantity - changeQuantity })).then(
+        (result) => {
+          if (result.payload.code !== 200) {
+            toast.warning(result.payload.message);
+          }
+        },
+      );
+    }
   };
 
   const deleteProduct = (data) => {
@@ -62,23 +62,32 @@ function CartItem({ data }) {
   };
 
   useEffect(() => {
-    setChangeQuantity(quantity);
-  }, [quantity]);
+    if (isNotUpdate) {
+      setChangeQuantity(data.quantity);
+      setIsNotUpdate(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isNotUpdate]);
+
+  useEffect(() => {
+    if (!showCart) {
+      setOpenChange(false);
+    }
+  }, [showCart]);
 
   return (
     <div className={cx('product')}>
-      <div className={cx('product__quantity')}>
-        <button onClick={handleReducedQuantities} className={cx('product__quantity-btn')}>
-          <MinusIcon />
-        </button>
-        <span className={cx('product__quantity-number')}>{quantity}</span>
-        <button onClick={handleIncreasedQuantities} className={cx('product__quantity-btn')}>
-          <PlusIcon />
-        </button>
-      </div>
       <div className={cx('product__mobile-quantity')}>
-        <button onClick={() => setOpenChange(!openChange)} className={cx('product__mobile-quantity-btn')}>
-          {quantity} X
+        <button
+          style={isCheckout ? { cursor: 'default' } : {}}
+          onClick={() => {
+            if (!isCheckout) {
+              setOpenChange(!openChange);
+            }
+          }}
+          className={cx('product__mobile-quantity-btn')}
+        >
+          {data.quantity} X
         </button>
       </div>
 
@@ -90,18 +99,24 @@ function CartItem({ data }) {
         <p className={cx('product__detail-name')}>{data.product.name}</p>
 
         <div className={cx('product__detail-group')}>
-          <span className={cx('product__detail-price')}>{totalProductPrice.toLocaleString('vi-VN')} ₫</span>
+          <span className={cx('product__detail-price')}>{data.totalPrice.toLocaleString('vi-VN')} ₫</span>
           <button
-            onClick={() => deleteProduct({ product: data.product._id, quantity: quantity })}
+            onClick={() => deleteProduct({ product: data.product._id, quantity: changeQuantity })}
             className={cx('product__detail-delete')}
           >
-            Xóa
+            {t('button.btn19')}
           </button>
         </div>
       </div>
 
       <div className={cx('change-quantity', openChange ? 'change-quantity--show' : '')}>
-        <button onClick={() => setOpenChange(false)} className={cx('change-quantity__close')}>
+        <button
+          onClick={() => {
+            setOpenChange(false);
+            setIsNotUpdate(true);
+          }}
+          className={cx('change-quantity__close')}
+        >
           <CloseIcon className={cx('change-quantity__icon')} />
         </button>
         <img src={data.product.image} className={cx('change-quantity__img')} alt="" />
@@ -110,7 +125,7 @@ function CartItem({ data }) {
           <p className={cx('change-quantity__desc')}>{data.name}</p>
         </div>
         <div className={cx('change-quantity__last')}>
-          <h2 className={cx('change-quantity__title')}>Thay đổi số lượng</h2>
+          <h2 className={cx('change-quantity__title')}>{t('cart.title05')}</h2>
           <div className={cx('change-quantity__btn-group')}>
             <button onClick={temporaryReducedQuantity} className={cx('change-quantity__quantity-btn')}>
               <MinusIcon />
@@ -129,7 +144,7 @@ function CartItem({ data }) {
             }}
           >
             <Button checkout primary>
-              Cập nhật
+              {t('authTwinSetup.update-btn')}
             </Button>
           </div>
         </div>

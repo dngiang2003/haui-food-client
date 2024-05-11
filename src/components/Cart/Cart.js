@@ -11,6 +11,7 @@ import routes from '~/config/routes';
 import CartItem from '~/components/CartItem';
 import Button from '~/components/Button';
 import { Oval } from '@agney/react-loading';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -72,27 +73,32 @@ function Cart({ showCart, handleCloseCart, data }) {
         )}
 
         {loading && (
-          <div className={cx('cart__empty')}>
-            <Oval width="50" color="#00ba51" />
+          <div className={cx('cart__empty', 'cart__loading')}>
+            <Oval width="50" className={cx('cart__loading-icon')} />
           </div>
         )}
 
-        {isProduct && !loading && (auth || token) && (
+        {isProduct && (auth || token) && (
           <div ref={cartRef} onWheel={handleWheel} className={cx('cart__scroll')}>
             <div className={cx('cart__content')}>
               {data.carts.map((cartItem, index) => {
-                // console.log(data);
+                console.log(data);
                 return (
                   <div key={index} className={cx('cart__products')}>
                     <div className={cx('cart__products-top')}>
                       <Link to={'#!'}>
                         <h5 className={cx('cart__products-heading')}>{cartItem.shop.fullname}</h5>
                       </Link>
-                      <button className={cx('cart__products-delete-all')}>{t('button.btn04')}</button>
+                      <button
+                        onClick={() => toast.info('Tính năng đang được phát triển')}
+                        className={cx('cart__products-delete-all')}
+                      >
+                        {t('button.btn04')}
+                      </button>
                     </div>
                     <div className={cx('cart__products-list')}>
                       {cartItem.cartDetails.map((cartDetail, index) => (
-                        <CartItem key={index} data={cartDetail} />
+                        <CartItem key={index} data={cartDetail} showCart={showCart} />
                       ))}
                     </div>
                     <div className={cx('cart__summary')}>

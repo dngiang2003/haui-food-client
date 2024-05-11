@@ -72,7 +72,7 @@ function Cart({ showCart, handleCloseCart, data }) {
           </div>
         )}
 
-        {loading && (
+        {loading && location.pathname !== '/checkout' && (
           <div className={cx('cart__empty', 'cart__loading')}>
             <Oval width="50" className={cx('cart__loading-icon')} />
           </div>

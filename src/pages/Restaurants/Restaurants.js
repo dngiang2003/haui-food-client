@@ -3,6 +3,7 @@ import styles from './Restaurants.module.scss';
 import { useParams, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { memo } from 'react';
 
 import ListSlider from '~/components/ListSlider/ListSlider';
 import RestaurantList from '~/components/RestaurantList';
@@ -14,16 +15,31 @@ const cx = classNames.bind(styles);
 function Restaurants() {
   const { t } = useTranslation();
   const url = useLocation();
-  const [currentPageType, setCurrentPageType] = useState(null);
+
   const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
   const { category } = useParams();
   const query = searchParams.get('q');
+
+  const getPageType = () => {
+    let pageType = 'restaurants';
+    if (url.pathname.includes('restaurants')) {
+      pageType = 'restaurants';
+    }
+    if (category) {
+      pageType = 'restaurantsBycategory';
+    }
+    return pageType;
+  };
+  const [currentPageType, setCurrentPageType] = useState(getPageType());
+
   // console.log(category);
-  // console.log(searchParams);
+  // console.log(query);
   // kiểm tra xem đang là page restaurant hay restaurant by category
+
+  console.log('re-render');
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -36,7 +52,7 @@ function Restaurants() {
     if (category) {
       setCurrentPageType('restaurantsBycategory');
     }
-  }, [category, currentPageType, url.pathname, query]);
+  }, [category, url.pathname, query]);
 
   const handleClick = (e) => {
     if (searchValue.trim()) {
@@ -101,7 +117,7 @@ function Restaurants() {
             </div>
           )}
           <div className={cx('restaurant__list')}>
-            <RestaurantList category={category} type={currentPageType} />
+            <RestaurantList category={category} />
           </div>
         </div>
       </div>
@@ -109,4 +125,4 @@ function Restaurants() {
   );
 }
 
-export default Restaurants;
+export default memo(Restaurants);

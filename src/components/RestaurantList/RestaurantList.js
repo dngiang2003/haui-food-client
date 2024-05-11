@@ -21,6 +21,9 @@ function RestaurantList({ category, type }) {
   const [totalDocuments, setTotalDocuments] = useState(0);
   const [hasMore, setHasMore] = useState(false);
 
+  const currentPageTest = useRef(1);
+  const isHasMore = useRef(false);
+
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q');
 
@@ -30,11 +33,11 @@ function RestaurantList({ category, type }) {
 
   useEffect(() => {
     setIsLoading(reduxData.loading);
-  }, [reduxData]);
+  }, [reduxData.loading]);
 
   const fetchRestaurants = async () => {
     if (!query && !category) {
-      await dispatch(getRestaurants({ limit: limit, page: currentPage })).then((result) => {
+      await dispatch(getRestaurants({ limit: limit, page: currentPageTest.current })).then((result) => {
         // console.log(result);
         if (result.payload.code === 200) {
           setTotalPages(result.payload.data.totalPage);
@@ -43,10 +46,15 @@ function RestaurantList({ category, type }) {
             return [...preRestaurant, ...result.payload.data.shops];
           });
 
-          if (currentPage === result.payload.data.totalPage) {
+          if (currentPageTest.current === result.payload.data.totalPage) {
+            currentPageTest.current = 1;
             setHasMore(false);
+            isHasMore.current = false;
             return;
           } else {
+            currentPageTest.current += 1;
+            setHasMore(true);
+            isHasMore.current = true;
             setCurrentPage((pre) => {
               return ++pre;
             });
@@ -56,7 +64,7 @@ function RestaurantList({ category, type }) {
         }
       });
     } else if (query) {
-      await dispatch(getRestaurants({ limit: limit, page: currentPage, keyword: query })).then((result) => {
+      await dispatch(getRestaurants({ limit: limit, page: currentPageTest.current, keyword: query })).then((result) => {
         if (result.payload.code === 200) {
           // console.log(result);
           if (result.payload.data.totalResult > 0) {
@@ -66,10 +74,13 @@ function RestaurantList({ category, type }) {
               return [...preRestaurant, ...result.payload.data.shops];
             });
 
-            if (currentPage === result.payload.data.totalPage) {
+            if (currentPageTest.current === result.payload.data.totalPage) {
+              currentPageTest.current = 1;
               setHasMore(false);
               return;
             } else {
+              currentPageTest.current += 1;
+              setHasMore(true);
               setCurrentPage((pre) => {
                 return ++pre;
               });
@@ -81,7 +92,9 @@ function RestaurantList({ category, type }) {
       });
     } else if (category) {
       const categoryId = JSON.parse(sessionStorage.getItem('idCategorySelected'));
-      await dispatch(getRestaurantsByCategory({ categoryId: categoryId })).then((result) => {
+      await dispatch(
+        getRestaurantsByCategory({ categoryId: categoryId, params: { page: currentPageTest.current, limit: limit } }),
+      ).then((result) => {
         // console.log(result);
 
         if (result?.payload?.code === 200) {
@@ -105,40 +118,47 @@ function RestaurantList({ category, type }) {
   };
   // window.scrollTo(0, 2);
   useEffect(() => {
-    // console.log('query change');
+    console.log('query change');
     setCurrentPage(1);
+    currentPageTest.current = 1;
     setRestaurantList([]);
     setTotalPages(0);
     setTotalDocuments(0);
-    setHasMore(true);
+    isHasMore.current = false;
+    // setHasMore(true);
+    fetchRestaurants();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, type, category]);
 
   // console.log(query);
-  // console.log('currentPage', currentPage);
+  console.log('currentPage', currentPageTest.current);
+  console.log(isHasMore.current);
+  // console.log('test.current', test.current);
   // console.log('totalDocuments', totalDocuments);
   // console.log('restaurantList', restaurantList);
-  // console.log(hasMore);
-  // console.log('');
 
   return (
     <div className={cx('restaurant-list')}>
       <div>
         <InfiniteScroll
-          scrollThreshold="0"
+          scrollThreshold="0%"
           className={cx('infinite-scroll row')}
           dataLength={restaurantList.length}
           next={() => {
+            // if (isFirstCalled === false) {
+            //   return;
+            // }
+
             fetchRestaurants();
-            restaurantList.length === 0
-              ? setHasMore(true)
-              : restaurantList.length < totalDocuments && currentPage < totalPages
-              ? setHasMore(true)
-              : setHasMore(false);
+            // restaurantList.length === 0
+            //   ? setHasMore(true)
+            //   : restaurantList.length < totalDocuments && currentPage < totalPages
+            //   ? setHasMore(true)
+            //   : setHasMore(false);
           }}
           // hasMore={restaurantList.length === totalDocuments ? false : true}
-          hasMore={hasMore}
+          hasMore={isHasMore.current}
           scrollableTarget="restaurant-list"
         >
           {restaurantList.map((item, index) => {

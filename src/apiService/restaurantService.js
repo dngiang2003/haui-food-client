@@ -29,7 +29,7 @@ export const getRestaurantsByCategory = createAsyncThunk(
   async ({ categoryId, params }, { rejectWithValue }) => {
     try {
       // await sleep(5000);
-      const response = await callApi('get', `/v1/shops/category/${categoryId}`, {});
+      const response = await callApi('get', `/v1/shops/category/${categoryId}`, params ,{});
       return response;
     } catch (error) {
       return rejectWithValue({ ...error });

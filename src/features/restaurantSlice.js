@@ -11,6 +11,7 @@ const restaurantSlice = createSlice({
   initialState: {
     restaurants: null,
     loading: null,
+    loadingSlider: null,
     error: null,
     length: 0,
     listSlider: [],
@@ -40,18 +41,18 @@ const restaurantSlice = createSlice({
 
       // get restaurants for listSlider
       .addCase(getRestaurantsForListSlider.pending, (state) => {
-        state.loading = true;
+        state.loadingSlider = true;
         state.error = null;
         state.listSlider = null;
       })
       .addCase(getRestaurantsForListSlider.fulfilled, (state, action) => {
         // console.log(action.payload);
-        state.loading = false;
+        state.loadingSlider = false;
         state.listSlider = action.payload.data.shops;
         state.error = null;
       })
       .addCase(getRestaurantsForListSlider.rejected, (state, action) => {
-        state.loading = false;
+        state.loadingSlider = false;
         state.restaurants = null;
         state.error = action.error.message;
         state.length = 0;
@@ -87,7 +88,7 @@ const restaurantSlice = createSlice({
       .addCase(getRestaurants.fulfilled, (state, action) => {
         state.loading = false;
         state.restaurants = action.payload.data;
-        state.length = action.payload.data.totalResult;
+        // state.length = action.payload.data.totalResult;
         state.error = null;
       })
       .addCase(getRestaurants.rejected, (state, action) => {

@@ -19,7 +19,7 @@ function BreadCrumb({ className }) {
     ? JSON.parse(sessionStorage.getItem('restaurantSelected'))
     : null;
 
-  console.log(restaurantSelected);
+  // console.log(restaurantSelected);
   // console.log(categorySelected);
   let resString = 'restaurants';
   let cuisinesString = 'cuisines';
@@ -31,7 +31,7 @@ function BreadCrumb({ className }) {
   const pathname = useLocation()
     .pathname.split('/')
     .map((path) => {
-      console.log(path);
+      // console.log(path);
       if (path === categorySelected?.slug ? categorySelected.slug : '') {
         return categorySelected.name;
       }
@@ -41,7 +41,7 @@ function BreadCrumb({ className }) {
       return path;
     });
 
-  console.log(pathname);
+  // console.log(pathname);
   const upperFirstCase = (path) => {
     if (path === 'cuisines') {
       path = cuisinesString;

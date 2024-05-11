@@ -30,7 +30,7 @@ function Main() {
 
   return (
     <Provider store={store}>
-      <React.StrictMode>
+      {/* <React.StrictMode> */}
         <GoogleOAuthProvider clientId="1016987616352-ac1dgf61p6suvhvg3bcaqcrqd874rppm.apps.googleusercontent.com">
           <I18nextProvider i18n={i18n}>
             <GlobalStyles>
@@ -43,7 +43,7 @@ function Main() {
             </GlobalStyles>
           </I18nextProvider>
         </GoogleOAuthProvider>
-      </React.StrictMode>
+      {/* </React.StrictMode> */}
     </Provider>
   );
 }

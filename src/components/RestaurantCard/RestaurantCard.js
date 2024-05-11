@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './RestaurantCard.module.scss';
 import { EmptyStarIcon, HaftStarIcon, StarIcon } from '../Icons';
 import { Link } from 'react-router-dom';
+import { memo } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -56,4 +57,4 @@ function RestaurantCard({ data, className }) {
   );
 }
 
-export default RestaurantCard;
+export default memo(RestaurantCard);

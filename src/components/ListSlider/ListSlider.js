@@ -43,7 +43,7 @@ function ListSlider() {
   // console.log(reduxData);
 
   useEffect(() => {
-    if (reduxData.listSlider.length > 0) {
+    if (reduxData.listSlider?.length > 0) {
       setHasData(true);
       setData(reduxData.listSlider);
     } else {

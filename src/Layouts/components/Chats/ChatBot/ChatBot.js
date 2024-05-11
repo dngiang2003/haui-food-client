@@ -26,6 +26,7 @@ const ChatBot = () => {
         <p className={cx('chat-bot__text')}>Trợ lý</p>
       </div>
       <Modal
+        sx={{ zIndex: 99999, fontSize: 24 }}
         open={open}
         onClose={handleClose}
         aria-labelledby="simple-modal-title"

@@ -18,8 +18,7 @@ const ChatModal = () => {
 
   const handleSendMessage = async () => {
     if (messageInput) {
-
-      setMessages(messages => [...messages, { user: 'User', message: messageInput }]);
+      setMessages((messages) => [...messages, { user: 'User', message: messageInput }]);
 
       setMessageInput('');
 
@@ -28,7 +27,7 @@ const ChatModal = () => {
           message: messageInput,
         });
 
-        setMessages(messages => [...messages, { user: 'Chatbot', message: response.data.data }]);
+        setMessages((messages) => [...messages, { user: 'Chatbot', message: response.data.data }]);
       } catch (error) {
         console.error('Error fetching chatbot response:', error);
       }
@@ -47,25 +46,30 @@ const ChatModal = () => {
         Trợ lý AI
       </Typography>
       <div className={cx('chat-modal__messages')}>
-        {messages.length > 0 && messages.map((message, key) => (
-          <div key={key}>
-            <Typography
-              variant="body1"
-              fontSize={{ fontSize: 13 }}
-              className={cx("chat-modal__message", message.user === 'User' ? 'chat-modal__message--user' : 'chat-modal__message--chatbot')}
-            >
-              {message.message}
-            </Typography>
-          </div>
-        ))}
+        {messages.length > 0 &&
+          messages.map((message, key) => (
+            <div key={key}>
+              <Typography
+                variant="body1"
+                fontSize={{ fontSize: 15 }}
+                className={cx(
+                  'chat-modal__message',
+                  message.user === 'User' ? 'chat-modal__message--user' : 'chat-modal__message--chatbot',
+                )}
+              >
+                {message.message}
+              </Typography>
+            </div>
+          ))}
       </div>
       <div className={cx('chat-modal__container')}>
-        <input type="text"
+        <input
+          type="text"
           className={cx('chat-modal__input')}
           value={messageInput}
           onChange={handleChange}
-          placeholder='Nhập nội dung chat'
-          onKeyPress={handleKeyPress}
+          placeholder="Nhập nội dung chat"
+          onKeyDown={handleKeyPress}
         />
         <button type="submit" onClick={handleSendMessage} className={cx('chat-modal__button')}>
           <SendIcon />

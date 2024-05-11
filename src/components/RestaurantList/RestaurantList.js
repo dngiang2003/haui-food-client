@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
@@ -9,6 +9,8 @@ import RestaurantCard from '../RestaurantCard/RestaurantCard';
 import Loader from '../Loader';
 import NoResult from '../NoResult';
 import { getRestaurants, getRestaurantsByCategory } from '~/apiService/restaurantService';
+import Skeleton from '../Skeleton';
+
 const cx = classNames.bind(style);
 
 function RestaurantList({ category, type }) {
@@ -31,10 +33,9 @@ function RestaurantList({ category, type }) {
   }, [reduxData]);
 
   const fetchRestaurants = async () => {
-    console.log('call api');
     if (!query && !category) {
-      dispatch(getRestaurants({ limit: limit, page: currentPage })).then((result) => {
-        console.log(result);
+      await dispatch(getRestaurants({ limit: limit, page: currentPage })).then((result) => {
+        // console.log(result);
         if (result.payload.code === 200) {
           setTotalPages(result.payload.data.totalPage);
           setTotalDocuments(result.payload.data.totalResult);
@@ -79,12 +80,11 @@ function RestaurantList({ category, type }) {
         }
       });
     } else if (category) {
-      // const categoryId = JSON.parse(sessionStorage.getItem('idCategorySelected'));
-      dispatch(getRestaurantsByCategory({ categoryId: '6605587526ee3946d0f565b5' })).then((result) => {
-        console.log(result);
+      const categoryId = JSON.parse(sessionStorage.getItem('idCategorySelected'));
+      await dispatch(getRestaurantsByCategory({ categoryId: categoryId })).then((result) => {
+        // console.log(result);
 
         if (result?.payload?.code === 200) {
-          console.log('category');
           setTotalPages(result.payload.data.totalPage);
           setTotalDocuments(result.payload.data.totalResult);
           setRestaurantList((preRestaurant) => {
@@ -103,9 +103,9 @@ function RestaurantList({ category, type }) {
       });
     }
   };
-
+  // window.scrollTo(0, 2);
   useEffect(() => {
-    console.log('query change');
+    // console.log('query change');
     setCurrentPage(1);
     setRestaurantList([]);
     setTotalPages(0);
@@ -115,22 +115,21 @@ function RestaurantList({ category, type }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, type, category]);
 
-  console.log(query);
-  console.log('currentPage', currentPage);
-  console.log('totalDocuments', totalDocuments);
-  console.log('restaurantList', restaurantList);
-  console.log(hasMore);
-  console.log('');
+  // console.log(query);
+  // console.log('currentPage', currentPage);
+  // console.log('totalDocuments', totalDocuments);
+  // console.log('restaurantList', restaurantList);
+  // console.log(hasMore);
+  // console.log('');
 
   return (
     <div className={cx('restaurant-list')}>
       <div>
         <InfiniteScroll
-          scrollThreshold="1.2"
+          scrollThreshold="0"
           className={cx('infinite-scroll row')}
           dataLength={restaurantList.length}
           next={() => {
-            console.log('next');
             fetchRestaurants();
             restaurantList.length === 0
               ? setHasMore(true)
@@ -153,8 +152,9 @@ function RestaurantList({ category, type }) {
           })}
         </InfiniteScroll>
       </div>
-      {!isLoading && restaurantList.length <= 0 && <NoResult />}
+      {!isLoading && restaurantList.length === 0 && <NoResult />}
       {reduxData.loading && restaurantList.length > 0 && <Loader className={cx('list__loader')} />}
+      {reduxData.loading && restaurantList.length <= 0 && <Skeleton />}
     </div>
   );
 }

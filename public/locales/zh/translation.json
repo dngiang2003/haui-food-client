@@ -336,5 +336,14 @@
   },
   "system": {
     "error": "发生了一个错误。请稍后重试"
+  },
+
+  "quantity-drawer": {
+    "add-to-cart": "添加到购物车",
+    "cancel": "取消",
+    "toast": {
+      "invalid-quantity": "产品数量不能超过100件",
+      "unauthorized": "请登录以添加到购物车"
+    }
   }
 }

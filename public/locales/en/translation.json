@@ -336,5 +336,14 @@
   },
   "system": {
     "error": "An error occurred. Please try again later"
+  },
+
+  "quantity-drawer": {
+    "add-to-cart": "Add to Cart",
+    "cancel": "Cancel",
+    "toast": {
+      "invalid-quantity": "The quantity of product cannot exceed 100 items",
+      "unauthorized": "Please log in to add to cart"
+    }
   }
 }

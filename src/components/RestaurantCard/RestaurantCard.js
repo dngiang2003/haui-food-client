@@ -16,7 +16,7 @@ function RestaurantCard({ data, className }) {
     else if (i === fullStars + 1 && halfStars) stars.push(<HaftStarIcon className={cx('star-icon')} />);
     else stars.push(<EmptyStarIcon className={cx('star-icon')} />);
   }
-  console.log(data);
+  // console.log(data);
   return (
     <Link to={`/restaurant/${data?.slug}`}>
       <div

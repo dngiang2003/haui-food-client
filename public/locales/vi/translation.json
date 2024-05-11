@@ -337,5 +337,13 @@
   },
   "system": {
     "error": "Đã sảy ra lỗi vui lòng thử lại sau"
+  },
+  "quantity-drawer": {
+    "add-to-cart": "Thêm vào giỏ hàng",
+    "cancel": "Hủy",
+    "toast": {
+      "invalid-quantity": "Số lượng sản phẩm không được vượt quá 100 sản phẩm",
+      "unauthorized": "Vui lòng đăng nhập để thêm vào giỏ hàng"
+    }
   }
 }

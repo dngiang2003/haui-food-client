@@ -79,6 +79,11 @@
   &:hover {
     opacity: 0.9;
   }
+
+  @include media-breakpoint-down(md) {
+    width: 140px;
+    height: 48px;
+  }
 }
 
 .select-image-btn {
@@ -286,7 +291,8 @@
     }
 
     @include media-breakpoint-down(md) {
-      padding: 10px;
+      padding: 10px 15px 20px;
+      border-radius: 10px;
     }
   }
 

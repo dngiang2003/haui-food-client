@@ -453,7 +453,7 @@ function Profile() {
 
   return (
     <div className={cx('wrapper')}>
-      <div className={cx('container')}>
+      <div className={cx('container gx-5')}>
         <div className={cx('row profile')}>
           {/* sidebar */}
           <div className={cx('col-xl-3')}>

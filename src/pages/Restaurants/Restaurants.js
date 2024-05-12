@@ -59,7 +59,7 @@ function Restaurants() {
 
   return (
     <div className={cx('wrapper')}>
-      <div className={cx('container')}>
+      <div className={cx('container gx-5')}>
         <div className={cx('restaurant__search-container')}>
           <SearchIcon className={cx('restaurant__search-icon')} />
           <input
@@ -83,7 +83,7 @@ function Restaurants() {
         </div>
       </div>
       <div className={cx('restaurant__sparate')}></div>
-      <div className={cx('container')}>
+      <div className={cx('container gx-5')}>
         <div className={cx('restaurant')}>
           <BreadCrumb className={cx('restaurant__breadcrumb')} />
           {currentPageType === 'restaurants' && !query && (

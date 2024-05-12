@@ -109,7 +109,7 @@ function Home() {
         />
       </div>
       <div className={cx('sparate')}></div>
-      <div className={cx('container')}>
+      <div className={cx('container gx-5')}>
         {reduxData.loading && (
           <div className={cx('home__search-loading-container')}>
             <Loader className={cx('home__loading-icon')} />
@@ -183,7 +183,7 @@ function Home() {
         </Button>
       </div>
       <div className={cx('banner-footer')}>
-        <div className={cx('container')}>
+        <div className={cx('container gx-5')}>
           <div className={cx('row')}>
             <div className={cx('col-md-6 col-12')}>
               <div className={cx('banner-footer__left')}>

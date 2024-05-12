@@ -120,7 +120,7 @@ function Banner({ className, onSearch, onSearchResult, onPage, onRemove, onHandl
 
   return (
     <div className={cx('banner')} style={{ backgroundImage: `url(${listBanner[bannerPath]})` }}>
-      <div className={cx('container')}>
+      <div className={cx('container gx-5')}>
         <div className={cx('banner__content-wrapper')}>
           <div className={cx('banner__content')}>
             <div className={cx('banner__greeting')}>{greeting}</div>

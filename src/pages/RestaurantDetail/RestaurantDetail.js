@@ -97,7 +97,7 @@ function RestaurantDetail() {
             alt={reduxData.restaurantDetail?.fullname}
           />
 
-          <div className={cx('container')}>
+          <div className={cx('container gx-5')}>
             <BreadCrumb />
             <h1 className={cx('restaurant__name')}>{reduxData.restaurantDetail?.fullname}</h1>
             <p className={cx('restaurant__desc')}>{reduxData.restaurantDetail?.description}</p>
@@ -120,7 +120,7 @@ function RestaurantDetail() {
         </div>
 
         <div className={cx('restaurant__nav-container')}>
-          <div className={cx('container')}>
+          <div className={cx('container gx-5')}>
             <div className={cx('restaurant__nav')}>
               {reduxData.restaurantDetail?.categories.map((category, index) => {
                 return (
@@ -143,7 +143,7 @@ function RestaurantDetail() {
 
         {reduxData.restaurantDetail?.categories.length > 0 && (
           <div className={cx('restaurant-body')}>
-            <div className={cx('container')}>
+            <div className={cx('container gx-5')}>
               {reduxData.restaurantDetail?.categories.map((category, index) => (
                 <div key={index} className={cx('restaurant__group-product-container')} id={category._id}>
                   <div className={cx('restaurant__group-product-name')}>{category.name}</div>

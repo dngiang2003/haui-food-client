@@ -9,7 +9,7 @@
   &__title-2,
   &__title-3,
   &__title-4 {
-    font-size: 3.6rem;
+    font-size: 2.8rem;
     font-weight: 600;
     color: var(--text-color);
 
@@ -29,6 +29,7 @@
   &__title-1 {
     margin-top: 64px;
     margin-bottom: 48px;
+
     @include media-breakpoint-down(md) {
       margin-top: 48px;
       margin-bottom: 20px;
@@ -62,7 +63,8 @@
   &__sub-title {
     font-size: 2.4rem;
     color: var(--text-color);
-    font-weight: 700;
+    font-weight: 600;
+
     @include media-breakpoint-down(md) {
       font-size: 1.7rem;
     }

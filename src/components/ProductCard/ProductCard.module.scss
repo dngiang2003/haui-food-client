@@ -53,8 +53,12 @@
   &__img {
     width: 100%;
     height: auto;
+    min-width: 80px;
+    min-height: 80px;
     object-fit: cover;
     border-radius: 4px;
+
+    background-color: #f1f2f6;
   }
 
   &__info {
@@ -62,6 +66,10 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+    @include media-breakpoint-down(md) {
+      margin-left: 15px;
+    }
   }
 
   &__name {

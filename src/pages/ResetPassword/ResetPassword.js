@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import styles from './ResetPassword.module.scss';
+
 import { PasswordIcon } from '~/components/Icons';
 import Button from '~/components/Button';
 import { resetPassword } from '~/apiService/authService';
@@ -19,12 +20,13 @@ function ResetPassword() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const passwordRegex = useMemo(() => /^(?=.*[@-_]).{8,}$/, []);
+
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [submit, setSubmit] = useState(false);
   const [showPassword, setShowPassword] = useState('password');
 
-  const passwordRegex = useMemo(() => /^(?=.*[@-_]).{8,}$/, []);
   const [errors, setErrors] = useState({ newPassword: '', confirmPassword: '' });
 
   const checkSubmit = useCallback(() => {
@@ -34,9 +36,7 @@ function ResetPassword() {
       setSubmit(isSubmit);
       return;
     }
-    console.log(errors);
     isSubmit = Object.values(errors).every((err) => err === '');
-    console.log(Object.values(errors).every((err) => err === ''));
     setSubmit(isSubmit);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -98,11 +98,9 @@ function ResetPassword() {
       newPassword: newPassword,
     };
     dispatch(resetPassword(data)).then((result) => {
-      console.log(result.payload);
-
       if (result.payload.code === 200) {
         toast.success(result.payload.message);
-        navigate(config.routes.login, {replace: true});
+        navigate(config.routes.login, { replace: true });
       } else {
         toast.error(result.payload.message);
       }

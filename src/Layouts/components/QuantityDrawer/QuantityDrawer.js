@@ -1,17 +1,17 @@
-// QuantityDrawer.js
-
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { closeQuantityDrawer } from '~/features/productSlice'; // Import closeDrawer action from slice
 import classNames from 'classnames/bind';
+import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
+
 import style from './QuantityDrawer.module.scss';
-import { CloseIcon, MinusIcon, PlusIcon } from '~/components/Icons';
+
 import Button from '~/components/Button';
 import formatCurrency from '~/utils/formatCurrency';
-import { addProductToCart } from '~/apiService/cartService';
-import { toast } from 'react-toastify';
 import { getLocalStorageItem } from '~/utils/localStorage';
-import { useTranslation } from 'react-i18next';
+import { addProductToCart } from '~/apiService/cartService';
+import { closeQuantityDrawer } from '~/features/productSlice';
+import { CloseIcon, MinusIcon, PlusIcon } from '~/components/Icons';
 
 const cx = classNames.bind(style);
 

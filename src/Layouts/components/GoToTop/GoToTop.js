@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 
 import styles from './GoToTop.module.scss';
+
 import { ArrowDownIcon } from '~/components/Icons';
 
 const cx = classNames.bind(styles);
@@ -29,7 +30,7 @@ function GoToTop() {
   }, [isVisible]);
 
   return (
-    <div className={cx('go-top', isVisible ? 'go-top--show' : '')} onClick={scrollToTop}>
+    <div className={cx('go-top', isVisible && 'go-top--show')} onClick={scrollToTop}>
       <ArrowDownIcon className={cx('go-top__icon')} />
     </div>
   );

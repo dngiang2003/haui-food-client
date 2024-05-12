@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Oval } from '@agney/react-loading';
-import { useNavigate } from 'react-router-dom';
 
 import styles from './ForgotPassword.module.scss';
+
 import { EmailIcon, ReloadIcon } from '~/components/Icons';
-import { Link } from 'react-router-dom';
 import Button from '~/components/Button';
 import routes from '~/config/routes';
 import { captcha } from '~/apiService/captchaService';
@@ -23,6 +23,8 @@ function ForgotPassword() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loading = useSelector((state) => state.captcha.loading);
+  
+  const emailRegex = useMemo(() => /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/, []);
 
   const [email, setEmail] = useState('');
   const [captchaValue, setCaptchaValue] = useState('');
@@ -33,7 +35,6 @@ function ForgotPassword() {
   const [touchedEmail, setTouchedEmail] = useState(false);
   const [touchedCaptcha, setTouchedCaptcha] = useState(false);
 
-  const emailRegex = useMemo(() => /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/, []);
   const [errors, setErrors] = useState({ email: '', captcha: false });
 
   const counter = useRef(Date.now());
@@ -64,6 +65,34 @@ function ForgotPassword() {
         toast.error(err);
       });
     counter.current = Date.now();
+  };
+
+  const handleForgotPassword = () => {
+    const data = {
+      email: email,
+      text: captchaValue,
+      sign: 'U2FsdGVkX1+jTOXmH4CXlekMcx3d56iebXE8vP50Nvb5e/UC/n41QFFEJc1pioo0mwH8oTsueKaP6qBIvUGIig==',
+    };
+
+    dispatch(forgotPassword(data))
+      .then((result) => {
+        setSubmit(false);
+        setButton(t('button.btn08'));
+        setCaptchaValue('');
+
+        if (result.payload.code === 200) {
+          sessionStorage.setItem('tokenForgot', JSON.stringify(result.payload.data.tokenForgot));
+
+          navigate(config.routes.forgotPasswordOTP);
+        } else if (result.payload.code === 400) {
+          fetchCaptcha();
+          toast.error(result.payload.message);
+        }
+      })
+      .catch(() => {
+        setSubmit(false);
+        setButton(t('button.btn08'));
+      });
   };
 
   useEffect(() => {
@@ -117,34 +146,6 @@ function ForgotPassword() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const handleForgotPassword = () => {
-    const data = {
-      email: email,
-      text: captchaValue,
-      sign: 'U2FsdGVkX1+jTOXmH4CXlekMcx3d56iebXE8vP50Nvb5e/UC/n41QFFEJc1pioo0mwH8oTsueKaP6qBIvUGIig==',
-    };
-
-    dispatch(forgotPassword(data))
-      .then((result) => {
-        setSubmit(false);
-        setButton(t('button.btn08'));
-        setCaptchaValue('');
-
-        if (result.payload.code === 200) {
-          sessionStorage.setItem('tokenForgot', JSON.stringify(result.payload.data.tokenForgot));
-
-          navigate(config.routes.forgotPasswordOTP);
-        } else if (result.payload.code === 400) {
-          fetchCaptcha();
-          toast.error(result.payload.message);
-        }
-      })
-      .catch(() => {
-        setSubmit(false);
-        setButton(t('button.btn08'));
-      });
-  };
 
   return (
     <div className={cx('forgot-password')}>

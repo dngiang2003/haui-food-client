@@ -1,9 +1,9 @@
 import classNames from 'classnames/bind';
+import { useDispatch } from 'react-redux';
+
 import style from './ProductCard.module.scss';
 
-import { useDispatch } from 'react-redux';
 import { openQuantityDrawer } from '~/features/productSlice';
-
 import formatCurrency from '~/utils/formatCurrency';
 
 const cx = classNames.bind(style);

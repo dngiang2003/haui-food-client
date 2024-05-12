@@ -1,9 +1,10 @@
+import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
+import { useLocation } from 'react-router-dom';
+
+import styles from './Restaurant.module.scss';
 
 import RestaurantHeader from '~/components/RestaurantHeader/RestaurantHeader';
-import styles from './Restaurant.module.scss';
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -238,7 +239,6 @@ const Restaurant = () => {
     const parts = pathname.split('/');
     const slug = parts[parts.length - 1]; // Lấy phần cuối cùng của đường dẫn URL
     setSearchSlug(slug);
-    console.log(searchSlug);
   }, [location]);
 
   useEffect(() => {
@@ -269,15 +269,10 @@ const Restaurant = () => {
 
     const restaurantInformation = data.find((restaurant) => {
       const slug = ChangeToSlug(restaurant.restaurantName);
-      // console.log(slug);
-      // console.log(searchSlug);
       return slug === searchSlug;
     });
 
-    console.log(restaurantInformation);
-
     if (restaurantInformation) setRestaurantInfor(restaurantInformation);
-    console.log(restaurantInformation);
   }, [searchSlug]);
 
   const menuItems = restaurantInfor?.productsList.map((directory, index) => {

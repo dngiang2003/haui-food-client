@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import classNames from 'classnames/bind';
 import Modal from '@mui/material/Modal';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 
 import styles from './ChatBot.module.scss';
+
 import ChatModal from './ChatModal';
 
 const cx = classNames.bind(styles);

@@ -1,7 +1,10 @@
 import classNames from 'classnames/bind';
-import style from './TermsOfUse.module.scss';
 import { useTranslation } from 'react-i18next';
+
+import style from './TermsOfUse.module.scss';
+
 import { CheckIcon } from '../Icons';
+
 const cx = classNames.bind(style);
 
 function TermsOfUse() {

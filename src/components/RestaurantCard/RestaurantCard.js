@@ -1,9 +1,10 @@
+import { memo } from 'react';
 import classNames from 'classnames/bind';
+import { Link } from 'react-router-dom';
 
 import styles from './RestaurantCard.module.scss';
+
 import { EmptyStarIcon, HaftStarIcon, StarIcon } from '../Icons';
-import { Link } from 'react-router-dom';
-import { memo } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -12,12 +13,13 @@ function RestaurantCard({ data, className }) {
   const fullStars = Math.floor(rating);
   const halfStars = rating - fullStars !== 0;
   const stars = [];
+  
   for (let i = 1; i <= 5; i++) {
     if (i <= fullStars) stars.push(<StarIcon className={cx('star-icon')} />);
     else if (i === fullStars + 1 && halfStars) stars.push(<HaftStarIcon className={cx('star-icon')} />);
     else stars.push(<EmptyStarIcon className={cx('star-icon')} />);
   }
-  // console.log(data);
+
   return (
     <Link to={`/restaurant/${data?.slug}`}>
       <div

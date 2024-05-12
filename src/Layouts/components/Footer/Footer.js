@@ -3,9 +3,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import styles from './Footer.module.scss';
-import { FacebookIcon, GithubIcon, InstagramIcon } from '~/components/Icons';
+
 import images from '~/assets/images';
 import routes from '~/config/routes';
+import { FacebookIcon, GithubIcon, InstagramIcon } from '~/components/Icons';
 
 const cx = classNames.bind(styles);
 

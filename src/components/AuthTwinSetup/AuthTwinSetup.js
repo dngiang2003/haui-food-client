@@ -1,23 +1,26 @@
 import { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
 import classNames from 'classnames/bind';
-import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import { useSelector, useDispatch } from 'react-redux';
 
+import style from './AuthTwinSetup.module.scss';
+
+import images from '~/assets/images';
+import Button from '../Button';
+import { CheckIcon, PowerOffIcon, RefreshIcon } from '../Icons';
 import { getSecretKey, toggle2FA, updateSecretKey } from '~/apiService/authService';
 import { getLocalStorageItem, addOrUpdateFieldInLocalStorage } from '~/utils/localStorage';
 import { generateQRCodeImage } from '~/utils/qrCode';
-
-import style from './AuthTwinSetup.module.scss';
-import { CheckIcon, PowerOffIcon, RefreshIcon } from '../Icons';
-import images from '~/assets/images';
-import Button from '../Button';
 
 const cx = classNames.bind(style);
 
 function AuthTwinSetup() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+
+  const reduxData = useSelector((state) => state.auth);
+  const userInfo = getLocalStorageItem('user');
 
   const [isUseAuthTwin, setIsUseAuthTwin] = useState();
   const [secretKey, SetSecretKey] = useState();
@@ -26,18 +29,6 @@ function AuthTwinSetup() {
   const [qrImg, setQrImg] = useState('');
   const [isRefresh, setIsRefresh] = useState(false);
   const [tempSecretKey, setTempSecretKey] = useState();
-
-  const reduxData = useSelector((state) => state.auth);
-  const userInfo = getLocalStorageItem('user');
-
-  useEffect(() => {
-    // console.log('userInfo', userInfo);
-    const secretKey = userInfo?.secret ? userInfo.secret : '';
-    setQrImg(generateQRCodeImage(userInfo.email, secretKey));
-    SetSecretKey(secretKey);
-    setIsUseAuthTwin(userInfo.is2FA);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const addSpaceForSecretKey = (secretKey) => {
     let newSecretKey = '';
@@ -58,7 +49,6 @@ function AuthTwinSetup() {
 
     dispatch(getSecretKey()).then((result) => {
       if (result.payload.code === 200) {
-        // console.log(result.payload);
         setTempSecretKey(result.payload.data.secret);
         SetSecretKey(result.payload.data.secret);
         setQrImg(generateQRCodeImage(userInfo.email, reduxData.secretKey));
@@ -68,7 +58,7 @@ function AuthTwinSetup() {
       }
     });
   };
-  // console.log(tempSecretKey);
+
   const handleToggle2FA = () => {
     if (!isUseAuthTwin && !isUpdate) {
       toast.error(t('authTwinSetup.toast.invalidOtp'));
@@ -90,11 +80,8 @@ function AuthTwinSetup() {
   };
 
   const handleUpdateSecretKey = () => {
-    // console.log(tempSecretKey);
-
     if (isUpdate) {
       dispatch(updateSecretKey({ code: otpValue, secret: tempSecretKey })).then((result) => {
-        // console.log(result.payload);
         if (result.payload.code === 200) {
           toast.success(result.payload.message);
           addOrUpdateFieldInLocalStorage('user', 'secret', result.payload.data.secret);
@@ -109,6 +96,7 @@ function AuthTwinSetup() {
     }
     setOtpValue('');
   };
+
   const validateOtpInput = (event) => {
     const value = event.target.value;
 
@@ -120,6 +108,14 @@ function AuthTwinSetup() {
       setIsUpdate(true);
     }
   };
+
+  useEffect(() => {
+    const secretKey = userInfo?.secret ? userInfo.secret : '';
+    setQrImg(generateQRCodeImage(userInfo.email, secretKey));
+    SetSecretKey(secretKey);
+    setIsUseAuthTwin(userInfo.is2FA);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={cx('auth-twin-wrapper')}>

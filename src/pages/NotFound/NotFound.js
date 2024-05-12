@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import classNames from 'classnames/bind';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 
 import styles from './NotFound.module.scss';
-import { Link } from 'react-router-dom';
+
 import routes from '~/config/routes';
 import images from '~/assets/images';
 import { statistical } from '~/apiService/statisticalService';
-import { useDispatch } from 'react-redux';
 
 const cx = classNames.bind(styles);
 

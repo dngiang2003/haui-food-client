@@ -1,18 +1,21 @@
+import { memo, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
-import styles from './ListSlider.module.scss';
+import { Link } from 'react-router-dom';
+import Slider from 'react-slick';
+import { useDispatch, useSelector } from 'react-redux';
+
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import styles from './ListSlider.module.scss';
+
 import RestaurantCard from '~/components/RestaurantCard/RestaurantCard';
-import Slider from 'react-slick';
-import { memo, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { getRestaurantsForListSlider } from '~/apiService/restaurantService';
-import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function NextArrow(props) {
   const { className, style, onClick, customClass } = props;
+
   return (
     <div
       className={`${className} ${customClass}`}
@@ -24,6 +27,7 @@ function NextArrow(props) {
 
 function PrevArrow(props) {
   const { className, style, onClick, customClass } = props;
+
   return (
     <div
       className={`${className} ${customClass}`}
@@ -34,29 +38,8 @@ function PrevArrow(props) {
 }
 
 function ListSlider() {
-  const [data, setData] = useState([]);
-  const [hasData, setHasData] = useState(false);
-
   const dispatch = useDispatch();
   const reduxData = useSelector((prop) => prop.restaurant);
-
-  // console.log(reduxData);
-
-  useEffect(() => {
-    if (reduxData.listSlider?.length > 0) {
-      setHasData(true);
-      setData(reduxData.listSlider);
-    } else {
-      dispatch(getRestaurantsForListSlider({ limit: 5, page: 1 })).then((result) => {
-        if (result.payload.code === 200) {
-          // console.log(result.payload);
-          setData(result.payload.data.shops);
-        }
-      });
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const settings = {
     speed: 500,
@@ -78,6 +61,24 @@ function ListSlider() {
       },
     ],
   };
+  
+  const [data, setData] = useState([]);
+  const [hasData, setHasData] = useState(false);
+
+  useEffect(() => {
+    if (reduxData.listSlider?.length > 0) {
+      setHasData(true);
+      setData(reduxData.listSlider);
+    } else {
+      dispatch(getRestaurantsForListSlider({ limit: 5, page: 1 })).then((result) => {
+        if (result.payload.code === 200) {
+          setData(result.payload.data.shops);
+        }
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // function ChangeToSlug(title) {
   //   let slug = title.toLowerCase();
 
@@ -102,7 +103,7 @@ function ListSlider() {
   //   slug += '-delivery';
   //   return slug;
   // }
-  // console.log(data);
+
   return (
     <div className={cx('list-promo')}>
       <div className={cx()}>

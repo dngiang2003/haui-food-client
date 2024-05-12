@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import styles from './Forbidden.module.scss';
+
 import routes from '~/config/routes';
 import images from '~/assets/images';
 import { statistical } from '~/apiService/statisticalService';

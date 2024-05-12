@@ -2,14 +2,14 @@ import { createRef, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import styles from './LoginWith2FA.module.scss';
+
 import Button from '~/components/Button';
 import routes from '~/config/routes';
-import { useDispatch } from 'react-redux';
 import { LoginWith2FA as login2FA } from '~/apiService/authService';
-import { toast } from 'react-toastify';
 import { statistical } from '~/apiService/statisticalService';
 
 const cx = classNames.bind(styles);
@@ -59,7 +59,6 @@ function LoginWith2FA() {
     const newInputs = [...inputs];
     newInputs[index] = numericValue.slice(0, 1); // Giới hạn giá trị nhập vào
     setInputs(newInputs);
-    console.log(newInputs);
     // Không chuyển sang ô nhập khác nếu giá trị không phải số
     if (numericValue && index < 5) {
       inputRefs.current[index + 1].current.focus();
@@ -73,9 +72,7 @@ function LoginWith2FA() {
   };
 
   const handleLoginWith2Fa = () => {
-    console.log(inputs.join(''));
     const token2FA = JSON.parse(sessionStorage.getItem('token2FA'));
-    console.log(token2FA);
     const code = inputs.join('');
     dispatch(login2FA({ token2FA: token2FA, code: code })).then((result) => {
       if (result.payload.code === 200) {

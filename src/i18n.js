@@ -10,7 +10,6 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: languageDefault,
-    debug: true,
     interpolation: {
       escapeValue: false,
     },

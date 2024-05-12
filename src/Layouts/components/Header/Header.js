@@ -2,20 +2,20 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import { Link, useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import { Oval } from '@agney/react-loading';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Header.module.scss';
 
 import routes from '~/config/routes';
 import images from '~/assets/images';
+import Cart from '~/components/Cart';
 import Button from '~/components/Button';
-import { ArrowDownIcon, CartIcon, HomeIcon, LogOutIcon, MenuIcon, UserIcon } from '~/components/Icons';
-import { useDispatch, useSelector } from 'react-redux';
 import { getLocalStorageItem } from '~/utils/localStorage';
 import { displayProductInCart } from '~/apiService/cartService';
-import Cart from '~/components/Cart';
-import { Oval } from '@agney/react-loading';
+import { ArrowDownIcon, CartIcon, HomeIcon, LogOutIcon, MenuIcon, UserIcon } from '~/components/Icons';
 
 const cx = classNames.bind(styles);
 
@@ -49,26 +49,6 @@ function Header() {
   const isLoadingCart = useSelector((state) => state.cart.loading);
   const isAddProduct = useSelector((state) => state.cart.isAddProduct);
   const isDeleteProduct = useSelector((state) => state.cart.isDeleteProduct);
-
-  useEffect(() => {
-    if (userData.isUpdate) {
-      // console.log(userData.user);
-      setAvatar(userData.user?.avatar ? userData.user.avatar : images.avatarDefault);
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData.user]);
-
-  useEffect(() => {
-    if (auth || token) {
-      setIsLogin(true);
-      setAvatar(userInfo?.avatar ? userInfo.avatar : images.avatarDefault);
-    } else {
-      setIsLogin(false);
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auth, token]);
 
   const handleClickOutsideLanguages = useCallback((event) => {
     if (
@@ -207,6 +187,26 @@ function Header() {
   }, [showCart, isLoadingCart]);
 
   useEffect(() => {
+    if (userData.isUpdate) {
+      // console.log(userData.user);
+      setAvatar(userData.user?.avatar ? userData.user.avatar : images.avatarDefault);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userData.user]);
+
+  useEffect(() => {
+    if (auth || token) {
+      setIsLogin(true);
+      setAvatar(userInfo?.avatar ? userInfo.avatar : images.avatarDefault);
+    } else {
+      setIsLogin(false);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auth, token]);
+
+  useEffect(() => {
     if (auth || token) {
       displayCart();
     }
@@ -222,7 +222,7 @@ function Header() {
           <button onClick={() => setShowMenu(!showMenu)} className={cx('header__menu')}>
             <MenuIcon />
           </button>
-          <ul className={cx('header__menu-options', showMenu ? 'header__menu-options--show' : '')}>
+          <ul className={cx('header__menu-options', showMenu && 'header__menu-options--show')}>
             <Link
               to={routes.home}
               onClick={() => {
@@ -263,9 +263,7 @@ function Header() {
             <div onClick={() => setShowCart(!showCart)} className={cx('header__actions-group', 'header__actions-cart')}>
               <Button haveProducts={isCarts && isLogin} action outline leftIcon={<CartIcon className={cx('icon')} />}>
                 {cartsData.totalMoneyAllCarts !== 0 && isLogin
-                  ? cartsData.totalMoneyAllCarts
-                    ? `${cartsData.totalMoneyAllCarts.toLocaleString('vi-VN')} ₫`
-                    : ''
+                  ? cartsData.totalMoneyAllCarts && `${cartsData.totalMoneyAllCarts.toLocaleString('vi-VN')} ₫`
                   : ''}
               </Button>
               {isCarts && isLogin && <span className={cx('header__actions-quantity')}>{cartsData.totalProducts}</span>}
@@ -290,7 +288,7 @@ function Header() {
                 />
                 <ul
                   ref={userOptionsRef}
-                  className={cx('header__user-options', showUserOptions ? 'header__user-options--show' : '')}
+                  className={cx('header__user-options', showUserOptions && 'header__user-options--show')}
                 >
                   <Link to={'/auth/profile'} onClick={() => setShowUserOptions(false)}>
                     <li className={cx('header__user-option')}>
@@ -324,7 +322,7 @@ function Header() {
             </div>
 
             {/* Language options */}
-            <ul ref={languagesRef} className={cx('header__languages', showLanguages ? 'header__languages--show' : '')}>
+            <ul ref={languagesRef} className={cx('header__languages', showLanguages && 'header__languages--show')}>
               <li
                 onClick={() => {
                   Cookies.set('lang', 'vi');
@@ -370,7 +368,7 @@ function Header() {
       </div>
       {/* Overlay */}
       {(showCart || showMenu) && (
-        <div onClick={handleCloseCart} className={cx('overlay', showMenu || showCart ? 'overlay--show' : '')}></div>
+        <div onClick={handleCloseCart} className={cx('overlay', (showMenu || showCart) && 'overlay--show')}></div>
       )}
       {isLoadingCart && !showCart && (
         <div className={cx('modal-loading')}>

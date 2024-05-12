@@ -1,7 +1,9 @@
 import classNames from 'classnames/bind';
-import style from './Help.module.scss';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+
+import style from './Help.module.scss';
+
 const cx = classNames.bind(style);
 
 function Help() {

@@ -1,13 +1,16 @@
-import classNames from 'classnames/bind';
-import styles from './ListCategorise.module.scss';
-import { Link } from 'react-router-dom';
-import routes from '~/config/routes';
-import { getCategories } from '~/apiService/categoryService';
-import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import classNames from 'classnames/bind';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import InfiniteScroll from 'react-infinite-scroll-component';
+
+import styles from './ListCategorise.module.scss';
+
+import routes from '~/config/routes';
 import Loader from '../Loader';
 import NoResult from '../NoResult';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { getCategories } from '~/apiService/categoryService';
+
 const cx = classNames.bind(styles);
 
 function nomalizeString(str) {
@@ -24,7 +27,7 @@ function ListCategorise() {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const { loading, listCategories, data } = useSelector((state) => state.category);
-  // console.log(data);
+  
   return (
     <div className={cx('list-categorise', 'row', 'gx-xl-2', 'g-0')}>
       <InfiniteScroll

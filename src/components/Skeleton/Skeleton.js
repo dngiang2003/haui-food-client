@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+
 import style from './Skeleton.module.scss';
 
 const cx = classNames.bind(style);

@@ -1,15 +1,16 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames/bind';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
 import { Oval } from '@agney/react-loading';
 
 import styles from './SignUp.module.scss';
-import { EmailIcon, PasswordIcon, UserIcon } from '~/components/Icons';
-import { Link, useNavigate } from 'react-router-dom';
-import Button from '~/components/Button';
+
 import routes from '~/config/routes';
-import { useDispatch, useSelector } from 'react-redux';
+import Button from '~/components/Button';
+import { EmailIcon, PasswordIcon, UserIcon } from '~/components/Icons';
 import { clearError, registerUser } from '~/apiService/authService';
 import { statistical } from '~/apiService/statisticalService';
 
@@ -23,25 +24,14 @@ function SignUp() {
   const loading = useSelector((state) => state.auth.loading);
   const error = useSelector((state) => state.auth.error);
 
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-    }
-
-    return () => {
-      dispatch(clearError());
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [error]);
+  const emailRegex = useMemo(() => /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/, []);
+  const passwordRegex = useMemo(() => /^(?=.*[@-_]).{8,}$/, []);
 
   const [fullname, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [submit, setSubmit] = useState(true);
   const [showPassword, setShowPassword] = useState('password');
-
-  const emailRegex = useMemo(() => /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/, []);
-  const passwordRegex = useMemo(() => /^(?=.*[@-_]).{8,}$/, []);
   const [errors, setErrors] = useState({ fullname: '', email: '', password: '' });
 
   const checkSubmit = useCallback(() => {
@@ -129,6 +119,17 @@ function SignUp() {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+
+    return () => {
+      dispatch(clearError());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error]);
 
   return (
     <div className={cx('signup')}>

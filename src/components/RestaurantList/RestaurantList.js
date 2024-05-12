@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
 import style from './RestaurantList.module.scss';
+
 import RestaurantCard from '../RestaurantCard/RestaurantCard';
 import Loader from '../Loader';
 import NoResult from '../NoResult';
@@ -38,7 +39,6 @@ function RestaurantList({ category, type }) {
   const fetchRestaurants = async () => {
     if (!query && !category) {
       await dispatch(getRestaurants({ limit: limit, page: currentPageTest.current })).then((result) => {
-        // console.log(result);
         if (result.payload.code === 200) {
           setTotalPages(result.payload.data.totalPage);
           setTotalDocuments(result.payload.data.totalResult);
@@ -66,7 +66,6 @@ function RestaurantList({ category, type }) {
     } else if (query) {
       await dispatch(getRestaurants({ limit: limit, page: currentPageTest.current, keyword: query })).then((result) => {
         if (result.payload.code === 200) {
-          // console.log(result);
           if (result.payload.data.totalResult > 0) {
             setTotalPages(result.payload.data.totalPage);
             setTotalDocuments(result.payload.data.totalResult);
@@ -95,8 +94,6 @@ function RestaurantList({ category, type }) {
       await dispatch(
         getRestaurantsByCategory({ categoryId: categoryId, params: { page: currentPageTest.current, limit: limit } }),
       ).then((result) => {
-        // console.log(result);
-
         if (result?.payload?.code === 200) {
           setTotalPages(result.payload.data.totalPage);
           setTotalDocuments(result.payload.data.totalResult);
@@ -116,7 +113,9 @@ function RestaurantList({ category, type }) {
       });
     }
   };
+
   // window.scrollTo(0, 2);
+
   useEffect(() => {
     console.log('query change');
     setCurrentPage(1);
@@ -130,13 +129,6 @@ function RestaurantList({ category, type }) {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, type, category]);
-
-  // console.log(query);
-  console.log('currentPage', currentPageTest.current);
-  console.log(isHasMore.current);
-  // console.log('test.current', test.current);
-  // console.log('totalDocuments', totalDocuments);
-  // console.log('restaurantList', restaurantList);
 
   return (
     <div className={cx('restaurant-list')}>

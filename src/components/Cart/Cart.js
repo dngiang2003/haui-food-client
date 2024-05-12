@@ -3,15 +3,16 @@ import classNames from 'classnames/bind';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { Oval } from '@agney/react-loading';
+import { toast } from 'react-toastify';
 
 import styles from './Cart.module.scss';
+
 import { ClockIcon, CloseIcon } from '~/components/Icons';
 import images from '~/assets/images';
 import routes from '~/config/routes';
 import CartItem from '~/components/CartItem';
 import Button from '~/components/Button';
-import { Oval } from '@agney/react-loading';
-import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -33,7 +34,7 @@ function Cart({ showCart, handleCloseCart, data }) {
   };
 
   return (
-    <div className={cx('cart', showCart ? 'cart--show' : '')}>
+    <div className={cx('cart', showCart && 'cart--show')}>
       <div className={cx('cart__top')}>
         <button onClick={handleCloseCart} className={cx('cart__close')}>
           <CloseIcon />
@@ -50,7 +51,7 @@ function Cart({ showCart, handleCloseCart, data }) {
           </div>
         )}
       </div>
-      <div className={cx('cart__container', !isProduct || !auth || !token ? 'cart__container--center' : '')}>
+      <div className={cx('cart__container', (!isProduct || !auth || !token) && 'cart__container--center')}>
         {!auth && !token && (
           <div className={cx('cart__empty')}>
             <img className={cx('cart__empty-img')} src={images.cart} alt="cart" />

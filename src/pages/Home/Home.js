@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -10,43 +11,14 @@ import Button from '~/components/Button/Button';
 import ListCategorise from '~/components/ListCategorise/ListCategorise';
 import { CheckIcon, CircleCloseIcon } from '~/components/Icons';
 import images from '~/assets/images';
-import { useState, useRef, useEffect } from 'react';
 import ListResult from '~/components/ListResult/ListResult';
 import Loader from '~/components/Loader';
 
 const cx = classNames.bind(styles);
 
 function Home() {
-  const [isSearch, setIsSearch] = useState('false');
-  const [searchResult, setSearchResult] = useState([]);
-  const [page, setPage] = useState(1);
-  const [isRemove, setIsRemove] = useState(false);
-  const [isFirstMount, setFirstMount] = useState(true);
-  const loadingRef = useRef();
-
-  const reduxData = useSelector((prop) => prop.product);
-
-  useEffect(() => {
-    setFirstMount(false);
-  }, []);
-
-  const handleRemove = () => {
-    setIsRemove(false);
-  };
-
-  const handleToggleSearch = (type) => {
-    setIsSearch(type);
-  };
-
-  const hanldeSearchResult = (searchResult) => {
-    setSearchResult(searchResult);
-  };
-
-  const handleChangePage = (value) => {
-    setPage(value);
-  };
-  // console.log(page);
   const { t } = useTranslation();
+
   const listReasons = [
     {
       icon: CheckIcon,
@@ -75,13 +47,43 @@ function Home() {
     },
   ];
 
+  const [isSearch, setIsSearch] = useState('false');
+  const [searchResult, setSearchResult] = useState([]);
+  const [page, setPage] = useState(1);
+  const [isRemove, setIsRemove] = useState(false);
+  const [isFirstMount, setFirstMount] = useState(true);
+  const loadingRef = useRef();
+
+  const reduxData = useSelector((prop) => prop.product);
+
+  const handleRemove = () => {
+    setIsRemove(false);
+  };
+
+  const handleToggleSearch = (type) => {
+    setIsSearch(type);
+  };
+
+  const hanldeSearchResult = (searchResult) => {
+    setSearchResult(searchResult);
+  };
+
+  const handleChangePage = (value) => {
+    setPage(value);
+  };
+
+  useEffect(() => {
+    setFirstMount(false);
+  }, []);
+
   // scroll lên đầu trang khi chọn trang khác
   useEffect(() => {
-    // console.log('loading ref', loadingRef);
     if (isFirstMount) {
       return;
     }
+
     const isMoblie = window.matchMedia('(max-width: 960px)');
+
     if (loadingRef.current) {
       loadingRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
       if (isMoblie.matches) {
@@ -94,7 +96,6 @@ function Home() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
-  // console.log(searchResult);
 
   return (
     <div className={cx('home')}>
@@ -114,7 +115,6 @@ function Home() {
             <Loader className={cx('home__loading-icon')} />
           </div>
         )}
-        {/* {isSearch === 'loading' && ( */}
         <div
           ref={loadingRef}
           className={cx(
@@ -127,7 +127,6 @@ function Home() {
           <div className={cx('home__search-title-container')}>
             <div className={cx('home__search-title')}>Search Result</div>
             <div
-              // className={cx('home__title-1')}
               onClick={() => {
                 setIsRemove(true);
                 handleToggleSearch('false');
@@ -137,12 +136,10 @@ function Home() {
                 <div className={cx('home__remove-tilte')}>Remove</div>
                 <CircleCloseIcon className={cx('home__close-icon')} />
               </div>
-              {/* <TrashIcon className={cx('home__trash-icon')} /> */}
             </div>
           </div>
           <ListResult data={searchResult} onChangePage={handleChangePage} />
         </div>
-        {/* )} */}
 
         <h1 className={cx('home__title-1')}>
           {t('home.title01')} <span className={cx('home__title-1--highlight')}>Haui</span>

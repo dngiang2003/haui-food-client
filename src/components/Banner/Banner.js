@@ -1,23 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
-import styles from './Banner.module.scss';
-// import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
-import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LoadingIcon, SearchIcon, CircleCloseIcon } from '../Icons';
 import { useDispatch, useSelector } from 'react-redux';
+
+import styles from './Banner.module.scss';
+
+import { LoadingIcon, SearchIcon, CircleCloseIcon } from '../Icons';
 import { searchProduct } from '~/apiService/productService';
 
 const cx = classNames.bind(styles);
 
-const listBanner = [
-  'https://food.grab.com/static/page-home/VN-new-1.jpg',
-  'https://food.grab.com/static/page-home/VN-new-2.jpg',
-  'https://food.grab.com/static/page-home/VN-new-3.jpg',
-];
 function Banner({ className, onSearch, onSearchResult, onPage, onRemove, onHandleRemove }) {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
+  const reduxData = useSelector((state) => state.product);
+
+  const listBanner = [
+    'https://food.grab.com/static/page-home/VN-new-1.jpg',
+    'https://food.grab.com/static/page-home/VN-new-2.jpg',
+    'https://food.grab.com/static/page-home/VN-new-3.jpg',
+  ];
+
   const [bannerPath, setBannerPath] = useState(1);
   const [greeting, setGreeting] = useState('');
   const [searchValue, setSearchValue] = useState('');
@@ -26,9 +30,6 @@ function Banner({ className, onSearch, onSearchResult, onPage, onRemove, onHandl
   const [isMounted, setIsMounted] = useState(false);
   const inputRef = useRef();
 
-  const dispatch = useDispatch();
-  const reduxData = useSelector((state) => state.product);
-
   // hàm call api
   const fetchApi = async () => {
     setIsLoading(true);
@@ -36,8 +37,6 @@ function Banner({ className, onSearch, onSearchResult, onPage, onRemove, onHandl
     onSearchResult(searchResult);
 
     dispatch(searchProduct({ limit: 9, keyword: searchValue, page: 1 })).then((result) => {
-      console.log(result.payload.data.product);
-
       if (result.payload.code === 200) {
         onSearchResult(result.payload.data.products);
       }
@@ -45,14 +44,6 @@ function Banner({ className, onSearch, onSearchResult, onPage, onRemove, onHandl
     onSearch('true');
     setIsLoading(false);
   };
-
-  useEffect(() => {
-    // console.log(isMounted);
-    if (isMounted) {
-      fetchApi();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [onPage]);
 
   // call api khi nhấn tìm kiếm
   const handleClick = () => {
@@ -63,26 +54,6 @@ function Banner({ className, onSearch, onSearchResult, onPage, onRemove, onHandl
 
     fetchApi();
   };
-
-  // thiết lập câu chào của banner theo thời gian thực
-  useEffect(() => {
-    const date = new Date();
-    const hours = date.getHours();
-
-    if (hours >= 0 && hours <= 12) {
-      setGreeting('Good Morning');
-    } else if (hours > 12 && hours <= 18) {
-      setGreeting('Good Afternoon');
-    } else {
-      setGreeting('Good Evening');
-    }
-  }, []);
-
-  // random ảnh của banner khi tải lại trang
-  useEffect(() => {
-    const randomPath = Math.floor(Math.random() * 3);
-    setBannerPath(randomPath);
-  }, []);
 
   // two way bindding
   const handleChange = (e) => {
@@ -109,16 +80,43 @@ function Banner({ className, onSearch, onSearchResult, onPage, onRemove, onHandl
   };
 
   useEffect(() => {
-    handleClear();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [onRemove]);
-
-  useEffect(() => {
     setIsMounted(true); // Thiết lập mounted là true khi component mount
     return () => {
       setIsMounted(false); // Reset mounted là false khi component unmount
     };
   }, []);
+
+  useEffect(() => {
+    if (isMounted) {
+      fetchApi();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onPage]);
+
+  // thiết lập câu chào của banner theo thời gian thực
+  useEffect(() => {
+    const date = new Date();
+    const hours = date.getHours();
+
+    if (hours >= 0 && hours <= 12) {
+      setGreeting('Good Morning');
+    } else if (hours > 12 && hours <= 18) {
+      setGreeting('Good Afternoon');
+    } else {
+      setGreeting('Good Evening');
+    }
+  }, []);
+
+  // random ảnh của banner khi tải lại trang
+  useEffect(() => {
+    const randomPath = Math.floor(Math.random() * 3);
+    setBannerPath(randomPath);
+  }, []);
+
+  useEffect(() => {
+    handleClear();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onRemove]);
 
   return (
     <div className={cx('banner')} style={{ backgroundImage: `url(${listBanner[bannerPath]})` }}>

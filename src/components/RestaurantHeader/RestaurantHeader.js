@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowRightIcon, ArrowLeftIcon, ArrowDownIcon, StarIcon, ClockIcon, CalendarIcon } from '../Icons';
 import classnames from 'classnames/bind';
-import styles from './RestaurantHeader.module.scss';
+
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import styles from './RestaurantHeader.module.scss';
+
 import Slider from 'react-slick';
+import { ArrowRightIcon, ArrowLeftIcon, ArrowDownIcon, StarIcon, ClockIcon, CalendarIcon } from '../Icons';
 
 const cx = classnames.bind(styles);
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
+
   return <div className={className} style={{ ...style, display: 'block', background: 'white' }} onClick={onClick} />;
 }
 
 function SamplePrevArrow(props) {
   const { className, style, onClick } = props;
+
   return <div className={className} style={{ ...style, display: 'block', background: 'black' }} onClick={onClick} />;
 }
 
@@ -54,6 +58,7 @@ const settings = {
     },
   ],
 };
+
 const RestaurantHeader = ({ restaurant }) => {
   const [deliveryAddress, setDeliveryAddress] = useState(null);
   const [deliveryTime, setDeliveryTime] = useState(null);

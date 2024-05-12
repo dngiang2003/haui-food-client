@@ -1,8 +1,8 @@
 import classNames from 'classnames/bind';
+import { Link } from 'react-router-dom';
 
 import styles from './AuthLayout.module.scss';
 import images from '~/assets/images';
-import { Link } from 'react-router-dom';
 import routes from '~/config/routes';
 
 const cx = classNames.bind(styles);

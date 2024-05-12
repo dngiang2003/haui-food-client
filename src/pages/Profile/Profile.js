@@ -22,7 +22,6 @@ import {
   HistoryOderIcon,
 } from '~/components/Icons';
 import Button from '~/components/Button';
-// import { updateUserById, getUser } from '~/apiService/userService';
 import Loader from '~/components/Loader';
 import { changePassword, getMe, updateMe } from '~/apiService/authService';
 import TermsOfUse from '~/components/TermsOfUse';
@@ -33,63 +32,9 @@ import HistoryOder from '~/components/HistoryOrder/HistoryOrder';
 const cx = classNames.bind(style);
 
 function Profile() {
-  const [userInfo, setUserInfo] = useState();
-  const [isChange, setIsChange] = useState(false);
-  const [gender, setGender] = useState(userInfo?.gender);
-  const [isShowGender, setIsShowGender] = useState(false);
-  const [fullName, setFullName] = useState(userInfo?.fullname);
-  const [phoneNumber, setPhoneNumber] = useState(userInfo?.phone);
-  const [msv, setMsv] = useState(userInfo?.msv);
-  const [errors, setErrors] = useState({});
-  const [email, setEmail] = useState(userInfo?.email);
-  const [imageSelected, setImageSelected] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);
-  const [date, setDate] = useState([userInfo?.dateOfBirth ? new Date(userInfo?.dateOfBirth) : null]);
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [showPassword, setShowPassword] = useState({
-    newPassword: false,
-    confirmPassword: false,
-    oldPassword: false,
-  });
-  const reduxData = useSelector((prop) => prop.auth);
-  // const reduxChangePassword = useSelector((prop) => prop.auth);
   const { t } = useTranslation();
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
-
-  useEffect(() => {
-    if (selectedOption === listOptions[1].title) {
-      setIsLoading(reduxData.loading);
-    } else if (selectedOption === listOptions[2].title) {
-      setIsLoading(reduxData.loading);
-    }
-    //eslint-disable-next-line
-  }, [reduxData.loading]);
-
-  const handleEyeIconClick = (field) => {
-    setShowPassword({
-      ...showPassword,
-      [field]: !showPassword[field],
-    });
-  };
-
   const dispatch = useDispatch();
-
-  const inputRefs = {
-    fullName: useRef(null),
-    email: useRef(null),
-    phoneNumber: useRef(null),
-    msv: useRef(null),
-    avatar: useRef(null),
-    oldPassword: useRef(null),
-    newPassword: useRef(null),
-    confirmPassword: useRef(null),
-  };
+  const reduxData = useSelector((prop) => prop.auth);
 
   const listOptions = [
     {
@@ -133,11 +78,56 @@ function Profile() {
     },
   ];
 
+  const genderMapping = {
+    male: t('profile.gender.male'),
+    female: t('profile.gender.female'),
+    default: t('profile.gender.title'),
+  };
+
+  const [userInfo, setUserInfo] = useState();
+  const [isChange, setIsChange] = useState(false);
+  const [gender, setGender] = useState(userInfo?.gender);
+  const [isShowGender, setIsShowGender] = useState(false);
+  const [fullName, setFullName] = useState(userInfo?.fullname);
+  const [phoneNumber, setPhoneNumber] = useState(userInfo?.phone);
+  const [msv, setMsv] = useState(userInfo?.msv);
+  const [errors, setErrors] = useState({});
+  const [email, setEmail] = useState(userInfo?.email);
+  const [imageSelected, setImageSelected] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [date, setDate] = useState([userInfo?.dateOfBirth ? new Date(userInfo?.dateOfBirth) : null]);
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState({
+    newPassword: false,
+    confirmPassword: false,
+    oldPassword: false,
+  });
+
   const [selectedOption, setSelectedOption] = useState(listOptions[1].title);
+
+  const inputRefs = {
+    fullName: useRef(null),
+    email: useRef(null),
+    phoneNumber: useRef(null),
+    msv: useRef(null),
+    avatar: useRef(null),
+    oldPassword: useRef(null),
+    newPassword: useRef(null),
+    confirmPassword: useRef(null),
+  };
+
+  const handleEyeIconClick = (field) => {
+    setShowPassword({
+      ...showPassword,
+      [field]: !showPassword[field],
+    });
+  };
 
   const upDateUserInfo = (userInfo) => {
     if (userInfo) {
-      console.log(userInfo);
       setUserInfo(userInfo);
       setEmail(userInfo?.email ?? '');
       setFullName(userInfo?.fullname ?? '');
@@ -157,22 +147,6 @@ function Profile() {
     setErrors({});
   };
 
-  //call api to get user info in first mounted
-  useEffect(() => {
-    console.log('get me');
-    if (listOptions[1].title === selectedOption) {
-      dispatch(getMe()).then((result) => {
-        console.log(result);
-        if (result.payload.code === 200) {
-          upDateUserInfo(result.payload.data);
-        } else {
-          toast.error(result.payload.message);
-        }
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   // handle when update
   const handleUpdate = async () => {
     const isPersonalInfo = selectedOption === listOptions[1].title;
@@ -183,7 +157,6 @@ function Profile() {
     let isChange = true;
     let hasChanged = true;
     Object.values(errors).forEach((error) => {
-      console.log(error);
       if (error !== '') {
         isChange = false;
         return;
@@ -219,7 +192,7 @@ function Profile() {
       }
     }
 
-    // ìf change personal info
+    // if change personal info
     if (isPersonalInfo) {
       if (
         fullName === userInfo?.fullname &&
@@ -260,7 +233,6 @@ function Profile() {
     let newDate = new Date(date);
 
     if (!(newDate instanceof Date) || isNaN(newDate.getTime())) {
-      console.warn("Invalid date. Using today's date instead.");
       newDate = new Date(); // Sử dụng ngày hôm nay
     }
 
@@ -276,7 +248,6 @@ function Profile() {
   //handle when selected image
   const handleSelectImage = (e) => {
     const file = e.target.files[0];
-    // console.log('selected image');
     setImageSelected(file);
     if (file) {
       const reader = new FileReader();
@@ -291,24 +262,6 @@ function Profile() {
       }
     }
   };
-
-  useEffect(() => {
-    handleCancel();
-    if (!(selectedOption === listOptions[1].title)) {
-      setIsChange(true);
-    } else {
-      setIsChange(false);
-    }
-    setShowPassword({
-      newPassword: false,
-      confirmPassword: false,
-      oldPassword: false,
-    });
-
-    upDateUserInfo();
-
-    //eslint-disable-next-line
-  }, [selectedOption]);
 
   const handleCancel = () => {
     upDateUserInfo();
@@ -327,8 +280,6 @@ function Profile() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(value);
-    console.log(name);
     switch (name) {
       case 'fullName':
         setFullName(value);
@@ -342,12 +293,10 @@ function Profile() {
         break;
       case 'msv':
         if (/^\d*$/.test(value)) {
-          // console.log(value.length);
           if (value.length > 10) {
             setErrors((preErr) => ({ ...preErr, msv: 'Mã sinh viên tối đa 10 ký tự' }));
             break;
           }
-          // console.log('msv', value);
           setMsv(value);
           setErrors((preErr) => ({ ...preErr, msv: '' }));
         }
@@ -381,8 +330,6 @@ function Profile() {
     const oldPassword = inputRefs.oldPassword.current?.value ?? '';
     const newPassword = inputRefs.newPassword.current?.value ?? '';
     const confirmPassword = inputRefs.confirmPassword.current?.value ?? '';
-    // console.log(oldPassword);
-    // console.log(fullName, phoneNumber, msv);
 
     if (selectedOption === listOptions[1].title) {
       if (fullName.trim() === '') {
@@ -433,17 +380,13 @@ function Profile() {
 
   const validateDate = (date) => {
     let newErrors = { ...errors };
-    console.log('on change', date);
 
     if (!moment(date[0], 'DD.MM.YYYY', true).isValid()) {
-      console.log('khong hop le');
       newErrors = { ...newErrors, birthDay: t('errors.birthDay.err05') };
     } else {
       const today = moment();
       const birthDay = moment(date[0], 'DD.MM.YYYY', true);
-      // console.log(moment(date, 'DD.MM.YYYY', true));
       const age = today.diff(birthDay, 'years');
-      // console.log('age', age);
 
       if (age < 0) {
         newErrors = { ...newErrors, birthDay: t('errors.birthDay.err02') };
@@ -460,10 +403,53 @@ function Profile() {
   };
 
   const handleDateChange = (date) => {
-    // console.log(date);
     validateDate(date);
   };
-  console.log(userInfo);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  useEffect(() => {
+    if (selectedOption === listOptions[1].title) {
+      setIsLoading(reduxData.loading);
+    } else if (selectedOption === listOptions[2].title) {
+      setIsLoading(reduxData.loading);
+    }
+    //eslint-disable-next-line
+  }, [reduxData.loading]);
+
+  //call api to get user info in first mounted
+  useEffect(() => {
+    if (listOptions[1].title === selectedOption) {
+      dispatch(getMe()).then((result) => {
+        if (result.payload.code === 200) {
+          upDateUserInfo(result.payload.data);
+        } else {
+          toast.error(result.payload.message);
+        }
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    handleCancel();
+    if (!(selectedOption === listOptions[1].title)) {
+      setIsChange(true);
+    } else {
+      setIsChange(false);
+    }
+    setShowPassword({
+      newPassword: false,
+      confirmPassword: false,
+      oldPassword: false,
+    });
+
+    upDateUserInfo();
+
+    //eslint-disable-next-line
+  }, [selectedOption]);
 
   return (
     <div className={cx('wrapper')}>
@@ -488,7 +474,7 @@ function Profile() {
                 >
                   <img
                     className={cx('profile__img')}
-                    src={imagePreview ? imagePreview : userInfo?.avatar ? userInfo.avatar : images.avatarDefault}
+                    src={imagePreview || userInfo?.avatar || images.avatarDefault}
                     alt="hauifood"
                   />
                   <div
@@ -694,11 +680,7 @@ function Profile() {
                             }}
                           >
                             <div className={cx('gender__selected-value')}>
-                              {gender
-                                ? gender === 'male'
-                                  ? t('profile.gender.male')
-                                  : t('profile.gender.female')
-                                : t('profile.gender.title')}
+                              {genderMapping[gender] || genderMapping.default}
                             </div>
                             <ArrowDownIcon className={cx('gender__icon')} />
                             <ul

@@ -2,14 +2,14 @@ import { createRef, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import styles from './ForgotPasswordOTP.module.scss';
+
 import Button from '~/components/Button';
 import routes from '~/config/routes';
-import { useDispatch } from 'react-redux';
 import { verifyOtpForgotPassword } from '~/apiService/authService';
-import { toast } from 'react-toastify';
 import config from '~/config';
 import { statistical } from '~/apiService/statisticalService';
 
@@ -58,10 +58,8 @@ function ForgotPasswordOTP() {
   const handleChange = (e, index) => {
     const numericValue = e.target.value.replace(/[^0-9]/g, ''); // Chỉ cho phép nhập số
     const newInputs = [...inputs];
-    console.log('input', newInputs);
     newInputs[index] = numericValue.slice(0, 1); // Giới hạn giá trị nhập vào
     setInputs(newInputs);
-    console.log('new input', newInputs);
 
     // Không chuyển sang ô nhập khác nếu giá trị không phải số
     if (numericValue && index < 5) {
@@ -76,13 +74,10 @@ function ForgotPasswordOTP() {
   };
 
   const handleForgotPasswordOTP = () => {
-    console.log(inputs.join(''));
     const tokenForgot = JSON.parse(sessionStorage.getItem('tokenForgot'));
-    console.log(tokenForgot);
     const code = inputs.join('');
     dispatch(verifyOtpForgotPassword({ tokenForgot: tokenForgot, otp: code })).then((result) => {
       if (result.payload.code === 200) {
-        console.log(result.payload);
         sessionStorage.setItem('tokenVerifyOTP', JSON.stringify(result.payload.data.tokenVerifyOTP));
         navigate(config.routes.resetPassword, { replace: true });
       } else if (result.payload.code === 400) {

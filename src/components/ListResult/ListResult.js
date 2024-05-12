@@ -1,21 +1,18 @@
 import classNames from 'classnames/bind';
+import { useDispatch, useSelector } from 'react-redux';
+// import ReactPaginate from 'react-paginate';
+
 import style from './ListResult.module.scss';
 
-// import ReactPaginate from 'react-paginate';
 // import { ChevronRight } from '../Icons';
 import NoResult from '../NoResult';
-
-import { useDispatch, useSelector } from 'react-redux';
 import ProductCard from '../ProductCard';
+
 const cx = classNames.bind(style);
 
 function ListResult({ data, className, onChangePage }) {
-  // console.log('data list', data);
-
-  // console.log(data);
   // const dispatch = useDispatch();
   const reduxData = useSelector((prop) => prop.product);
-  // console.log(reduxData);
 
   if (data.length === 0 && !reduxData.loading) {
     return <NoResult />;

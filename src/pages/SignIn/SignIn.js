@@ -1,24 +1,34 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames/bind';
-import { useTranslation } from 'react-i18next';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Oval } from '@agney/react-loading';
+import { useTranslation } from 'react-i18next';
 import { useGoogleLogin } from '@react-oauth/google';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './SignIn.module.scss';
+
 import { EmailIcon, GoogleIcon, PasswordIcon } from '~/components/Icons';
-import { Link, useNavigate } from 'react-router-dom';
 import Button from '~/components/Button';
 import routes from '~/config/routes';
 import { loginUser } from '~/apiService/authService';
 
-import { useDispatch, useSelector } from 'react-redux';
 import { loginWithGoogle } from '~/apiService/loginWithGoogleService';
 import { statistical } from '~/apiService/statisticalService';
+
 const cx = classNames.bind(styles);
 
 function SignIn() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const loading = useSelector((state) => state.auth.loading);
+  const isLogin = useSelector((state) => state.auth.isLogin);
+
+  const emailRegex = useMemo(() => /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/, []);
+  const passwordRegex = useMemo(() => /^(?=.*[@-_]).{8,}$/, []);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,43 +38,6 @@ function SignIn() {
     email: '',
     password: '',
   });
-
-  const loading = useSelector((state) => state.auth.loading);
-  const error = useSelector((state) => state.auth.error);
-  const isLogin = useSelector((state) => state.auth.isLogin);
-
-  // useEffect(() => {
-  //   if (error) {
-  //     toast.error(error);
-  //     setSubmit(false);
-  //   }
-
-  //   return () => {
-  //     dispatch(clearError());
-  //   };
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [error]);
-
-  const login = useGoogleLogin({
-    onSuccess: async (response) =>
-      dispatch(loginWithGoogle(response)).then((result) => {
-        console.log(result);
-
-        if (result.payload.status === 200) {
-          localStorage.setItem('accessToken', JSON.stringify(result.payload.access_token));
-          toast.success(t('login.notify01'));
-          navigate('/');
-        } else {
-          toast.error(result?.payload?.statusText || t('system.error'));
-        }
-      }),
-  });
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const emailRegex = useMemo(() => /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/, []);
-  const passwordRegex = useMemo(() => /^(?=.*[@-_]).{8,}$/, []);
   const [errors, setErrors] = useState({ email: '', password: '' });
 
   const checkSubmit = useCallback(() => {
@@ -136,6 +109,19 @@ function SignIn() {
       }
     });
   };
+
+  const login = useGoogleLogin({
+    onSuccess: async (response) =>
+      dispatch(loginWithGoogle(response)).then((result) => {
+        if (result.payload.status === 200) {
+          localStorage.setItem('accessToken', JSON.stringify(result.payload.access_token));
+          toast.success(t('login.notify01'));
+          navigate('/');
+        } else {
+          toast.error(result?.payload?.statusText || t('system.error'));
+        }
+      }),
+  });
 
   useEffect(() => {
     if (passwordRegex.test(password) && emailRegex.test(email)) {

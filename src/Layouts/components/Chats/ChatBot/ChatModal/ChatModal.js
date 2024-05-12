@@ -1,9 +1,9 @@
-import axios from 'axios';
 import React, { useState } from 'react';
+import classNames from 'classnames/bind';
+import axios from 'axios';
 import { Typography } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
-import classNames from 'classnames/bind';
 import styles from './ChatModal.module.scss';
 
 const cx = classNames.bind(styles);

@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 import styles from './CartItem.module.scss';
+
 import Button from '../Button';
 import { CloseIcon, MinusIcon, PlusIcon } from '../Icons';
 import { addProductToCart, removeProductToCart } from '~/apiService/cartService';
-import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -19,6 +20,8 @@ function CartItem({ data, isCheckout = false, showCart }) {
 
   const [openChange, setOpenChange] = useState(false);
   const [changeQuantity, setChangeQuantity] = useState(data.quantity);
+
+  const productName = data.product.name;
 
   const temporaryIncreasedQuantity = () => {
     setChangeQuantity((preQuantity) => preQuantity + 1);
@@ -96,7 +99,7 @@ function CartItem({ data, isCheckout = false, showCart }) {
       </div>
 
       <div className={cx('product__detail')}>
-        <p className={cx('product__detail-name')}>{data.product.name}</p>
+        <p className={cx('product__detail-name')}>{productName}</p>
 
         <div className={cx('product__detail-group')}>
           <span className={cx('product__detail-price')}>{data.totalPrice.toLocaleString('vi-VN')} ₫</span>
@@ -121,8 +124,8 @@ function CartItem({ data, isCheckout = false, showCart }) {
         </button>
         <img src={data.product.image} className={cx('change-quantity__img')} alt="" />
         <div className={cx('change-quantity__first')}>
-          <h1 className={cx('change-quantity__name')}>{data.name}</h1>
-          <p className={cx('change-quantity__desc')}>{data.name}</p>
+          <h1 className={cx('change-quantity__name')}>{productName}</h1>
+          <p className={cx('change-quantity__desc')}>{productName}</p>
         </div>
         <div className={cx('change-quantity__last')}>
           <h2 className={cx('change-quantity__title')}>{t('cart.title05')}</h2>

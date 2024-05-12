@@ -1,11 +1,15 @@
 import classNames from 'classnames/bind';
-import style from './NoResult.module.scss';
-import images from '~/assets/images';
 import { useTranslation } from 'react-i18next';
+
+import style from './NoResult.module.scss';
+
+import images from '~/assets/images';
+
 const cx = classNames.bind(style);
 
 function NoResult({ className }) {
   const { t } = useTranslation();
+
   return (
     <div className={cx('no-result', className)}>
       <div className={cx('no-result__container')}>

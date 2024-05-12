@@ -137,7 +137,6 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 16px;
 
       @include media-breakpoint-down(lg) {
         align-items: flex-start;
@@ -157,7 +156,16 @@
     }
 
     &-thumb {
-      width: 200px;
+      width: 90%;
+
+      @include media-breakpoint-down(lg) {
+        width: 40%;
+        margin: 0 auto;
+      }
+
+      @include media-breakpoint-down(md) {
+        width: 80%;
+      }
     }
   }
 

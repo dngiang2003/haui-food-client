@@ -35,7 +35,7 @@ const images = {
   cash: require('~/assets/images/checkout/cash.png'),
   defaultImg: require('~/assets/images/default-img.png'),
   emptyOrder: require('~/assets/images/empty-order.png'),
-  qrPay: require('~/assets/images/checkout/qr-payment.jpg'),
+  qrPay: require('~/assets/images/checkout/qr-payment.png'),
   banhtieusr: require('~/assets/images/products/bachtieusaurieng.jpg'),
   chickenBowl: require('~/assets/images/chicken-bowl.svg').default,
 };

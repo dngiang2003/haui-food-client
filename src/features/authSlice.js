@@ -153,7 +153,6 @@ const authSlice = createSlice({
         state.isUpdate = false;
       })
       .addCase(getMe.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.loading = false;
         state.user = action.payload.data;
       })
@@ -169,7 +168,6 @@ const authSlice = createSlice({
         state.isUpdate = false;
       })
       .addCase(updateMe.fulfilled, (state, action) => {
-        console.log(action.payload.data);
         state.loading = false;
         state.user = action.payload.data;
         addOrUpdateFieldInLocalStorage('user', null, action.payload.data);
@@ -198,23 +196,18 @@ const authSlice = createSlice({
 
       // login
       .addCase(loginUser.pending, (state) => {
-        console.log('Pending');
         state.loading = true;
         state.error = null;
         state.user = null;
         state.isLogin = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        console.log('Fulfilled');
-        console.log(action.payload);
         state.loading = false;
         state.user = action.payload.code === 200 ? action.payload.data.user : null;
         state.error = null;
         state.isLogin = action.payload.code === 200 ? true : false;
       })
       .addCase(loginUser.rejected, (state, action) => {
-        console.log('Rejected');
-        console.log(action.payload);
         state.loading = false;
         state.user = null;
         state.error = action.payload.message;
@@ -223,21 +216,18 @@ const authSlice = createSlice({
 
       // register
       .addCase(registerUser.pending, (state) => {
-        console.log('Registered');
         state.loading = true;
         state.user = null;
         state.error = null;
         state.isLogin = null;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
-        console.log('Registered');
         state.loading = false;
         state.user = action.payload;
         state.error = null;
         state.isLogin = null;
       })
       .addCase(registerUser.rejected, (state, action) => {
-        console.log('Registered');
         state.loading = false;
         state.user = null;
         state.error = action.error.message;

@@ -25,7 +25,6 @@ function Header() {
   const dispatch = useDispatch();
 
   let userInfo = getLocalStorageItem('user');
-  // console.log(userInfo);
 
   const [cartsData, setCartsData] = useState({});
   const [logo, setLogo] = useState(images.logoVip1);
@@ -188,7 +187,6 @@ function Header() {
 
   useEffect(() => {
     if (userData.isUpdate) {
-      // console.log(userData.user);
       setAvatar(userData.user?.avatar ? userData.user.avatar : images.avatarDefault);
     }
 

@@ -15,7 +15,6 @@ const productSlice = createSlice({
 
   reducers: {
     openQuantityDrawer: (state, action) => {
-      // console.log(action);
       state.isOpenQuantityDrawer = true;
       state.updatingQuantityProduct = action.payload;
     },

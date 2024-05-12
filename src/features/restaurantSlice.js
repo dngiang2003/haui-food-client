@@ -28,7 +28,6 @@ const restaurantSlice = createSlice({
         state.error = null;
       })
       .addCase(getRestaurantDetail.fulfilled, (state, action) => {
-        // console.log(action.payload);
         state.loading = false;
         state.error = null;
         state.restaurantDetail = action.payload.data.shop;
@@ -46,7 +45,6 @@ const restaurantSlice = createSlice({
         state.listSlider = null;
       })
       .addCase(getRestaurantsForListSlider.fulfilled, (state, action) => {
-        // console.log(action.payload);
         state.loadingSlider = false;
         state.listSlider = action.payload.data.shops;
         state.error = null;

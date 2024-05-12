@@ -117,7 +117,6 @@ function RestaurantList({ category, type }) {
   // window.scrollTo(0, 2);
 
   useEffect(() => {
-    console.log('query change');
     setCurrentPage(1);
     currentPageTest.current = 1;
     setRestaurantList([]);

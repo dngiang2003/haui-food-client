@@ -55,7 +55,6 @@ function CartItem({ data, isCheckout = false, showCart }) {
 
   const deleteProduct = (data) => {
     dispatch(removeProductToCart(data)).then((result) => {
-      console.log(result);
       if (result.payload.code === 200) {
         toast.success(result.payload.message);
       } else {

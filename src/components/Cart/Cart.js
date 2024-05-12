@@ -83,7 +83,6 @@ function Cart({ showCart, handleCloseCart, data }) {
           <div ref={cartRef} onWheel={handleWheel} className={cx('cart__scroll')}>
             <div className={cx('cart__content')}>
               {data.carts.map((cartItem, index) => {
-                console.log(data);
                 return (
                   <div key={index} className={cx('cart__products')}>
                     <div className={cx('cart__products-top')}>

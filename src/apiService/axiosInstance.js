@@ -22,15 +22,13 @@ axiosInstance.interceptors.request.use(async (config) => {
 
 axiosInstance.interceptors.response.use(
   function (response) {
-    // console.log(response);
     return { ...response.data, url: response.config.url };
   },
 
   async function (error) {
     const originalRequest = error.config;
+
     // Kiểm tra nếu mã trạng thái là 401 và không phải là lỗi từ phía request refresh token
-    // console.log(error);
-    console.log(error.config.url.includes('refresh-tokens'));
     if (
       error.response.data.code === 401 &&
       error.response.data.message === 'jwt expired' &&
@@ -42,7 +40,6 @@ axiosInstance.interceptors.response.use(
         // Gọi endpoint refresh token ở đây và nhận lại access token mới
         const refreshToken = getLocalStorageItem('refreshToken');
         const response1 = await axiosInstance.post('v1/auth/refresh-tokens', { refreshToken: refreshToken });
-        // console.log(response1);
 
         const newAccessToken = response1.data.accessToken;
         // Lưu trữ access token mới vào local storage hoặc nơi phù hợp khác
@@ -53,7 +50,6 @@ axiosInstance.interceptors.response.use(
         return axiosInstance(originalRequest);
       } catch (refreshError) {
         // Xử lý lỗi khi không thể refresh token (ví dụ: đăng xuất người dùng)
-        // console.log(refreshError);
         localStorage.removeItem('user');
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
@@ -64,7 +60,6 @@ axiosInstance.interceptors.response.use(
     }
 
     if (error.response) {
-      // console.log(error);
       const { code, message } = error.response.data;
       return Promise.reject({ success: false, message: message, code: code, url: error.config.url });
     } else {

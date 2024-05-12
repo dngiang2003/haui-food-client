@@ -180,13 +180,11 @@ const RestaurantHeader = ({ restaurant }) => {
   };
 
   const handleAddrItemClick = (value) => {
-    console.log('Selected value:', value);
     setDeliveryAddress(value);
     setIsOpenAddr(false);
   };
 
   const handleTimeItemClick = (value) => {
-    console.log('Selected value:', value);
     setDeliveryTime(value);
     setIsOpenShippingTime(false);
   };

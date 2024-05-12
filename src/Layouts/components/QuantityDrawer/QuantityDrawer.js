@@ -120,8 +120,6 @@ const QuantityDrawer = () => {
               } else {
                 if (getLocalStorageItem('user')) {
                   dispatch(addProductToCart({ product: data?._id, quantity: quantity })).then((result) => {
-                    console.log(result);
-
                     if (result.payload.code === 200) {
                       toast.success(result.payload.message);
                       handleCloseDrawer();

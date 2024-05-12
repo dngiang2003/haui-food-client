@@ -9,7 +9,6 @@ export const callApi = async (method, url, params = null, data = null, customHea
       data: data,
       headers: { ...axiosInstance.defaults.headers, ...customHeaders },
     });
-    // console.log(response);
     return response;
   } catch (error) {
     // Xử lý lỗi và tùy chỉnh phản hồi ở đây

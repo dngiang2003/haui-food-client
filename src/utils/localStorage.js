@@ -12,7 +12,6 @@ export const updateFieldInLocalStorage = (fieldName, fieldValueName, newValue) =
   try {
     // Lấy đối tượng từ localStorage
     const storedData = JSON.parse(localStorage.getItem(fieldName));
-    console.log(storedData);
     // Kiểm tra xem đối tượng có tồn tại và có chứa trường fieldValueName không
     if (!storedData || typeof storedData !== 'object' || !storedData.hasOwnProperty(fieldValueName)) {
       console.error(`Đối tượng ${fieldName} không hợp lệ hoặc thiếu trường "${fieldValueName}"`);

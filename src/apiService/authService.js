@@ -40,7 +40,6 @@ export const forgotPassword = createAsyncThunk('auth/forgot-password', async (da
 export const loginUser = createAsyncThunk('auth/login', async (userCredentials, { rejectWithValue }) => {
   try {
     const res = await callApi('POST', '/v1/auth/login', null, userCredentials);
-    // console.log(res);
     if (res.code === 200) {
       localStorage.setItem('accessToken', JSON.stringify(res.data.accessToken));
       localStorage.setItem('refreshToken', JSON.stringify(res.data.refreshToken));
@@ -56,7 +55,6 @@ export const LoginWith2FA = createAsyncThunk('auth/login-with-2FA', async (data,
   try {
     const response = await callApi('post', '/v1/auth/login-with-2fa', null, data);
     if (response.code === 200) {
-      console.log(response);
       localStorage.setItem('accessToken', JSON.stringify(response.data.accessToken));
       localStorage.setItem('refreshToken', JSON.stringify(response.data.refreshToken));
       localStorage.setItem('user', JSON.stringify(response.data.user));
@@ -108,7 +106,6 @@ export const updateMe = createAsyncThunk('auth/updateMe', async ({ userData, ava
 
     const response = await callApi('put', '/v1/auth/me', null, formData, customHeaders);
 
-    // console.log(response);
     if (response.code === 200) {
       localStorage.setItem('user', JSON.stringify(response.data));
     }
@@ -140,7 +137,6 @@ export const getSecretKey = createAsyncThunk('auth/getSecretKey', async (_, { re
 export const toggle2FA = createAsyncThunk('auth/toggle2FA', async (code, { rejectWithValue }) => {
   try {
     const response = await callApi('post', 'v1/auth/toggle-2fa', null, code);
-    console.log(response);
     return response;
   } catch (error) {
     return rejectWithValue({ ...error });
@@ -149,9 +145,7 @@ export const toggle2FA = createAsyncThunk('auth/toggle2FA', async (code, { rejec
 
 export const updateSecretKey = createAsyncThunk('auth/updateSecretKey', async (data, { rejectWithValue }) => {
   try {
-    console.log(data);
     const response = await callApi('post', 'v1/auth/change-2fa-secret', null, data);
-    console.log(response);
     return response;
   } catch (error) {
     return rejectWithValue({ ...error });

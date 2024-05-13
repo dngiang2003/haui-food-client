@@ -1,1 +1,1 @@
-export { default } from './ForgotPasswordOTP';
+export { default } from "./ForgotPasswordOTP";

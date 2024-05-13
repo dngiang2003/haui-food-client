@@ -6,17 +6,14 @@ import useConversation from '../zustand/useConversation';
 const useGetMessages = () => {
     const [loading, setLoading] = useState(false);
     const { messages, setMessages, selectedConversation } = useConversation();
-    const jwtString = localStorage.getItem('accessToken');
-    const regex = /'([^']+)'/;
-    const matches = jwtString.match(regex);
-    const token = matches && matches[1];
+    const token = JSON.parse(localStorage.getItem('accessToken'));
     const user = JSON.parse(localStorage.getItem('user'));
 
     useEffect(() => {
         const getMessages = async () => {
             setLoading(true);
             try {
-                const res = await axios.post('https://haui-food-api.onrender.com/api/v1/chats', {
+                const res = await axios.post('https://api.hauifood.com/api/v1/chats', {
                     senderId: user._id,
                     receiverId: selectedConversation._id
                 }, {

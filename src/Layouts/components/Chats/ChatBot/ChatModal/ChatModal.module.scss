@@ -1,6 +1,6 @@
-@import 'bootstrap/scss/functions';
-@import 'bootstrap/scss/variables';
-@import 'bootstrap/scss/mixins';
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
 
 .chat-modal {
   background-color: #f5f5f5;
@@ -40,7 +40,7 @@
   }
 
   // &::after {
-  //   content: '';
+  //   content: "";
   //   position: absolute;
   //   bottom: 120px;
   //   right: -12px;

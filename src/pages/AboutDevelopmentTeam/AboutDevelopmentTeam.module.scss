@@ -1,6 +1,6 @@
-@import 'bootstrap/scss/functions';
-@import 'bootstrap/scss/variables';
-@import 'bootstrap/scss/mixins';
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
 
 .development-team {
   &__top {
@@ -62,7 +62,7 @@
 
   &__main {
     padding-bottom: 100px;
-    background: url('../../assets/images/about/bg2.svg') no-repeat;
+    background: url("../../assets/images/about/bg2.svg") no-repeat;
   }
 
   &__heading {

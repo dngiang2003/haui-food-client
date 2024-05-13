@@ -1,1 +1,1 @@
-export { default } from './GoToTop';
+export { default } from "./GoToTop";

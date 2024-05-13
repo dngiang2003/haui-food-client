@@ -8,13 +8,10 @@ const useGetConversations = () => {
         const getConversations = async () => {
             setLoading(true);
             try {
-                const jwtString = localStorage.getItem('accessToken');
-                const regex = /'([^']+)'/;
-                const matches = jwtString.match(regex);
-                const token = matches && matches[1];
+                const token = JSON.parse(localStorage.getItem('accessToken'));
                 const user = JSON.parse(localStorage.getItem('user'));
 
-                const res = await axios.post('https://haui-food-api.onrender.com/api/v1/chats/users', {
+                const res = await axios.post('https://api.hauifood.com/api/v1/chats/users', {
                     userId: user._id
                 }, {
                     headers: {

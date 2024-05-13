@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import classNames from 'classnames/bind';
-import axios from 'axios';
-import { Typography } from '@mui/material';
-import SendIcon from '@mui/icons-material/Send';
+import React, { useState } from "react";
+import classNames from "classnames/bind";
+import axios from "axios";
+import { Typography } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 
-import styles from './ChatModal.module.scss';
+import styles from "./ChatModal.module.scss";
 
 const cx = classNames.bind(styles);
 
 const ChatModal = () => {
   const [messages, setMessages] = useState([]);
-  const [messageInput, setMessageInput] = useState('');
+  const [messageInput, setMessageInput] = useState("");
 
   const handleChange = (event) => {
     setMessageInput(event.target.value);
@@ -18,43 +18,43 @@ const ChatModal = () => {
 
   const handleSendMessage = async () => {
     if (messageInput) {
-      setMessages((messages) => [...messages, { user: 'User', message: messageInput }]);
+      setMessages((messages) => [...messages, { user: "User", message: messageInput }]);
 
-      setMessageInput('');
+      setMessageInput("");
 
       try {
-        const response = await axios.post('https://haui-food-api.onrender.com/api/v1/chat-bots', {
+        const response = await axios.post("https://api.hauifood.com/api/v1/chat-bots", {
           message: messageInput,
         });
 
-        setMessages((messages) => [...messages, { user: 'Chatbot', message: response.data.data }]);
+        setMessages((messages) => [...messages, { user: "Chatbot", message: response.data.data }]);
       } catch (error) {
-        console.error('Error fetching chatbot response:', error);
+        console.error("Error fetching chatbot response:", error);
       }
     }
   };
 
   const handleKeyPress = async (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       handleSendMessage();
     }
   };
 
   return (
-    <div className={cx('chat-modal')}>
-      <Typography variant='h6' className={cx('chat-modal__title')}>
+    <div className={cx("chat-modal")}>
+      <Typography variant="h6" className={cx("chat-modal__title")}>
         Trợ lý AI
       </Typography>
-      <div className={cx('chat-modal__messages')}>
+      <div className={cx("chat-modal__messages")}>
         {messages.length > 0 &&
           messages.map((message, key) => (
             <div key={key}>
               <Typography
-                variant='body1'
+                variant="body1"
                 fontSize={{ fontSize: 15 }}
                 className={cx(
-                  'chat-modal__message',
-                  message.user === 'User' ? 'chat-modal__message--user' : 'chat-modal__message--chatbot',
+                  "chat-modal__message",
+                  message.user === "User" ? "chat-modal__message--user" : "chat-modal__message--chatbot",
                 )}
               >
                 {message.message}
@@ -62,16 +62,16 @@ const ChatModal = () => {
             </div>
           ))}
       </div>
-      <div className={cx('chat-modal__container')}>
+      <div className={cx("chat-modal__container")}>
         <input
-          type='text'
-          className={cx('chat-modal__input')}
+          type="text"
+          className={cx("chat-modal__input")}
           value={messageInput}
           onChange={handleChange}
-          placeholder='Nhập nội dung chat'
+          placeholder="Nhập nội dung chat"
           onKeyDown={handleKeyPress}
         />
-        <button type='submit' onClick={handleSendMessage} className={cx('chat-modal__button')}>
+        <button type="submit" onClick={handleSendMessage} className={cx("chat-modal__button")}>
           <SendIcon />
         </button>
       </div>

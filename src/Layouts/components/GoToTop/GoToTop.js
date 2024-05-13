@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import classNames from 'classnames/bind';
+import { useEffect, useState } from "react";
+import classNames from "classnames/bind";
 
-import styles from './GoToTop.module.scss';
+import styles from "./GoToTop.module.scss";
 
-import { ArrowDownIcon } from '~/components/Icons';
+import { ArrowDownIcon } from "~/components/Icons";
 
 const cx = classNames.bind(styles);
 
@@ -11,7 +11,7 @@ function GoToTop() {
   const [isVisible, setIsVisible] = useState(false);
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -24,14 +24,14 @@ function GoToTop() {
       }
     };
 
-    window.addEventListener('scroll', checkScroll);
+    window.addEventListener("scroll", checkScroll);
 
-    return () => window.removeEventListener('scroll', checkScroll);
+    return () => window.removeEventListener("scroll", checkScroll);
   }, [isVisible]);
 
   return (
-    <div className={cx('go-top', isVisible && 'go-top--show')} onClick={scrollToTop}>
-      <ArrowDownIcon className={cx('go-top__icon')} />
+    <div className={cx("go-top", isVisible && "go-top--show")} onClick={scrollToTop}>
+      <ArrowDownIcon className={cx("go-top__icon")} />
     </div>
   );
 }

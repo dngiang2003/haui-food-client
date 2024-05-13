@@ -1,6 +1,6 @@
-@import 'bootstrap/scss/functions';
-@import 'bootstrap/scss/variables';
-@import 'bootstrap/scss/mixins';
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
 
 .home {
   scroll-behavior: smooth;
@@ -152,7 +152,7 @@
     transition: transform 0.5s;
     &::after {
       position: absolute;
-      content: '';
+      content: "";
       width: 1px;
       height: 100%;
       display: block;

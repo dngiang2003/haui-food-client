@@ -1,1 +1,1 @@
-export { default } from './AboutHaUIFood';
+export { default } from "./AboutHaUIFood";

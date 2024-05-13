@@ -1,17 +1,17 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import classNames from 'classnames/bind';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useCallback, useEffect, useMemo, useState } from "react";
+import classNames from "classnames/bind";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-import styles from './ResetPassword.module.scss';
+import styles from "./ResetPassword.module.scss";
 
-import { PasswordIcon } from '~/components/Icons';
-import Button from '~/components/Button';
-import { resetPassword } from '~/apiService/authService';
-import config from '~/config';
-import { statistical } from '~/apiService/statisticalService';
+import { PasswordIcon } from "~/components/Icons";
+import Button from "~/components/Button";
+import { resetPassword } from "~/apiService/authService";
+import config from "~/config";
+import { statistical } from "~/apiService/statisticalService";
 
 const cx = classNames.bind(styles);
 
@@ -22,12 +22,12 @@ function ResetPassword() {
 
   const passwordRegex = useMemo(() => /^(?=.*[@-_]).{8,}$/, []);
 
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [submit, setSubmit] = useState(false);
-  const [showPassword, setShowPassword] = useState('password');
+  const [showPassword, setShowPassword] = useState("password");
 
-  const [errors, setErrors] = useState({ newPassword: '', confirmPassword: '' });
+  const [errors, setErrors] = useState({ newPassword: "", confirmPassword: "" });
 
   const checkSubmit = useCallback(() => {
     let isSubmit = false;
@@ -36,7 +36,7 @@ function ResetPassword() {
       setSubmit(isSubmit);
       return;
     }
-    isSubmit = Object.values(errors).every((err) => err === '');
+    isSubmit = Object.values(errors).every((err) => err === "");
     setSubmit(isSubmit);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -50,15 +50,15 @@ function ResetPassword() {
       if (!passwordRegex.test(value)) {
         setErrors({
           ...errors,
-          newPassword: t('errors.err04'),
+          newPassword: t("errors.err04"),
         });
       }
       if (passwordRegex.test(value)) {
-        setErrors({ ...errors, newPassword: '' });
+        setErrors({ ...errors, newPassword: "" });
       }
       if (!value) {
-        //t('errors.err03')
-        setErrors({ ...errors, newPassword: '' });
+        //t("errors.err03")
+        setErrors({ ...errors, newPassword: "" });
       }
       checkSubmit();
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -72,13 +72,13 @@ function ResetPassword() {
       const value = e.target.value;
       setConfirmNewPassword(value);
       if (value !== newPassword) {
-        setErrors({ ...errors, confirmPassword: t('errors.err06') });
+        setErrors({ ...errors, confirmPassword: t("errors.err06") });
       }
       // if (!value) {
-      //   setErrors({ ...errors, confirmPassword: t('errors.err07') });
+      //   setErrors({ ...errors, confirmPassword: t("errors.err07") });
       // }
-      if (value === newPassword || value === '') {
-        setErrors({ ...errors, confirmPassword: '' });
+      if (value === newPassword || value === "") {
+        setErrors({ ...errors, confirmPassword: "" });
       }
       checkSubmit();
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -88,11 +88,11 @@ function ResetPassword() {
   );
 
   const handleShowPassword = () => {
-    setShowPassword(showPassword === 'password' ? 'text' : 'password');
+    setShowPassword(showPassword === "password" ? "text" : "password");
   };
 
   const handleResetPassword = () => {
-    const tokenVerifyOTP = JSON.parse(sessionStorage.getItem('tokenVerifyOTP'));
+    const tokenVerifyOTP = JSON.parse(sessionStorage.getItem("tokenVerifyOTP"));
     const data = {
       tokenVerifyOTP: tokenVerifyOTP,
       newPassword: newPassword,
@@ -121,15 +121,15 @@ function ResetPassword() {
   }, []);
 
   return (
-    <div className={cx('reset-password')}>
-      <h1 className={cx('reset-password__heading', 'shine')}>{t('reset-password.heading')}</h1>
-      <p className={cx('reset-password__desc')}>{t('reset-password.desc01')}</p>
+    <div className={cx("reset-password")}>
+      <h1 className={cx("reset-password__heading", "shine")}>{t("reset-password.heading")}</h1>
+      <p className={cx("reset-password__desc")}>{t("reset-password.desc01")}</p>
 
-      <form className={cx('form')} onSubmit={(e) => e.preventDefault()}>
-        <div className={cx('form__group')}>
+      <form className={cx("form")} onSubmit={(e) => e.preventDefault()}>
+        <div className={cx("form__group")}>
           <div
-            className={cx('form__text-input')}
-            style={errors.newPassword !== '' ? { border: '1px solid #f44336' } : {}}
+            className={cx("form__text-input")}
+            style={errors.newPassword !== "" ? { border: "1px solid #f44336" } : {}}
           >
             <input
               value={newPassword}
@@ -138,19 +138,19 @@ function ResetPassword() {
               }}
               onBlur={handleChangeNewPassword}
               type={showPassword}
-              name=''
-              placeholder={t('form.tp02')}
-              className={cx('form__input')}
+              name=""
+              placeholder={t("form.tp02")}
+              className={cx("form__input")}
             />
-            <PasswordIcon className={cx('form__input-icon', errors.newPassword && 'form__input-icon--err')} />
+            <PasswordIcon className={cx("form__input-icon", errors.newPassword && "form__input-icon--err")} />
           </div>
-          <p className={cx('form__error')}>{errors.newPassword}</p>
+          <p className={cx("form__error")}>{errors.newPassword}</p>
         </div>
 
-        <div className={cx('form__group')}>
+        <div className={cx("form__group")}>
           <div
-            className={cx('form__text-input')}
-            style={errors.confirmPassword !== '' ? { border: '1px solid #f44336' } : {}}
+            className={cx("form__text-input")}
+            style={errors.confirmPassword !== "" ? { border: "1px solid #f44336" } : {}}
           >
             <input
               value={confirmNewPassword}
@@ -160,23 +160,23 @@ function ResetPassword() {
               }}
               onBlur={handleChangeConfirmPassword}
               type={showPassword}
-              name=''
-              placeholder={t('form.tp04')}
-              className={cx('form__input')}
+              name=""
+              placeholder={t("form.tp04")}
+              className={cx("form__input")}
             />
-            <PasswordIcon className={cx('form__input-icon', errors.confirmPassword && 'form__input-icon--err')} />
+            <PasswordIcon className={cx("form__input-icon", errors.confirmPassword && "form__input-icon--err")} />
           </div>
-          <p className={cx('form__error')}>{errors.confirmPassword}</p>
+          <p className={cx("form__error")}>{errors.confirmPassword}</p>
         </div>
 
-        <div className={cx('form__group', 'form__group--inline')}>
-          <label onChange={handleShowPassword} className={cx('form__checkbox')}>
-            <input type='checkbox' name='' className={cx('form__checkbox-input')} />
-            <span className={cx('form__checkbox-label')}>{t('form.lb01')}</span>
+        <div className={cx("form__group", "form__group--inline")}>
+          <label onChange={handleShowPassword} className={cx("form__checkbox")}>
+            <input type="checkbox" name="" className={cx("form__checkbox-input")} />
+            <span className={cx("form__checkbox-label")}>{t("form.lb01")}</span>
           </label>
         </div>
 
-        <div style={submit ? { cursor: 'no-drop' } : {}} className={cx('form__group', 'reset-password__btn-group')}>
+        <div style={submit ? { cursor: "no-drop" } : {}} className={cx("form__group", "reset-password__btn-group")}>
           <Button
             primary
             auth
@@ -185,7 +185,7 @@ function ResetPassword() {
               handleResetPassword();
             }}
           >
-            {t('button.btn12')}
+            {t("button.btn12")}
           </Button>
         </div>
       </form>

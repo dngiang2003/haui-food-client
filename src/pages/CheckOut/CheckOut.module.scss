@@ -1,6 +1,6 @@
-@import 'bootstrap/scss/functions';
-@import 'bootstrap/scss/variables';
-@import 'bootstrap/scss/mixins';
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
 
 .checkout {
   padding-bottom: 30px;
@@ -191,7 +191,7 @@
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center center;
-      background-image: url('../../assets/images/checkout/ilus-app-features.svg');
+      background-image: url("../../assets/images/checkout/ilus-app-features.svg");
     }
 
     &-info {

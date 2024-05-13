@@ -1,20 +1,20 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import classNames from 'classnames/bind';
-import { Link, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import { Oval } from '@agney/react-loading';
+import { useEffect, useMemo, useRef, useState } from "react";
+import classNames from "classnames/bind";
+import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { Oval } from "@agney/react-loading";
 
-import styles from './ForgotPassword.module.scss';
+import styles from "./ForgotPassword.module.scss";
 
-import { EmailIcon, ReloadIcon } from '~/components/Icons';
-import Button from '~/components/Button';
-import routes from '~/config/routes';
-import { captcha } from '~/apiService/captchaService';
-import images from '~/assets/images';
-import { forgotPassword } from '~/apiService/authService';
-import config from '~/config';
+import { EmailIcon, ReloadIcon } from "~/components/Icons";
+import Button from "~/components/Button";
+import routes from "~/config/routes";
+import { captcha } from "~/apiService/captchaService";
+import images from "~/assets/images";
+import { forgotPassword } from "~/apiService/authService";
+import config from "~/config";
 
 const cx = classNames.bind(styles);
 
@@ -26,27 +26,27 @@ function ForgotPassword() {
 
   const emailRegex = useMemo(() => /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/, []);
 
-  const [email, setEmail] = useState('');
-  const [captchaValue, setCaptchaValue] = useState('');
+  const [email, setEmail] = useState("");
+  const [captchaValue, setCaptchaValue] = useState("");
 
-  const [button, setButton] = useState(t('button.btn08'));
+  const [button, setButton] = useState(t("button.btn08"));
   const [submit, setSubmit] = useState(false);
-  const [captchaSVG, setCaptchaSVG] = useState('');
+  const [captchaSVG, setCaptchaSVG] = useState("");
   const [touchedEmail, setTouchedEmail] = useState(false);
   const [touchedCaptcha, setTouchedCaptcha] = useState(false);
 
-  const [errors, setErrors] = useState({ email: '', captcha: false });
+  const [errors, setErrors] = useState({ email: "", captcha: false });
 
   const counter = useRef(Date.now());
 
   const SvgComponent = () => {
     const svgString = `${captchaSVG}`;
-    const newWidth = '120';
-    const newHeight = '100%';
+    const newWidth = "120";
+    const newHeight = "100%";
 
     const updatedSvgString = svgString
-      .replace(/width='[^']*'/, `width='${newWidth}'`)
-      .replace(/height='[^']*'/, `height='${newHeight}'`);
+      .replace(/width="[^"]*"/, `width="${newWidth}"`)
+      .replace(/height="[^"]*"/, `height="${newHeight}"`);
 
     return <div dangerouslySetInnerHTML={{ __html: updatedSvgString }} />;
   };
@@ -56,7 +56,7 @@ function ForgotPassword() {
       .then((result) => {
         if (result.payload.code === 201) {
           setCaptchaSVG(result.payload.data.image);
-          sessionStorage.setItem('signature', JSON.stringify(result.payload.data.sign));
+          sessionStorage.setItem("signature", JSON.stringify(result.payload.data.sign));
         } else {
           toast.error(result.payload.message);
         }
@@ -71,17 +71,17 @@ function ForgotPassword() {
     const data = {
       email: email,
       text: captchaValue,
-      sign: 'U2FsdGVkX1+jTOXmH4CXlekMcx3d56iebXE8vP50Nvb5e/UC/n41QFFEJc1pioo0mwH8oTsueKaP6qBIvUGIig==',
+      sign: "U2FsdGVkX1+jTOXmH4CXlekMcx3d56iebXE8vP50Nvb5e/UC/n41QFFEJc1pioo0mwH8oTsueKaP6qBIvUGIig==",
     };
 
     dispatch(forgotPassword(data))
       .then((result) => {
         setSubmit(false);
-        setButton(t('button.btn08'));
-        setCaptchaValue('');
+        setButton(t("button.btn08"));
+        setCaptchaValue("");
 
         if (result.payload.code === 200) {
-          sessionStorage.setItem('tokenForgot', JSON.stringify(result.payload.data.tokenForgot));
+          sessionStorage.setItem("tokenForgot", JSON.stringify(result.payload.data.tokenForgot));
 
           navigate(config.routes.forgotPasswordOTP);
         } else if (result.payload.code === 400) {
@@ -91,24 +91,24 @@ function ForgotPassword() {
       })
       .catch(() => {
         setSubmit(false);
-        setButton(t('button.btn08'));
+        setButton(t("button.btn08"));
       });
   };
 
   useEffect(() => {
-    setSubmit(!emailRegex.test(email) || email === '' || captchaValue === '' || captchaValue.length !== 4);
+    setSubmit(!emailRegex.test(email) || email === "" || captchaValue === "" || captchaValue.length !== 4);
   }, [emailRegex, email, captchaValue]);
 
   useEffect(() => {
     if (touchedEmail) {
       if (!emailRegex.test(email)) {
-        setErrors({ ...errors, email: t('errors.err02') });
+        setErrors({ ...errors, email: t("errors.err02") });
       }
-      if (email === '') {
-        setErrors({ ...errors, email: t('errors.err01') });
+      if (email === "") {
+        setErrors({ ...errors, email: t("errors.err01") });
       }
       if (emailRegex.test(email)) {
-        setErrors({ ...errors, email: '' });
+        setErrors({ ...errors, email: "" });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -116,7 +116,7 @@ function ForgotPassword() {
 
   useEffect(() => {
     if (touchedCaptcha) {
-      if (captchaValue === '') {
+      if (captchaValue === "") {
         setErrors({ ...errors, captcha: true });
       } else {
         setErrors({ ...errors, captcha: false });
@@ -148,42 +148,42 @@ function ForgotPassword() {
   }, []);
 
   return (
-    <div className={cx('forgot-password')}>
-      <h1 className={cx('forgot-password__heading', 'shine')}>{t('forgot-password.heading')}</h1>
-      <p className={cx('forgot-password__desc')}>{t('forgot-password.desc01')}</p>
+    <div className={cx("forgot-password")}>
+      <h1 className={cx("forgot-password__heading", "shine")}>{t("forgot-password.heading")}</h1>
+      <p className={cx("forgot-password__desc")}>{t("forgot-password.desc01")}</p>
 
       <form
-        className={cx('form')}
+        className={cx("form")}
         onSubmit={(e) => {
           e.preventDefault();
           handleForgotPassword();
-          setButton(t('button.btn09'));
+          setButton(t("button.btn09"));
         }}
       >
-        <div className={cx('form__group')}>
-          <div className={cx('form__text-input')} style={errors.email !== '' ? { border: '1px solid #f44336' } : {}}>
+        <div className={cx("form__group")}>
+          <div className={cx("form__text-input")} style={errors.email !== "" ? { border: "1px solid #f44336" } : {}}>
             <input
-              type='email'
-              name=''
+              type="email"
+              name=""
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
                 setTouchedEmail(true);
               }}
               onBlur={() => setTouchedEmail(true)}
-              placeholder={t('form.tp01')}
-              className={cx('form__input')}
+              placeholder={t("form.tp01")}
+              className={cx("form__input")}
             />
-            <EmailIcon className={cx('form__input-icon', errors.email && 'form__input-icon--err')} />
+            <EmailIcon className={cx("form__input-icon", errors.email && "form__input-icon--err")} />
           </div>
-          <p className={cx('form__error')}>{errors.email}</p>
+          <p className={cx("form__error")}>{errors.email}</p>
         </div>
 
-        <div className={cx('form__group')}>
-          <div className={cx('captcha')}>
+        <div className={cx("form__group")}>
+          <div className={cx("captcha")}>
             <div
-              className={cx('form__text-input', 'captcha__input')}
-              style={errors.captcha ? { border: '1px solid #f44336' } : {}}
+              className={cx("form__text-input", "captcha__input")}
+              style={errors.captcha ? { border: "1px solid #f44336" } : {}}
             >
               <input
                 maxLength={4}
@@ -192,22 +192,22 @@ function ForgotPassword() {
                   setTouchedCaptcha(true);
                 }}
                 onBlur={() => setTouchedCaptcha(true)}
-                type='text'
-                name=''
+                type="text"
+                name=""
                 value={captchaValue}
-                placeholder='Captcha'
-                className={cx('form__input')}
+                placeholder="Captcha"
+                className={cx("form__input")}
               />
             </div>
-            {loading && <Oval width='30' color='#00b14f' />}
+            {loading && <Oval width="30" color="#00b14f" />}
             {captchaSVG && !loading ? (
               <SvgComponent />
             ) : (
-              !loading && <img src={images.defaultImg} className={cx('captcha__img')} alt='default-img' />
+              !loading && <img src={images.defaultImg} className={cx("captcha__img")} alt="default-img" />
             )}
             <button
-              type='button'
-              className={cx('captcha__icon')}
+              type="button"
+              className={cx("captcha__icon")}
               onClick={(e) => {
                 e.preventDefault();
                 fetchCaptcha();
@@ -218,17 +218,17 @@ function ForgotPassword() {
           </div>
         </div>
 
-        <div style={submit ? { cursor: 'no-drop' } : {}} className={cx('form__group', 'forgot-password__btn-group')}>
+        <div style={submit ? { cursor: "no-drop" } : {}} className={cx("form__group", "forgot-password__btn-group")}>
           <Button primary auth disabled={submit}>
             {button}
           </Button>
         </div>
       </form>
 
-      <p className={cx('forgot-password__footer')}>
-        {t('forgot-password.desc02')}
-        <Link className={cx('forgot-password__link')} to={routes.login}>
-          {t('button.btn05')}
+      <p className={cx("forgot-password__footer")}>
+        {t("forgot-password.desc02")}
+        <Link className={cx("forgot-password__link")} to={routes.login}>
+          {t("button.btn05")}
         </Link>
       </p>
     </div>

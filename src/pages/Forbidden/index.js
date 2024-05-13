@@ -1,1 +1,1 @@
-export { default } from './Forbidden';
+export { default } from "./Forbidden";

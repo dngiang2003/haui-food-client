@@ -1,20 +1,20 @@
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports['default'] = void 0;
+exports["default"] = void 0;
 
-var _toolkit = require('@reduxjs/toolkit');
+var _toolkit = require("@reduxjs/toolkit");
 
-var _authSlice = _interopRequireDefault(require('~/features/authSlice.js'));
+var _authSlice = _interopRequireDefault(require("~/features/authSlice.js"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var _default = (0, _toolkit.configureStore)({
   reducer: {
-    auth: _authSlice['default']
+    auth: _authSlice["default"]
   }
 });
 
-exports['default'] = _default;
+exports["default"] = _default;

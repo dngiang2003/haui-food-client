@@ -16,7 +16,7 @@ export const SocketContextProvider = ({ children }) => {
 
     useEffect(() => {
         const initializeSocket = () => {
-            const newSocket = io('https://haui-food-api.onrender.com/', {
+            const newSocket = io('https://api.hauifood.com', {
                 query: {
                     userId: authUser._id,
                 },

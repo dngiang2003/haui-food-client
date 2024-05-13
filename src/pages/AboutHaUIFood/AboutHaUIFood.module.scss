@@ -1,6 +1,6 @@
-@import 'bootstrap/scss/functions';
-@import 'bootstrap/scss/variables';
-@import 'bootstrap/scss/mixins';
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
 
 .about {
   &__img {
@@ -381,7 +381,7 @@
     width: 1px;
     margin-left: -53px;
     margin-right: 53px;
-    content: '';
+    content: "";
     background: var(--primary-color);
 
     @include media-breakpoint-down(lg) {

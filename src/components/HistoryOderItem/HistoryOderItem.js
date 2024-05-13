@@ -3,38 +3,35 @@ import { useTranslation } from 'react-i18next';
 
 import style from './HistoryOderItem.module.scss';
 
-import images from '~/assets/images';
 import { StoreIcon } from '../Icons';
 import Button from '../Button';
+import formatDateTime from '~/utils/formatDateTime';
 
 const cx = classNames.bind(style);
 
-const listSubItem = [
-  {
-    name: 'Áo khoác gió lót lông nam nữ mùa đông AVANCO cao cấp, form rộng unisex mũ liền, chống nước và giữ ấm hiệu quả - AVGL',
-    categories: 'cơm-bún-chả',
-    price: '20000',
-    quantity: 1,
-    img: images.developer1,
-  },
-  {
-    name: 'Áo khoác gió lót lông nam nữ mùa đông AVANCO cao cấp, form rộng unisex mũ liền, chống nước và giữ ấm hiệu quả - AVGL',
-    categories: 'cơm-bún-chả',
-    price: '20000',
-    quantity: 1,
-    img: images.developer1,
-  },
-  {
-    name: 'Áo khoác gió lót lông nam nữ mùa đông AVANCO cao cấp, form rộng unisex mũ liền, chống nước và giữ ấm hiệu quả - AVGL',
-    categories: 'cơm-bún-chả',
-    price: '20000',
-    quantity: 1,
-    img: images.developer1,
-  },
-];
-
-function HistoryOderItem() {
+function HistoryOderItem({ data }) {
   const { t } = useTranslation();
+  // console.log(data);
+
+  const handleStatus = (status) => {
+    if (!status) {
+      return;
+    }
+
+    if (status === 'pending') {
+      return { status: 'Chờ xác nhận', color: 'green' };
+    } else if (status === 'canceled') {
+      return { status: 'Đã hủy', color: 'red' };
+    } else if (status === 'confirmed') {
+      return { status: 'Đã xác nhận', color: 'green' };
+    } else if (status === 'reject') {
+      return { status: 'Bị từ chối', color: 'red' };
+    } else if (status === 'shipping') {
+      return { status: 'Đang giao', color: 'green' };
+    } else if (status === 'success') {
+      return { status: 'Đã hoàn thành', color: 'green' };
+    }
+  };
 
   return (
     <div className={cx('item-wrapper')}>
@@ -43,29 +40,55 @@ function HistoryOderItem() {
           <div>
             <StoreIcon />
           </div>
-          <div> Le nghia </div>
+          <div> {data?.shop.fullname} </div>
         </div>
-        <div className={cx('item__status')}>{t('button.btn17')}</div>
+        <div className={cx('item__status', { 'item__status--red': handleStatus(data?.status).color === 'red' })}>
+          {handleStatus(data?.status).status}
+        </div>
       </div>
 
-      {listSubItem.map((subItem, index) => {
+      {data?.cartDetails.map((cartDetail, index) => {
+        console.log('cartDetail', cartDetail);
         return (
           <div key={index} className={cx('sub-item__info-container')}>
-            <img className={cx('sub-item__img')} src={subItem.img} alt="HaUI Food" />
+            <img className={cx('sub-item__img')} src={cartDetail.product.image} alt="HaUI Food" />
             <div className={cx('sub-item__info')}>
-              <div className={cx('sub-item__name')}>{subItem.name}</div>
-              <div className={cx('sub-item__quantity')}>X{subItem.quantity}</div>
-              <div className={cx('sub-item__categories')}>{subItem.categories}</div>
+              <div className={cx('sub-item__name')}>{cartDetail.product.name}</div>
+              <div className={cx('sub-item__desc')}>{cartDetail.product.description}</div>
+              <div className={cx('sub-item__quantity')}>X {cartDetail.quantity}</div>
+              <div className={cx('sub-item__categories')}>{cartDetail.product.categories}</div>
             </div>
-            <div className={cx('sub-item__price')}>{subItem.price}</div>
+            <div className={cx('sub-item__price')}>{cartDetail.product.price.toLocaleString('vi-VI') + ' đ'}</div>
           </div>
         );
       })}
 
+      <div className={cx('address__container')}>
+        <div className={cx('address__label')}>Địa chỉ nhận hàng: </div>
+        <div className={cx('address__value')}>{data?.address} </div>
+      </div>
+
+      <div className={cx('note__container')}>
+        <div className={cx('note__label')}>Ghi chú: </div>
+        <div className={cx('note__value')}>{data?.note} </div>
+      </div>
+
+      <div className={cx('date-create__container')}>
+        <div className={cx('date-create__label')}>Thời gian tạo: </div>
+        <div className={cx('date-create__value')}>{formatDateTime(data?.createdAt)} </div>
+      </div>
+
+      <div className={cx('payment-method__container')}>
+        <div className={cx('payment-method__label')}>Phương thức thanh toán: </div>
+        <div className={cx('payment-method__value')}>
+          {data?.paymentMethod === 'cod' ? 'Thanh toán khi nhận hàng' : 'Thanh toán chuyển khoản'}{' '}
+        </div>
+      </div>
+
       <div className={cx('total__container')}>
         <div className={cx('total__content')}>
           <div className={cx('total__label')}>{t('historyOrder.label01')}</div>
-          <div className={cx('total__value')}>100000</div>
+          <div className={cx('total__value')}>{data?.totalMoney.toLocaleString('vi-VI') + ' đ'}</div>
         </div>
         <Button className={cx('total__container-btn')} order primary>
           {t('button.btn18')}

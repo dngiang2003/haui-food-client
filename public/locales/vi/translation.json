@@ -228,12 +228,13 @@
     }
   },
   "historyOrder": {
-    "status01": "Tất cả",
-    "status02": "Chờ xác nhận",
-    "status03": "Xác nhận",
-    "status04": "Đang giao",
-    "status05": "Hoàn thành",
-    "status06": "Đã hủy",
+    "statusAll": "Tất cả",
+    "statusPending": "Chờ xác nhận",
+    "statusConfirmed": "Xác nhận",
+    "statusShipping": "Đang giao",
+    "statusSuccess": "Hoàn thành",
+    "statusCanceled": "Đã hủy",
+    "statusRejected": "Bị từ chối",
     "label01": "Tổng tiền",
     "desc01": "Bạn hiện không có đơn hàng nào"
   },

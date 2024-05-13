@@ -38,6 +38,10 @@
   &__status {
     color: var(--status-color, var(--primary-color));
     cursor: pointer;
+
+    &--red {
+      color: #f44336;
+    }
   }
 }
 
@@ -45,6 +49,7 @@
   &__info-container {
     display: flex;
     padding: 20px 0;
+    // justify-content: space-between;
     // align-items: center;
     // border-bottom: 1px h #ccc;
     border-bottom: 1px dashed #ccc;
@@ -84,6 +89,7 @@
     justify-content: space-between;
     font-size: 1.6rem;
     font-weight: 500;
+    flex-grow: 1;
 
     @include media-breakpoint-down(md) {
       margin-left: 10px;
@@ -92,16 +98,32 @@
 
   &__name {
     width: 80%;
+    font-size: 2rem;
+    font-weight: 600;
+    display: block;
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* Số dòng bạn muốn giới hạn */
+    line-height: 1.5;
+    -webkit-line-clamp: 1; /* Số dòng bạn muốn giới hạn */
     -webkit-box-orient: vertical;
+    visibility: visible; /* Tránh bug không giới hạn số dòng được do trình duyệt */
+    text-overflow: ellipsis;
     overflow: hidden;
-    font-size: 1.6rem;
-    font-weight: 500;
 
     @include media-breakpoint-down(lg) {
       width: 95%;
     }
+  }
+
+  &__desc {
+    width: 80%;
+    display: block;
+    display: -webkit-box;
+    line-height: 1.5;
+    -webkit-line-clamp: 2; /* Số dòng bạn muốn giới hạn */
+    -webkit-box-orient: vertical;
+    visibility: visible; /* Tránh bug không giới hạn số dòng được do trình duyệt */
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   &__quantity {
@@ -112,11 +134,57 @@
     margin: auto 0;
     font-size: 1.8rem;
     font-weight: 500;
+    flex-shrink: 0;
     color: var(--primary-color);
 
     @include media-breakpoint-down(md) {
       font-size: 1.6rem;
     }
+  }
+}
+
+// .address {
+//   &__container {
+//     margin-top: 15px;
+//     display: flex;
+//     gap: 10px;
+//     font-size: 1.7rem;
+//     font-weight: 500;
+//   }
+
+//   &__value {
+//     display: block;
+//     display: -webkit-box;
+//     line-height: 1.5;
+//     -webkit-line-clamp: 2; /* Số dòng bạn muốn giới hạn */
+//     -webkit-box-orient: vertical;
+//     visibility: visible; /* Tránh bug không giới hạn số dòng được do trình duyệt */
+//     text-overflow: ellipsis;
+//     overflow: hidden;
+//   }
+// }
+
+.note,
+.payment-method,
+.address,
+.date-create {
+  &__container {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    font-size: 1.7rem;
+    font-weight: 500;
+  }
+
+  &__value {
+    display: block;
+    display: -webkit-box;
+    line-height: 1.5;
+    -webkit-line-clamp: 2; /* Số dòng bạn muốn giới hạn */
+    -webkit-box-orient: vertical;
+    visibility: visible; /* Tránh bug không giới hạn số dòng được do trình duyệt */
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 }
 

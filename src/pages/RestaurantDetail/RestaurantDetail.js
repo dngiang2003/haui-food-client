@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
 import { useDispatch, useSelector } from "react-redux";
 import ChatIcon from "@mui/icons-material/Chat";
+import { useTranslation } from "react-i18next";
 
 import style from "./RestaurantDetail.module.scss";
 

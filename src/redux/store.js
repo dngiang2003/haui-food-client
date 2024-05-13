@@ -1,11 +1,13 @@
-import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "~/features/authSlice.js";
-import categoryReducer from "../features/categorySlice";
-import userReducer from "../features/userSlice";
-import captchaReducer from "../features/captchaSlide";
-import restaurantReducer from "~/features/restaurantSlice";
-import productReducer from "~/features/productSlice";
-import cartReducer from "~/features/cartSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from '~/features/authSlice.js';
+import categoryReducer from '../features/categorySlice';
+import userReducer from '../features/userSlice';
+import captchaReducer from '../features/captchaSlide';
+import restaurantReducer from '~/features/restaurantSlice';
+import productReducer from '~/features/productSlice';
+import cartReducer from '~/features/cartSlice';
+import checkoutCarts from '~/features/checkoutCartsSlice';
+import ordersSlide from '~/features/ordersSlide';
 
 export default configureStore({
   reducer: {
@@ -16,5 +18,7 @@ export default configureStore({
     restaurant: restaurantReducer,
     product: productReducer,
     cart: cartReducer,
+    checkoutCarts: checkoutCarts,
+    orders: ordersSlide,
   },
 });

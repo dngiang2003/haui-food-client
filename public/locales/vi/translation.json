@@ -294,14 +294,24 @@
     "title13": "Phí áp dụng",
     "title14": "Phòng",
     "title15": "Bắt đầu chọn món",
+    "title16": "Lưu ý",
     "desc01": "Hãy gọi điện trước cho tôi",
     "desc02": "Thanh toán tiền mặt",
     "desc03": "Thanh toán chuyển khoản",
     "desc04": "VUI LÒNG QUÉT MÃ BÊN DƯỚI ĐỂ THANH TOÁN CHUYỂN KHOẢN",
     "desc05": "Dùng phương thức thanh toán chuyển khoản để nhận ưu đãi hấp dẫn. Chỉ có trên website HaUIFood.",
     "desc06": "Thêm món ăn vào giỏ đồ ăn và đặt đơn tại đây.",
+    "desc07": "- Không thay đổi số tài khoản hoặc ngân hàng.",
+    "desc08": "- Không chuyển tiền dưới mức giá trị của đơn hàng.",
+    "desc09": "- Nếu có lỗi xảy ra trong quá trình chuyển khoản, bạn cần liên hệ với chúng tôi để được hỗ trợ.",
+    "desc10": "Nội dung CK:",
+    "desc11": "Tên chủ TK: DO NGOC GIANG",
+    "desc12": "Số TK: 00005572823",
+    "desc13": "Ngân hàng TMCP Tiên Phong",
     "notify01": "Vui lòng chọn tòa nhà trước",
     "notify02": "Vui lòng chọn tầng trước",
+    "notify03": "Một số đã xảy ra, bạn vui lòng kiểm tra và thử lại.",
+    "notify04": "Vui lòng vào Đơn mua để kiểm tra tình trạng đơn hàng.",
     "link01": "Duyệt nhà hàng"
   },
   "authTwinSetup": {
@@ -347,5 +357,9 @@
       "invalid-quantity": "Số lượng sản phẩm không được vượt quá 100 sản phẩm",
       "unauthorized": "Vui lòng đăng nhập để thêm vào giỏ hàng"
     }
+  },
+  "restaurant-detail": {
+    "open-time-label": "Giờ mở cửa",
+    "open-time-value": "Từ thứ 2 đến thứ 7 06:00 - 22:00"
   }
 }

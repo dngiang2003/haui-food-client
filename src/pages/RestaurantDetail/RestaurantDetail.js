@@ -3,7 +3,6 @@ import classNames from "classnames/bind";
 import { useDispatch, useSelector } from "react-redux";
 import ChatIcon from "@mui/icons-material/Chat";
 
-
 import style from "./RestaurantDetail.module.scss";
 
 import BreadCrumb from "~/components/BreadCrumb/BreadCrumb";
@@ -21,6 +20,7 @@ function RestaurantDetail() {
   const navigator = useNavigate();
 
   const reduxData = useSelector((prop) => prop.restaurant);
+  const { t } = useTranslation();
 
   const [activeCategory, setActiveCategory] = useState(null);
 
@@ -136,9 +136,9 @@ function RestaurantDetail() {
               <div className={cx("restaurant_rating")}>Reviews</div>
             </div>
 
-            <div className={cx("restaurant__time-open")}>
-              <div className={cx("restaurant__time-open-label")}>Giờ mở cửa</div>
-              <div className={cx("restaurant__time-open-value")}>Từ thứ 2 đến thứ 7 06:00 - 22:00</div>
+            <div className={cx('restaurant__time-open')}>
+              <div className={cx('restaurant__time-open-label')}>{t('restaurant-detail.open-time-label')}</div>
+              <div className={cx('restaurant__time-open-value')}>{t('restaurant-detail.open-time-value')}</div>
             </div>
           </div>
         </div>

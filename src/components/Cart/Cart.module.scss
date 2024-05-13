@@ -159,6 +159,11 @@
       justify-content: space-between;
     }
 
+    &-name {
+      display: flex;
+      align-items: center;
+    }
+
     &-heading {
       font-size: 1.8rem;
       font-weight: 600;

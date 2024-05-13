@@ -133,6 +133,8 @@
     object-fit: cover;
     height: 25vw;
     min-height: 50px;
+    background-color: #f1f2f6;
+
     @include media-breakpoint-down(lg) {
       height: 50vw;
     }
@@ -150,11 +152,16 @@
     font-size: 2rem;
   }
 
-  &__desc {
+  &__desc,
+  &__price {
     padding-top: 8px;
     font-size: 1.5rem;
     line-height: 1.5;
     color: #9a9a9a;
+  }
+
+  &__price {
+    color: var(--primary-color);
   }
 
   &__last {

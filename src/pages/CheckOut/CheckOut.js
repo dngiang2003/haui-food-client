@@ -1,50 +1,48 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import classNames from "classnames/bind";
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import { Oval } from "@agney/react-loading";
-import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from "@mui/material";
+import { useCallback, useEffect, useRef, useState } from 'react';
+import classNames from 'classnames/bind';
+import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { createOrder } from '~/apiService/ordersService';
+import { toast } from 'react-toastify';
+import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
+import { Oval } from '@agney/react-loading';
 
-import styles from "./CheckOut.module.scss";
+import styles from './CheckOut.module.scss';
 
-import Button from "~/components/Button";
-import images from "~/assets/images";
-import routes from "~/config/routes";
-import CartItem from "~/components/CartItem";
-import { ArrowDownIcon, InfoIcon, NoteIcon } from "~/components/Icons";
-import { displayProductInCart } from "~/apiService/cartService";
+import Button from '~/components/Button';
+import images from '~/assets/images';
+import routes from '~/config/routes';
+import CartItem from '~/components/CartItem';
+import { ArrowDownIcon, InfoIcon, NoteIcon } from '~/components/Icons';
 
 const cx = classNames.bind(styles);
 
 function CheckOut() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const token = localStorage.getItem("accessToken");
-  const auth = useSelector((state) => state.auth.isLogin);
-  const isLoading = useSelector((state) => state.cart.loading);
-  const isAddProduct = useSelector((state) => state.cart.isAddProduct);
-  const isDeleteProduct = useSelector((state) => state.cart.isDeleteProduct);
+  const isLoading = useSelector((state) => state.orders.loading);
+  const checkoutCartsData = useSelector((state) => state.checkoutCarts.selectedShops);
 
-  const buildings = ["A1", "A7", "A8", "A9", "A10", "A12"];
+  const buildings = ['A1', 'A7', 'A8', 'A9', 'A10', 'A12'];
 
-  const [cartsData, setCartsData] = useState({});
-  const [havePower, setHavePower] = useState(false);
-  const cartsLength = cartsData.carts ? cartsData.carts.length : 0;
-  const cartsTotalMoney = cartsData.totalMoneyAllCarts ? cartsData.totalMoneyAllCarts : 0;
+  const [listCartProduct, setListCartProduct] = useState([]);
+  const [totalCartCheckout, setTotalCartCheckout] = useState(0);
+  const cartsLength = checkoutCartsData ? checkoutCartsData.length : 0;
 
   const [buildingFloors, setBuildingFloors] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [selectedFloor, setSelectedFloor] = useState(null);
 
   // Shopping cart information - start
-  const [building, setBuilding] = useState(t("checkout.title04"));
-  const [floor, setFloor] = useState(t("checkout.title05"));
-  const [classroom, setClassroom] = useState(t("checkout.title07"));
-  const [note, setNote] = useState("");
-  const [payment, setPayment] = useState("cash");
+  const [building, setBuilding] = useState(t('checkout.title04'));
+  const [floor, setFloor] = useState(t('checkout.title05'));
+  const [classroom, setClassroom] = useState(t('checkout.title07'));
+  const [note, setNote] = useState(t('checkout.desc01'));
+  const [payment, setPayment] = useState('cod');
+  const [listProduct, setListProduct] = useState([]);
   // - end
 
   const [showFloors, setShowFloors] = useState(false);
@@ -139,8 +137,37 @@ function CheckOut() {
     setSelectedFloor(floor);
   };
 
-  const handleChange = (event) => {
+  const handleChangePayment = (event) => {
     setPayment(event.target.value);
+  };
+
+  const handleOrder = () => {
+    dispatch(
+      createOrder({
+        cartDetails: listProduct,
+        paymentMethod: payment,
+        address: [building, floor, classroom].join(', '),
+        note: note,
+      }),
+    ).then((result) => {
+      if (result.payload.code === 201) {
+        setIsSubmit(false);
+        setListCartProduct([]);
+        setTotalCartCheckout(0);
+        setBuilding(t('checkout.title04'));
+        setFloor(t('checkout.title05'));
+        setClassroom(t('checkout.title07'));
+        toast.success(result.payload.message);
+        if (payment === 'cod') {
+          setTimeout(() => {
+            navigate('/auth/profile');
+            toast.info(t('checkout.notify04'));
+          }, 4000);
+        }
+      } else {
+        toast.warning(result.payload.message);
+      }
+    });
   };
 
   useEffect(() => {
@@ -199,52 +226,47 @@ function CheckOut() {
   }, [building, floor, classroom]);
 
   useEffect(() => {
-    dispatch(displayProductInCart()).then((result) => {
-      if (result.payload.code === 200) {
-        setCartsData(result.payload.data);
-        setHavePower(true);
-      } else {
-        toast.warning(result.payload.message);
-        setHavePower(false);
+    if (checkoutCartsData) {
+      const productIds = [];
+
+      setListCartProduct(checkoutCartsData);
+
+      checkoutCartsData.forEach((cartItem) => {
+        setTotalCartCheckout((prevState) => prevState + cartItem.totalMoney);
+        cartItem.selectedProducts.forEach((cartItemDetail) => {
+          const productId = cartItemDetail._id;
+          productIds.push(productId);
+        });
+      });
+      setListProduct(productIds);
+
+      if (checkoutCartsData.length === 0) {
+        toast.warning(t('checkout.notify03'));
       }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAddProduct, isDeleteProduct]);
-
-  useEffect(() => {
-    const disableScroll = (event) => {
-      event.preventDefault();
-    };
-
-    if (isLoading) {
-      window.addEventListener("wheel", disableScroll, { passive: false });
-    } else {
-      window.removeEventListener("wheel", disableScroll);
     }
 
-    return () => {
-      window.removeEventListener("wheel", disableScroll);
-    };
-  }, [isLoading]);
+    return () => setTotalCartCheckout(0);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checkoutCartsData]);
 
   return (
-    <div className={cx("checkout")}>
-      {(auth || token) && havePower && cartsLength > 0 && (
+    <div className={cx('checkout')}>
+      {cartsLength > 0 && (
         <>
           <div className={cx("checkout__top")}>
             <div className={cx("container gx-5")}>
               <div className={cx("checkout__info")}>
                 <div>
-                  <h1 className={cx("checkout__heading")}>{t("checkout.heading")}</h1>
-                  <h4 className={cx("checkout__name")}>
-                    {cartsData.carts
-                      ? cartsData.carts.map((cartItem, index) => {
-                        if (index === cartsData.carts.length - 1) {
-                          return cartItem.shop.fullname;
-                        }
-                        return `${cartItem.shop.fullname}, `;
-                      })
-                      : " "}
+                  <h1 className={cx('checkout__heading')}>{t('checkout.heading')}</h1>
+                  <h4 className={cx('checkout__name')}>
+                    {checkoutCartsData
+                      ? checkoutCartsData.map((cartItem, index) => {
+                          if (index === checkoutCartsData.length - 1) {
+                            return cartItem.shop.fullname;
+                          }
+                          return `${cartItem.shop.fullname}, `;
+                        })
+                      : ' '}
                   </h4>
                 </div>
               </div>
@@ -410,19 +432,18 @@ function CheckOut() {
                     style={{ "--separate-bg": "#d1d3d6", "--separate-mg": "12px 0 20px" }}
                   ></div>
 
-                  <div className={cx("checkout__carts")}>
-                    {cartsData.carts &&
-                      cartsData.carts.map((cartItem, index) => {
+                  <div className={cx('checkout__carts')}>
+                    {listCartProduct &&
+                      listCartProduct.map((cartItem, index) => {
                         return (
                           <div key={index} className={cx("cart__products")}>
                             <div className={cx("cart__products-top")}>
                               <Link to={"#!"}>
                                 <h5 className={cx("cart__products-heading")}>{cartItem.shop.fullname}</h5>
                               </Link>
-                              <button className={cx("cart__products-delete-all")}>{t("button.btn04")}</button>
                             </div>
-                            <div className={cx("cart__products-list")}>
-                              {cartItem.cartDetails.map((cartDetail, index) => (
+                            <div className={cx('cart__products-list')}>
+                              {cartItem.selectedProducts.map((cartDetail, index) => (
                                 <CartItem key={index} data={cartDetail} isCheckout />
                               ))}
                             </div>
@@ -439,18 +460,18 @@ function CheckOut() {
                       })}
                   </div>
 
-                  <div className={cx("checkout__total")}>
-                    <div className={cx("checkout__total-group")}>
-                      <h6 className={cx("checkout__total-title")}>{t("checkout.title10")}</h6>
-                      <h6 className={cx("checkout__total-value")}>
-                        {cartsTotalMoney && `${cartsTotalMoney.toLocaleString("vi-VN")} ₫`}
+                  <div className={cx('checkout__total')}>
+                    <div className={cx('checkout__total-group')}>
+                      <h6 className={cx('checkout__total-title')}>{t('checkout.title10')}</h6>
+                      <h6 className={cx('checkout__total-value')}>
+                        {`${totalCartCheckout.toLocaleString('vi-VN')} ₫`}
                       </h6>
                     </div>
                     <div className={cx("checkout__total-group")}>
                       <h6 className={cx("checkout__total-title")}>
                         {t("checkout.title13")} <InfoIcon />
                       </h6>
-                      <h6 className={cx("checkout__total-value")}>10.000 ₫</h6>
+                      <h6 className={cx('checkout__total-value')}>0 ₫</h6>
                     </div>
                   </div>
                 </div>
@@ -462,44 +483,58 @@ function CheckOut() {
                     className={cx("separate")}
                     style={{ "--separate-bg": "#d1d3d6", "--separate-mg": "12px 0 20px" }}
                   ></div>
+                  <div className={cx('checkout__payment')}>
+                    <div className={cx('checkout__payment-group')}>
+                      <FormControl component="fieldset" style={{ fontFamily: 'var(--font-family)' }}>
+                        <FormLabel component="legend" className="checkout__pay-title">
+                          {t('checkout.title12')}
+                        </FormLabel>
+                        <RadioGroup
+                          aria-label="payment-method"
+                          defaultValue="cod"
+                          name="radio-buttons-group"
+                          onChange={handleChangePayment}
+                        >
+                          <FormControlLabel
+                            value="cod"
+                            control={<Radio className="radio-button" />}
+                            label={t('checkout.desc02')}
+                            className="radio-label"
+                          />
+                          <FormControlLabel
+                            value="bank"
+                            control={<Radio className="radio-button" />}
+                            label={t('checkout.desc03')}
+                            className="radio-label"
+                          />
+                        </RadioGroup>
+                      </FormControl>
 
-                  <div className={cx("checkout__payment")}>
-                    <FormControl component="fieldset" style={{ fontFamily: "var(--font-family)" }}>
-                      <FormLabel component="legend" className="checkout__pay-title">
-                        {t("checkout.title12")}
-                      </FormLabel>
-                      <RadioGroup
-                        aria-label="payment-method"
-                        defaultValue="cash"
-                        name="radio-buttons-group"
-                        onChange={handleChange}
-                      >
-                        <FormControlLabel
-                          value="cash"
-                          control={<Radio className="radio-button" />}
-                          label={t("checkout.desc02")}
-                          className="radio-label"
-                        />
-                        <FormControlLabel
-                          value="banking"
-                          control={<Radio className="radio-button" />}
-                          label={t("checkout.desc03")}
-                          className="radio-label"
-                        />
-                      </RadioGroup>
-                    </FormControl>
+                      <div className={cx('checkout__payment-warning')}>
+                        <p>{t('checkout.title16')}</p>
+                        <p>{t('checkout.desc07')}</p>
+                        <p>{t('checkout.desc08')}</p>
+                        <p>{t('checkout.desc09')}</p>
+                      </div>
+                    </div>
 
-                    <div className={cx("checkout__payment-qr")}>
-                      <p className={cx("checkout__payment-desc")}>{t("checkout.desc04")}</p>
-                      <img src={images.qrPay} className={cx("checkout__payment-thumb")} alt="qr" />
+                    <div className={cx('checkout__payment-qr')}>
+                      <p className={cx('checkout__payment-desc')}>{t('checkout.desc04')}</p>
+                      <img src={images.qrPay} className={cx('checkout__payment-thumb')} alt="qr" />
+                      <div className={cx('checkout__payment-information')}>
+                        <p>{t('checkout.desc10')} HaUIFood</p>
+                        <p>{t('checkout.desc11')}</p>
+                        <strong>{t('checkout.desc12')}</strong>
+                        <p>{t('checkout.desc13')}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div className={cx("checkout__group")}>
-                  <div className={cx("checkout__bottom")}>
-                    <div className={cx("checkout__bottom-img")}>
-                      <div className={cx("checkout__bottom-thumb")}></div>
+                <div className={cx('checkout__group', 'checkout__group-lap')}>
+                  <div className={cx('checkout__bottom')}>
+                    <div className={cx('checkout__bottom-img')}>
+                      <div className={cx('checkout__bottom-thumb')}></div>
                     </div>
                     <div className={cx("checkout__bottom-info")}>
                       <p className={cx("checkout__bottom-desc")}>{t("checkout.desc05")}</p>
@@ -512,16 +547,16 @@ function CheckOut() {
                 </div>
               </div>
 
-              <div className={cx("col-12 col-xxl-4 col-xl-4 col-lg-4 col-md-12")}>
-                <div className={cx("checkout__right")}>
-                  <div className={cx("checkout__right-info")}>
-                    <h4 className={cx("checkout__right-title")}>{t("cart.desc03")}</h4>
-                    <span className={cx("checkout__right-cost")}>
-                      {cartsTotalMoney && `${(cartsTotalMoney + 10000).toLocaleString("vi-VN")} ₫`}
+              <div className={cx('col-12 col-xxl-4 col-xl-4 col-lg-4 col-md-12')}>
+                <div className={cx('checkout__right')}>
+                  <div className={cx('checkout__right-info')}>
+                    <h4 className={cx('checkout__right-title')}>{t('cart.desc03')}</h4>
+                    <span className={cx('checkout__right-cost')}>
+                      {`${totalCartCheckout.toLocaleString('vi-VN')} ₫`}
                     </span>
                   </div>
-                  <Button disabled={!isSubmit} order primary>
-                    {t("button.btn16")}
+                  <Button onClick={handleOrder} disabled={!isSubmit} order primary>
+                    {t('button.btn16')}
                   </Button>
                 </div>
               </div>
@@ -530,14 +565,14 @@ function CheckOut() {
         </>
       )}
 
-      {((!auth && !token) || !havePower || cartsLength <= 0) && (
-        <div className={cx("no-products")}>
-          <img src={images.cart} alt="cart" className={cx("no-products__thumb")} />
-          <div className={cx("no-products__info")}>
-            <h4 className={cx("no-products__title")}>{t("checkout.title15")}</h4>
-            <p className={cx("no-products__desc")}>{t("checkout.desc06")}</p>
-            <Link to={routes.restaurant} className={cx("no-products__link")}>
-              {t("checkout.link01")}
+      {cartsLength <= 0 && (
+        <div className={cx('no-products')}>
+          <img src={images.cart} alt="cart" className={cx('no-products__thumb')} />
+          <div className={cx('no-products__info')}>
+            <h4 className={cx('no-products__title')}>{t('checkout.title15')}</h4>
+            <p className={cx('no-products__desc')}>{t('checkout.desc06')}</p>
+            <Link to={routes.restaurant} className={cx('no-products__link')}>
+              {t('checkout.link01')}
             </Link>
           </div>
         </div>

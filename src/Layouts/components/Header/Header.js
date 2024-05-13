@@ -117,7 +117,7 @@ function Header() {
 
   useEffect(() => {
     const onScroll = () => {
-      if (window.innerWidth >= 768) {
+      if (window.innerWidth >= 768 && headerRef.current) {
         if (window.scrollY > 50) {
           headerRef.current.style.backgroundColor = "#fff";
           headerRef.current.style.boxShadow = "0 1px 1px rgba(0, 0, 0, 0.12)";
@@ -257,15 +257,22 @@ function Header() {
           </Link>
 
           {/* Actions */}
-          <nav className={cx("header__actions")}>
-            <div onClick={() => setShowCart(!showCart)} className={cx("header__actions-group", "header__actions-cart")}>
-              <Button haveProducts={isCarts && isLogin} action outline leftIcon={<CartIcon className={cx("icon")} />}>
-                {cartsData.totalMoneyAllCarts !== 0 && isLogin
-                  ? cartsData.totalMoneyAllCarts && `${cartsData.totalMoneyAllCarts.toLocaleString("vi-VN")} ₫`
-                  : ""}
-              </Button>
-              {isCarts && isLogin && <span className={cx("header__actions-quantity")}>{cartsData.totalProducts}</span>}
-            </div>
+          <nav className={cx('header__actions')}>
+            {location.pathname !== '/checkout' && (
+              <div
+                onClick={() => setShowCart(!showCart)}
+                className={cx('header__actions-group', 'header__actions-cart')}
+              >
+                <Button haveProducts={isCarts && isLogin} action outline leftIcon={<CartIcon className={cx('icon')} />}>
+                  {cartsData.totalMoneyAllCarts !== 0 && isLogin
+                    ? cartsData.totalMoneyAllCarts && `${cartsData.totalMoneyAllCarts.toLocaleString('vi-VN')} ₫`
+                    : ''}
+                </Button>
+                {isCarts && isLogin && (
+                  <span className={cx('header__actions-quantity')}>{cartsData.totalProducts}</span>
+                )}
+              </div>
+            )}
             {!isLogin && (
               <div className={cx("header__actions-group")}>
                 <Link to={routes.login}>

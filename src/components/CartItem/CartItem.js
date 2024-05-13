@@ -3,6 +3,8 @@ import classNames from 'classnames/bind';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import { Checkbox, FormControlLabel, createTheme, ThemeProvider } from '@mui/material';
+import { useLocation } from 'react-router-dom';
 
 import styles from './CartItem.module.scss';
 
@@ -12,14 +14,46 @@ import { addProductToCart, removeProductToCart } from '~/apiService/cartService'
 
 const cx = classNames.bind(styles);
 
-function CartItem({ data, isCheckout = false, showCart }) {
+const theme = createTheme({
+  typography: {
+    fontSize: 20,
+  },
+  components: {
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          color: '#c5c5c5',
+          '&.Mui-checked': {
+            color: 'var(--primary-color)',
+          },
+          '&.MuiCheckbox-indeterminate': {
+            color: 'var(--primary-color)',
+          },
+        },
+      },
+    },
+    MuiFormControlLabel: {
+      styleOverrides: {
+        root: {
+          marginRight: '0',
+        },
+      },
+    },
+  },
+});
+
+function CartItem({ data, isCheckout = false, showCart, shopChecked, onItemCheckboxChange, checkedItems, idShop }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const [isNotUpdate, setIsNotUpdate] = useState(false);
 
   const [openChange, setOpenChange] = useState(false);
   const [changeQuantity, setChangeQuantity] = useState(data.quantity);
+  const [changeTotalPrice, setChangeTotalPrice] = useState(data.totalPrice);
+
+  const [isChecked, setIsChecked] = useState(true);
 
   const productName = data.product.name;
 
@@ -37,7 +71,9 @@ function CartItem({ data, isCheckout = false, showCart }) {
     if (changeQuantity > data.quantity) {
       dispatch(addProductToCart({ product: data.product._id, quantity: changeQuantity - data.quantity })).then(
         (result) => {
-          if (result.payload.code !== 200) {
+          if (result.payload.code === 200) {
+            toast.success(result.payload.message);
+          } else {
             toast.warning(result.payload.message);
           }
         },
@@ -45,7 +81,9 @@ function CartItem({ data, isCheckout = false, showCart }) {
     } else {
       dispatch(removeProductToCart({ product: data.product._id, quantity: data.quantity - changeQuantity })).then(
         (result) => {
-          if (result.payload.code !== 200) {
+          if (result.payload.code === 200) {
+            toast.success(result.payload.message);
+          } else {
             toast.warning(result.payload.message);
           }
         },
@@ -77,8 +115,40 @@ function CartItem({ data, isCheckout = false, showCart }) {
     }
   }, [showCart]);
 
+  useEffect(() => {
+    setIsChecked(shopChecked);
+  }, [shopChecked]);
+
+  useEffect(() => {
+    if (data && location.pathname !== '/checkout') {
+      onItemCheckboxChange(data._id, true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (openChange) {
+      setChangeQuantity(data.quantity);
+    }
+  }, [openChange]);
+
   return (
     <div className={cx('product')}>
+      {!isCheckout && (
+        <ThemeProvider theme={theme}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isChecked || (data._id && checkedItems[idShop] ? checkedItems[idShop][data._id] : true)}
+                onChange={(e) => {
+                  setIsChecked(e.target.checked);
+                  onItemCheckboxChange(data._id, e.target.checked);
+                }}
+              />
+            }
+          />
+        </ThemeProvider>
+      )}
       <div className={cx('product__mobile-quantity')}>
         <button
           style={isCheckout ? { cursor: 'default' } : {}}
@@ -101,13 +171,15 @@ function CartItem({ data, isCheckout = false, showCart }) {
         <p className={cx('product__detail-name')}>{productName}</p>
 
         <div className={cx('product__detail-group')}>
-          <span className={cx('product__detail-price')}>{data.totalPrice.toLocaleString('vi-VN')} ₫</span>
-          <button
-            onClick={() => deleteProduct({ product: data.product._id, quantity: changeQuantity })}
-            className={cx('product__detail-delete')}
-          >
-            {t('button.btn19')}
-          </button>
+          <span className={cx('product__detail-price')}>{data.product.price.toLocaleString('vi-VN')} ₫</span>
+          {!isCheckout && (
+            <button
+              onClick={() => deleteProduct({ product: data.product._id, quantity: changeQuantity })}
+              className={cx('product__detail-delete')}
+            >
+              {t('button.btn19')}
+            </button>
+          )}
         </div>
       </div>
 
@@ -125,6 +197,7 @@ function CartItem({ data, isCheckout = false, showCart }) {
         <div className={cx('change-quantity__first')}>
           <h1 className={cx('change-quantity__name')}>{productName}</h1>
           <p className={cx('change-quantity__desc')}>{productName}</p>
+          <p className={cx('change-quantity__price')}>{data.totalPrice.toLocaleString('vi-VN')} ₫</p>
         </div>
         <div className={cx('change-quantity__last')}>
           <h2 className={cx('change-quantity__title')}>{t('cart.title05')}</h2>

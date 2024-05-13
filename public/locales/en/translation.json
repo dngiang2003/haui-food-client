@@ -293,14 +293,24 @@
     "title13": "Applicable fee",
     "title14": "Room",
     "title15": "Start ordering",
+    "title16": "Note",
     "desc01": "Please call me first",
     "desc02": "Pay in cash",
     "desc03": "Bank transfer payment",
     "desc04": "PLEASE SCAN THE CODE BELOW TO MAKE A BANK TRANSFER PAYMENT",
     "desc05": "Use the bank transfer payment method to receive attractive offers. Only on HaUIFood website.",
     "desc06": "Add dishes to the food cart and place your order here.",
+    "desc07": "- Do not change the account number or bank.",
+    "desc08": "- Do not transfer money below the value of the order.",
+    "desc09": "- If an error occurs during the transfer, you need to contact us for support.",
+    "desc10": "Transfer content:",
+    "desc11": "Account holder name: DO NGOC GIANG",
+    "desc12": "Account number: 00005572823",
+    "desc13": "Tien Phong Commercial Joint Stock Bank",
     "notify01": "Please select a building first",
     "notify02": "Please select a floor first",
+    "notify03": "An error has occurred, please check and try again.",
+    "notify04": "Please go to the Purchase Order to check the order status.",
     "link01": "Browse restaurants"
   },
   "authTwinSetup": {
@@ -346,5 +356,9 @@
       "invalid-quantity": "The quantity of product cannot exceed 100 items",
       "unauthorized": "Please log in to add to cart"
     }
+  },
+  "restaurant-detail": {
+    "open-time-label": "Opening Hours",
+    "open-time-value": "Monday to Saturday 06:00 - 22:00"
   }
 }

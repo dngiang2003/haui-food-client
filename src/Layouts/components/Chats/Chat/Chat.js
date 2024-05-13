@@ -1,11 +1,11 @@
-import ChatIcon from '@mui/icons-material/Chat';
-import { useState } from 'react';
 import { Box, Modal } from '@mui/material';
+import ChatIcon from '@mui/icons-material/Chat';
+
 import classNames from 'classnames/bind';
 import styles from './Chat.module.scss';
 import Sidebar from './ChatModal/sidebar/Sidebar';
-import MessageContainer from './ChatModal/messages/MessageContainer';
 import { useChatContext } from './context/ChatContext';
+import MessageContainer from './ChatModal/messages/MessageContainer';
 
 const cx = classNames.bind(styles);
 
@@ -20,8 +20,8 @@ const Chat = () => {
       <Modal
         open={isOpen}
         onClose={closeModal}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
+        aria-labelledby='simple-modal-title'
+        aria-describedby='simple-modal-description'
         style={{
           zIndex: 9999999999
         }}
@@ -39,17 +39,6 @@ const Chat = () => {
             right: { xs: '19vw', md: '6.3vw', xl: '6.4vw' },
             bottom: '84px',
             outline: 'none',
-            '&::after': {
-              content: '""',
-              position: 'absolute',
-              bottom: '32px',
-              right: '-12px',
-              width: 0,
-              height: 0,
-              borderTop: '12px solid transparent',
-              borderBottom: '12px solid transparent',
-              borderLeft: '13px solid white',
-            }
           }}
         >
           <Sidebar />

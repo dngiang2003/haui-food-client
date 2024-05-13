@@ -1,5 +1,5 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const useGetConversations = () => {
     const [loading, setLoading] = useState(false);
@@ -9,7 +9,7 @@ const useGetConversations = () => {
             setLoading(true);
             try {
                 const jwtString = localStorage.getItem('accessToken');
-                const regex = /"([^"]+)"/;
+                const regex = /'([^']+)'/;
                 const matches = jwtString.match(regex);
                 const token = matches && matches[1];
                 const user = JSON.parse(localStorage.getItem('user'));

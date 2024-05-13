@@ -1,6 +1,7 @@
-import io from "socket.io-client";
-import { createContext, useState, useEffect, useContext } from "react";
-import { useAuthContext } from "./AuthContext";
+import io from 'socket.io-client';
+import { createContext, useState, useEffect, useContext } from 'react';
+
+import { useAuthContext } from './AuthContext';
 
 const SocketContext = createContext();
 
@@ -15,7 +16,7 @@ export const SocketContextProvider = ({ children }) => {
 
     useEffect(() => {
         const initializeSocket = () => {
-            const newSocket = io("https://haui-food-api.onrender.com/", {
+            const newSocket = io('https://haui-food-api.onrender.com/', {
                 query: {
                     userId: authUser._id,
                 },
@@ -23,7 +24,7 @@ export const SocketContextProvider = ({ children }) => {
 
             setSocket(newSocket);
 
-            newSocket.on("getOnlineUsers", (users) => {
+            newSocket.on('getOnlineUsers', (users) => {
                 setOnlineUsers(users);
             });
 

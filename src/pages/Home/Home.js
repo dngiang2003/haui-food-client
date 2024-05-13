@@ -188,8 +188,8 @@ function Home() {
             <div className={cx('col-md-6 col-12')}>
               <div className={cx('banner-footer__left')}>
                 <img
-                  src="https://food.grab.com/static/page-home/bottom-food-options.svg"
-                  alt="HauiFood"
+                  src='https://food.grab.com/static/page-home/bottom-food-options.svg'
+                  alt='HauiFood'
                   className={cx('banner-footer__left-img')}
                 />
 
@@ -200,16 +200,16 @@ function Home() {
             <div className={cx('col-md-6 col-12')}>
               <div className={cx('banner-footer__right')}>
                 <img
-                  src="https://food.grab.com/static/images/ilus-cool-features-app.svg"
-                  alt="HauiFood"
+                  src='https://food.grab.com/static/images/ilus-cool-features-app.svg'
+                  alt='HauiFood'
                   className={cx('banner-footer__right-img')}
                 />
                 <div className={cx('banner-footer__title')}>{t('home.title06')}</div>
                 <p className={cx('banner-footer__desc')}>{t('home.desc03')}</p>
 
                 <div className={cx('banner-footer__logo-container')}>
-                  <img src={images.appStore} className={cx('banner-footer__logo')} alt="" />
-                  <img src={images.googlePlay} className={cx('banner-footer__logo')} alt="" />
+                  <img src={images.appStore} className={cx('banner-footer__logo')} alt='' />
+                  <img src={images.googlePlay} className={cx('banner-footer__logo')} alt='' />
                 </div>
               </div>
             </div>

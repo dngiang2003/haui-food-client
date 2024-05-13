@@ -30,8 +30,8 @@ const ChatBot = () => {
         sx={{ zIndex: 99999, fontSize: 24 }}
         open={open}
         onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
+        aria-labelledby='simple-modal-title'
+        aria-describedby='simple-modal-description'
       >
         <ChatModal />
       </Modal>

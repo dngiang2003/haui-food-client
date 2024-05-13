@@ -156,8 +156,8 @@ function SignIn() {
         <div className={cx('form__group')}>
           <div className={cx('form__text-input')} style={errors.email !== '' ? { border: '1px solid #f44336' } : {}}>
             <input
-              type="email"
-              name="email"
+              type='email'
+              name='email'
               value={email}
               readOnly={loading}
               onChange={(e) => {
@@ -184,7 +184,7 @@ function SignIn() {
               }}
               onBlur={handleChangePassword}
               type={showPassword}
-              name="password"
+              name='password'
               placeholder={t('form.tp02')}
               className={cx('form__input')}
             />
@@ -195,7 +195,7 @@ function SignIn() {
 
         <div className={cx('form__group', 'form__group--inline')}>
           <label onChange={handleShowPassword} className={cx('form__checkbox')}>
-            <input type="checkbox" name="" className={cx('form__checkbox-input')} />
+            <input type='checkbox' name='' className={cx('form__checkbox-input')} />
             <span className={cx('form__checkbox-label')}>{t('form.lb01')}</span>
           </label>
           <Link className={cx('login__link', 'form__pull-right')} to={routes.forgotPassword}>
@@ -209,7 +209,7 @@ function SignIn() {
             auth
             disabled={submit || loading}
             onClick={handleSubmit}
-            leftIcon={loading && <Oval width="20" color="#fff" />}
+            leftIcon={loading && <Oval width='20' color='#fff' />}
           >
             {t('button.btn05')}
           </Button>

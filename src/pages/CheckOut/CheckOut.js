@@ -27,7 +27,7 @@ function CheckOut() {
   const isLoading = useSelector((state) => state.cart.loading);
   const isAddProduct = useSelector((state) => state.cart.isAddProduct);
   const isDeleteProduct = useSelector((state) => state.cart.isDeleteProduct);
-  
+
   const buildings = ['A1', 'A7', 'A8', 'A9', 'A10', 'A12'];
 
   const [cartsData, setCartsData] = useState({});
@@ -239,11 +239,11 @@ function CheckOut() {
                   <h4 className={cx('checkout__name')}>
                     {cartsData.carts
                       ? cartsData.carts.map((cartItem, index) => {
-                          if (index === cartsData.carts.length - 1) {
-                            return cartItem.shop.fullname;
-                          }
-                          return `${cartItem.shop.fullname}, `;
-                        })
+                        if (index === cartsData.carts.length - 1) {
+                          return cartItem.shop.fullname;
+                        }
+                        return `${cartItem.shop.fullname}, `;
+                      })
                       : ' '}
                   </h4>
                 </div>
@@ -391,8 +391,8 @@ function CheckOut() {
                       <div className={cx('form__text-input', 'form__text-input--sm', 'address__detail-input')}>
                         <input
                           onChange={(e) => setNote(e.target.value)}
-                          type="text"
-                          name="address-detail"
+                          type='text'
+                          name='address-detail'
                           placeholder={t('checkout.desc01')}
                           className={cx('form__input')}
                         />
@@ -464,34 +464,34 @@ function CheckOut() {
                   ></div>
 
                   <div className={cx('checkout__payment')}>
-                    <FormControl component="fieldset" style={{ fontFamily: 'var(--font-family)' }}>
-                      <FormLabel component="legend" className="checkout__pay-title">
+                    <FormControl component='fieldset' style={{ fontFamily: 'var(--font-family)' }}>
+                      <FormLabel component='legend' className='checkout__pay-title'>
                         {t('checkout.title12')}
                       </FormLabel>
                       <RadioGroup
-                        aria-label="payment-method"
-                        defaultValue="cash"
-                        name="radio-buttons-group"
+                        aria-label='payment-method'
+                        defaultValue='cash'
+                        name='radio-buttons-group'
                         onChange={handleChange}
                       >
                         <FormControlLabel
-                          value="cash"
-                          control={<Radio className="radio-button" />}
+                          value='cash'
+                          control={<Radio className='radio-button' />}
                           label={t('checkout.desc02')}
-                          className="radio-label"
+                          className='radio-label'
                         />
                         <FormControlLabel
-                          value="banking"
-                          control={<Radio className="radio-button" />}
+                          value='banking'
+                          control={<Radio className='radio-button' />}
                           label={t('checkout.desc03')}
-                          className="radio-label"
+                          className='radio-label'
                         />
                       </RadioGroup>
                     </FormControl>
 
                     <div className={cx('checkout__payment-qr')}>
                       <p className={cx('checkout__payment-desc')}>{t('checkout.desc04')}</p>
-                      <img src={images.qrPay} className={cx('checkout__payment-thumb')} alt="qr" />
+                      <img src={images.qrPay} className={cx('checkout__payment-thumb')} alt='qr' />
                     </div>
                   </div>
                 </div>
@@ -504,8 +504,8 @@ function CheckOut() {
                     <div className={cx('checkout__bottom-info')}>
                       <p className={cx('checkout__bottom-desc')}>{t('checkout.desc05')}</p>
                       <div className={cx('checkout__bottom-pays')}>
-                        <img src={images.bank} className={cx('checkout__bottom-pay')} alt="bank-transfer" />
-                        <img src={images.cash} className={cx('checkout__bottom-pay')} alt="cash" />
+                        <img src={images.bank} className={cx('checkout__bottom-pay')} alt='bank-transfer' />
+                        <img src={images.cash} className={cx('checkout__bottom-pay')} alt='cash' />
                       </div>
                     </div>
                   </div>
@@ -532,7 +532,7 @@ function CheckOut() {
 
       {((!auth && !token) || !havePower || cartsLength <= 0) && (
         <div className={cx('no-products')}>
-          <img src={images.cart} alt="cart" className={cx('no-products__thumb')} />
+          <img src={images.cart} alt='cart' className={cx('no-products__thumb')} />
           <div className={cx('no-products__info')}>
             <h4 className={cx('no-products__title')}>{t('checkout.title15')}</h4>
             <p className={cx('no-products__desc')}>{t('checkout.desc06')}</p>
@@ -546,7 +546,7 @@ function CheckOut() {
       {isLoading && (
         <div className={cx('modal-loading')}>
           <div className={cx('modal-loading__content')}>
-            <Oval width="50" color="#00b14f" />
+            <Oval width='50' color='#00b14f' />
           </div>
         </div>
       )}

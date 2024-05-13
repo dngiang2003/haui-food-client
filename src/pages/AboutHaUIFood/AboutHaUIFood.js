@@ -134,20 +134,20 @@ function AboutHaUIFood() {
 
   return (
     <div className={cx('about')}>
-      <img className={cx('about__img')} src={images.aboutOffice} alt="van-phong" />
+      <img className={cx('about__img')} src={images.aboutOffice} alt='van-phong' />
 
       <div className={cx('container gx-5')}>
         <div className={cx('about__top')}>
-          <h3 data-aos="zoom-in-right" className={cx('about__title')}>
+          <h3 data-aos='zoom-in-right' className={cx('about__title')}>
             {t('about-HaUIFood.heading01')}
           </h3>
-          <p data-aos="zoom-in-left" className={cx('about__desc')}>
+          <p data-aos='zoom-in-left' className={cx('about__desc')}>
             {t('about-HaUIFood.desc01')}
           </p>
-          <p data-aos="zoom-in-left" className={cx('about__desc')}>
+          <p data-aos='zoom-in-left' className={cx('about__desc')}>
             {t('about-HaUIFood.desc02')}
           </p>
-          <Link to={routes.home} rel="noreferrer" target="_blank" className={cx('about__btn')}>
+          <Link to={routes.home} rel='noreferrer' target='_blank' className={cx('about__btn')}>
             <Button more primary>
               {t('button.btn14')}
             </Button>
@@ -155,11 +155,11 @@ function AboutHaUIFood() {
         </div>
         <div className={cx('about__intro')}>
           <div className={cx('about__intro-wrapper')}>
-            <div className={cx('about__intro-item')} data-aos="fade-up-right">
+            <div className={cx('about__intro-item')} data-aos='fade-up-right'>
               <h5 className={cx('about__intro-title')}>{t('about-HaUIFood.heading02')}</h5>
               <p className={cx('about__intro-desc')}>{t('about-HaUIFood.desc03')}</p>
             </div>
-            <div className={cx('about__intro-item')} data-aos="fade-down-left">
+            <div className={cx('about__intro-item')} data-aos='fade-down-left'>
               <h5 className={cx('about__intro-title')}>{t('about-HaUIFood.heading03')}</h5>
               <p className={cx('about__intro-desc')}>{t('about-HaUIFood.desc04')}</p>
             </div>
@@ -167,32 +167,32 @@ function AboutHaUIFood() {
 
           <div className={cx('about__intro-wrapper')}>
             <div className={cx('about__intro-item', 'about__intro-item--xl')}>
-              <h5 data-aos="zoom-in-right" className={cx('about__intro-title')}>
+              <h5 data-aos='zoom-in-right' className={cx('about__intro-title')}>
                 {t('about-HaUIFood.heading04')}
               </h5>
-              <p data-aos="zoom-in-right" className={cx('about__intro-desc')}>
+              <p data-aos='zoom-in-right' className={cx('about__intro-desc')}>
                 {t('about-HaUIFood.desc05')}
               </p>
 
               <div className={cx('about__img-wrapper')}>
                 <div className={cx('row')}>
                   <div className={cx('col col-12 col-xxl-4 col-xl-4 col-lg-6')}>
-                    <div data-aos="zoom-in-right" className={cx('about__img-item')}>
-                      <img src={images.simple} className={cx('about__img-thumb')} alt="simple" />
+                    <div data-aos='zoom-in-right' className={cx('about__img-item')}>
+                      <img src={images.simple} className={cx('about__img-thumb')} alt='simple' />
                       <h5 className={cx('about__img-title')}>{t('about-HaUIFood.heading05')}</h5>
                       <p className={cx('about__img-desc')}>{t('about-HaUIFood.desc06')}</p>
                     </div>
                   </div>
                   <div className={cx('col col-12 col-xxl-4 col-xl-4 col-lg-6')}>
-                    <div data-aos="zoom-in" className={cx('about__img-item')}>
-                      <img src={images.happy} className={cx('about__img-thumb')} alt="simple" />
+                    <div data-aos='zoom-in' className={cx('about__img-item')}>
+                      <img src={images.happy} className={cx('about__img-thumb')} alt='simple' />
                       <h5 className={cx('about__img-title')}>{t('about-HaUIFood.heading06')}</h5>
                       <p className={cx('about__img-desc')}>{t('about-HaUIFood.desc07')}</p>
                     </div>
                   </div>
                   <div className={cx('col col-12 col-xxl-4 col-xl-4 col-lg-6')}>
-                    <div data-aos="zoom-in-left" className={cx('about__img-item')}>
-                      <img src={images.together} className={cx('about__img-thumb')} alt="simple" />
+                    <div data-aos='zoom-in-left' className={cx('about__img-item')}>
+                      <img src={images.together} className={cx('about__img-thumb')} alt='simple' />
                       <h5 className={cx('about__img-title')}>{t('about-HaUIFood.heading07')}</h5>
                       <p className={cx('about__img-desc')}>{t('about-HaUIFood.desc08')}</p>
                     </div>
@@ -207,19 +207,19 @@ function AboutHaUIFood() {
 
             <div className={cx('journey-list')}>
               <div className={cx('journey-item')}>
-                <img data-aos="fade-right" src={images.trip2} alt="" className={cx('journey-item__img')} />
+                <img data-aos='fade-right' src={images.trip2} alt='' className={cx('journey-item__img')} />
                 <div className={cx('journey-item__dot')}></div>
                 <div className={cx('journey-item__line')}></div>
-                <div data-aos="fade-up-left" className={cx('journey-item__desc')}>
+                <div data-aos='fade-up-left' className={cx('journey-item__desc')}>
                   <h4 className={cx('title')}>{t('about-HaUIFood.heading09')}</h4>
                   <p className={cx('text')}>{t('about-HaUIFood.desc09')}</p>
                 </div>
               </div>
               <div className={cx('journey-item')}>
-                <img data-aos="fade-right" src={images.trip1} alt="" className={cx('journey-item__img')} />
+                <img data-aos='fade-right' src={images.trip1} alt='' className={cx('journey-item__img')} />
                 <div className={cx('journey-item__dot')}></div>
                 <div className={cx('journey-item__line')}></div>
-                <div data-aos="fade-up-left" className={cx('journey-item__desc')}>
+                <div data-aos='fade-up-left' className={cx('journey-item__desc')}>
                   <h4 className={cx('title')}>{t('about-HaUIFood.heading10')}</h4>
                   <p className={cx('text')}>{t('about-HaUIFood.desc10')}</p>
                 </div>
@@ -230,7 +230,7 @@ function AboutHaUIFood() {
       </div>
 
       <div className={cx('about__footer')}>
-        <div data-aos="zoom-in-right" className={cx('about__footer-word')}>
+        <div data-aos='zoom-in-right' className={cx('about__footer-word')}>
           <p className={cx('about__footer-text')}>
             <QuotesIcon className={cx('about__footer-quotes')} />
             {t('about-HaUIFood.desc11')}
@@ -242,16 +242,16 @@ function AboutHaUIFood() {
 
       <div className={cx('container')}>
         <div className={cx('about__contact')}>
-          <h4 data-aos="fade-up-right" className={cx('about__contact-heading')}>
+          <h4 data-aos='fade-up-right' className={cx('about__contact-heading')}>
             {t('contact.heading')}
           </h4>
-          <p data-aos="fade-up-right" className={cx('about__contact-desc')}>
+          <p data-aos='fade-up-right' className={cx('about__contact-desc')}>
             {t('contact.desc')}
           </p>
-          <form data-aos="zoom-in-up" action="" className={cx('form')} autoComplete="off">
+          <form data-aos='zoom-in-up' action='' className={cx('form')} autoComplete='off'>
             <div className={cx('form__row', 'form__row--three')}>
               <div className={cx('form__group')}>
-                <label htmlFor="fullname" className={cx('form__label', 'form__label--medium')}>
+                <label htmlFor='fullname' className={cx('form__label', 'form__label--medium')}>
                   {t('form.tp03')}
                 </label>
                 <div className={cx('form__text-input', 'form__text-input--sm')}>
@@ -261,9 +261,9 @@ function AboutHaUIFood() {
                       setFullName(e.target.value);
                       handleInputChange(e);
                     }}
-                    type="text"
-                    id="fullname"
-                    name="fullname"
+                    type='text'
+                    id='fullname'
+                    name='fullname'
                     placeholder={t('form.tp03')}
                     className={cx('form__input')}
                   />
@@ -271,7 +271,7 @@ function AboutHaUIFood() {
                 </div>
               </div>
               <div className={cx('form__group')}>
-                <label htmlFor="email" className={cx('form__label', 'form__label--medium')}>
+                <label htmlFor='email' className={cx('form__label', 'form__label--medium')}>
                   {t('form.tp01')}
                 </label>
                 <div
@@ -284,9 +284,9 @@ function AboutHaUIFood() {
                       setEmail(e.target.value);
                       handleInputChange(e);
                     }}
-                    id="email"
-                    type="email"
-                    name="email"
+                    id='email'
+                    type='email'
+                    name='email'
                     placeholder={t('form.tp01')}
                     className={cx('form__input')}
                   />
@@ -295,7 +295,7 @@ function AboutHaUIFood() {
                 <p className={cx('form__error')}>{errors.email}</p>
               </div>
               <div className={cx('form__group')}>
-                <label htmlFor="phone" className={cx('form__label', 'form__label--medium')}>
+                <label htmlFor='phone' className={cx('form__label', 'form__label--medium')}>
                   {t('form.tp05')}
                 </label>
                 <div
@@ -308,9 +308,9 @@ function AboutHaUIFood() {
                       setPhone(e.target.value);
                       handleInputChange(e);
                     }}
-                    id="phone"
-                    type="tel"
-                    name="phone"
+                    id='phone'
+                    type='tel'
+                    name='phone'
                     placeholder={t('form.tp05')}
                     className={cx('form__input')}
                   />
@@ -320,7 +320,7 @@ function AboutHaUIFood() {
               </div>
             </div>
             <div className={cx('form__group')}>
-              <label htmlFor="message" className={cx('form__label', 'form__label--medium')}>
+              <label htmlFor='message' className={cx('form__label', 'form__label--medium')}>
                 {t('form.tp06')} <span style={{ color: '#f44336' }}>*</span>
               </label>
               <div
@@ -336,8 +336,8 @@ function AboutHaUIFood() {
                   }}
                   onFocus={() => setIsBlur(false)}
                   onBlur={() => setIsBlur(true)}
-                  id="message"
-                  name="message"
+                  id='message'
+                  name='message'
                   placeholder={t('form.tp06')}
                   className={cx('form__text-area-input')}
                 ></textarea>

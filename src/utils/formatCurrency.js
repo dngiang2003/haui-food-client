@@ -18,8 +18,8 @@ function formatCurrency(input) {
 }
 
 // Ví dụ sử dụng
-// formatCurrency(1000); Output: "1.000"
-// formatCurrency('20,000'); Output: "20.000"
-// formatCurrency(null); Output: ""
+// formatCurrency(1000); Output: '1.000'
+// formatCurrency('20,000'); Output: '20.000'
+// formatCurrency(null); Output: ''
 
 export default formatCurrency;

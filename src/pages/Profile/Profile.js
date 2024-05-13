@@ -460,11 +460,11 @@ function Profile() {
             <div className={cx('profile__img-container')}>
               <img
                 className={cx('profile__img-cover')}
-                src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt="hauifood"
+                src='https://images.unsplash.com/photo-1497250681960-ef046c08a56e?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                alt='hauifood'
               />
               <div
-                // listOption[1].title là "Personal info"
+                // listOption[1].title là 'Personal info'
                 className={cx('profile__img-content')}
               >
                 <div
@@ -475,7 +475,7 @@ function Profile() {
                   <img
                     className={cx('profile__img')}
                     src={imagePreview || userInfo?.avatar || images.avatarDefault}
-                    alt="hauifood"
+                    alt='hauifood'
                   />
                   <div
                     className={cx('select-image-btn')}
@@ -485,8 +485,8 @@ function Profile() {
                   >
                     <input
                       ref={inputRefs.avatar}
-                      type="file"
-                      accept="image/*"
+                      type='file'
+                      accept='image/*'
                       style={{ display: 'none' }}
                       onInput={(e) => {
                         handleSelectImage(e);
@@ -544,7 +544,7 @@ function Profile() {
               {!isLoading && (
                 <div className={cx('profile-content')}>
                   <div
-                    // listOption[1].title là "Personal info"
+                    // listOption[1].title là 'Personal info'
                     className={cx('profile-input-container', {
                       'no-personal-info': selectedOption !== listOptions[1].title,
                     })}
@@ -556,15 +556,15 @@ function Profile() {
                       <>
                         {/* full name */}
                         <div className={cx('profile-input-group', { 'no-change': !isChange })}>
-                          <label className={cx('profile-input-group__label')} htmlFor="fullName">
+                          <label className={cx('profile-input-group__label')} htmlFor='fullName'>
                             {t('profile.fullName')}
                           </label>
                           <input
                             ref={inputRefs.fullName}
                             className={cx('profile__input', { isError: errors.fullName })}
-                            type="text"
-                            name="fullName"
-                            // id="fullName"
+                            type='text'
+                            name='fullName'
+                            // id='fullName'
                             placeholder={t('profile.fullName')}
                             value={fullName}
                             onChange={(e) => {
@@ -579,15 +579,15 @@ function Profile() {
 
                         {/* email */}
                         <div className={cx('profile-input-group', 'no-change')}>
-                          <label className={cx('profile-input-group__label')} htmlFor="email">
+                          <label className={cx('profile-input-group__label')} htmlFor='email'>
                             {t('profile.email')}
                           </label>
                           <input
                             className={cx('')}
-                            type="text"
-                            name="email"
-                            // id="email"
-                            placeholder="Email"
+                            type='text'
+                            name='email'
+                            // id='email'
+                            placeholder='Email'
                             value={email}
                             onChange={(e) => {
                               handleInputChange(e);
@@ -599,15 +599,15 @@ function Profile() {
                         {/* phone number */}
 
                         <div className={cx('profile-input-group', { 'no-change': !isChange })}>
-                          <label className={cx('profile-input-group__label')} htmlFor="phoneNumber">
+                          <label className={cx('profile-input-group__label')} htmlFor='phoneNumber'>
                             {t('profile.phoneNumber')}
                           </label>
                           <input
                             ref={inputRefs.phoneNumber}
                             className={cx({ isError: errors.phoneNumber })}
-                            type="text"
-                            name="phoneNumber"
-                            id="phone-number"
+                            type='text'
+                            name='phoneNumber'
+                            id='phone-number'
                             placeholder={t('profile.phoneNumber')}
                             value={phoneNumber}
                             onChange={(e) => {
@@ -623,15 +623,15 @@ function Profile() {
                         {/* msv */}
 
                         <div className={cx('profile-input-group', { 'no-change': !isChange })}>
-                          <label className={cx('profile-input-group__label')} htmlFor="msv">
+                          <label className={cx('profile-input-group__label')} htmlFor='msv'>
                             {t('profile.msv')}
                           </label>
                           <input
                             ref={inputRefs.msv}
                             className={cx({ isError: errors.msv })}
-                            type="text"
+                            type='text'
                             max={10}
-                            name="msv"
+                            name='msv'
                             placeholder={t('profile.msv')}
                             value={msv}
                             onChange={(e) => {
@@ -645,7 +645,7 @@ function Profile() {
 
                         {/* Birth day */}
                         <div className={cx('profile-input-group', { 'no-change': !isChange })}>
-                          <label className={cx('profile-input-group__label')} htmlFor="birth-day">
+                          <label className={cx('profile-input-group__label')} htmlFor='birth-day'>
                             {t('profile.birthDay')}
                           </label>
                           <div className={cx('date-picker-container')}>
@@ -721,10 +721,10 @@ function Profile() {
                               ref={inputRefs.oldPassword}
                               className={cx({ isError: errors.oldPassword })}
                               type={showPassword.oldPassword ? 'text' : 'password'}
-                              name="oldPassword"
+                              name='oldPassword'
                               placeholder={t('profile.oldPassword')}
                               value={oldPassword}
-                              autoComplete="false"
+                              autoComplete='false'
                               onChange={(e) => {
                                 handleInputChange(e);
                                 validateInputs();
@@ -756,10 +756,10 @@ function Profile() {
                               ref={inputRefs.newPassword}
                               className={cx({ isError: errors.newPassword })}
                               type={showPassword.newPassword ? 'text' : 'password'}
-                              name="newPassword"
+                              name='newPassword'
                               placeholder={t('profile.newPassword')}
                               value={newPassword}
-                              autoComplete="false"
+                              autoComplete='false'
                               onChange={(e) => {
                                 handleInputChange(e);
                                 validateInputs();
@@ -791,10 +791,10 @@ function Profile() {
                               ref={inputRefs.confirmPassword}
                               className={cx({ isError: errors.confirmPassword })}
                               type={showPassword.confirmPassword ? 'text' : 'password'}
-                              name="confirmPassword"
+                              name='confirmPassword'
                               placeholder={t('profile.confirmPassword')}
                               value={confirmPassword}
-                              autoComplete="false"
+                              autoComplete='false'
                               onChange={(e) => {
                                 handleInputChange(e);
                                 validateInputs();
@@ -831,7 +831,7 @@ function Profile() {
                     {selectedOption === listOptions[3].title && <HistoryOder />}
                   </div>
 
-                  {/* listOption[1].title là "Personal info" */}
+                  {/* listOption[1].title là 'Personal info' */}
                   {/* nếu đang không thay đổi và phải đang ở trang trang personal info thì mới hiển thị */}
                   {!isChange && selectedOption === listOptions[1].title && (
                     <div className={cx('btn-container')}>
@@ -846,30 +846,30 @@ function Profile() {
                     </div>
                   )}
 
-                  {/* listOption[1].title là "Personal info" */}
+                  {/* listOption[1].title là 'Personal info' */}
                   {/* nếu đang thay đổi hoặc không phải là trang personal info thì hiển thị */}
                   {((isChange && selectedOption === listOptions[1].title) ||
                     selectedOption === listOptions[2].title) && (
-                    <div className={cx('btn-container')}>
-                      <Button
-                        className={cx('cancel-btn')}
-                        onClick={() => {
-                          handleCancel();
-                          setIsChange(false);
-                        }}
-                      >
-                        {t('profile.btn-cancel')}
-                      </Button>
-                      <Button
-                        className={cx('update-btn')}
-                        onClick={(e) => {
-                          handleUpdate();
-                        }}
-                      >
-                        {t('profile.btn-update')}
-                      </Button>
-                    </div>
-                  )}
+                      <div className={cx('btn-container')}>
+                        <Button
+                          className={cx('cancel-btn')}
+                          onClick={() => {
+                            handleCancel();
+                            setIsChange(false);
+                          }}
+                        >
+                          {t('profile.btn-cancel')}
+                        </Button>
+                        <Button
+                          className={cx('update-btn')}
+                          onClick={(e) => {
+                            handleUpdate();
+                          }}
+                        >
+                          {t('profile.btn-update')}
+                        </Button>
+                      </div>
+                    )}
                 </div>
               )}
             </form>

@@ -34,16 +34,16 @@ function ServerError() {
     <div className={cx('bg-purple')}>
       <div className={cx('stars')}>
         <div className={cx('central-body')}>
-          <img loading="lazy" className={cx('image-500')} src={images.internalServer} alt="500" />
+          <img loading='lazy' className={cx('image-500')} src={images.internalServer} alt='500' />
           <Link to={routes.home} className={cx('btn-go-home')}>
             {t('button.btn13')}
           </Link>
         </div>
         <div className={cx('objects')}>
-          <img loading="lazy" className={cx('object_rocket')} src={images.rocket} alt="rocket" width="40px" />
+          <img loading='lazy' className={cx('object_rocket')} src={images.rocket} alt='rocket' width='40px' />
           <div className={cx('earth-moon')}>
-            <img loading="lazy" className={cx('object_earth')} src={images.earth} alt="earth" width="100px" />
-            <img loading="lazy" className={cx('object_moon')} src={images.moon} alt="moon" width="80px" />
+            <img loading='lazy' className={cx('object_earth')} src={images.earth} alt='earth' width='100px' />
+            <img loading='lazy' className={cx('object_moon')} src={images.moon} alt='moon' width='80px' />
           </div>
         </div>
         <div className={cx('glowing_stars')}>

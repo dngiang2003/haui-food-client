@@ -72,12 +72,12 @@ function Restaurants() {
               }
             }}
             value={searchValue}
-            id="restaurant-search"
-            type="text"
+            id='restaurant-search'
+            type='text'
             className={cx('restaurant__search')}
-            placeholder=""
+            placeholder=''
           />
-          <label htmlFor="restaurant-search" className={cx('restaurant__search-label')}>
+          <label htmlFor='restaurant-search' className={cx('restaurant__search-label')}>
             {t('restaurant.placeholder')}
           </label>
         </div>

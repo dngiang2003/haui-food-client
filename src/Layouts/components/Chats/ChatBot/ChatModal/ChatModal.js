@@ -42,7 +42,7 @@ const ChatModal = () => {
 
   return (
     <div className={cx('chat-modal')}>
-      <Typography variant="h6" className={cx('chat-modal__title')}>
+      <Typography variant='h6' className={cx('chat-modal__title')}>
         Trợ lý AI
       </Typography>
       <div className={cx('chat-modal__messages')}>
@@ -50,7 +50,7 @@ const ChatModal = () => {
           messages.map((message, key) => (
             <div key={key}>
               <Typography
-                variant="body1"
+                variant='body1'
                 fontSize={{ fontSize: 15 }}
                 className={cx(
                   'chat-modal__message',
@@ -64,14 +64,14 @@ const ChatModal = () => {
       </div>
       <div className={cx('chat-modal__container')}>
         <input
-          type="text"
+          type='text'
           className={cx('chat-modal__input')}
           value={messageInput}
           onChange={handleChange}
-          placeholder="Nhập nội dung chat"
+          placeholder='Nhập nội dung chat'
           onKeyDown={handleKeyPress}
         />
-        <button type="submit" onClick={handleSendMessage} className={cx('chat-modal__button')}>
+        <button type='submit' onClick={handleSendMessage} className={cx('chat-modal__button')}>
           <SendIcon />
         </button>
       </div>

@@ -23,7 +23,7 @@ function ForgotPassword() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loading = useSelector((state) => state.captcha.loading);
-  
+
   const emailRegex = useMemo(() => /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/, []);
 
   const [email, setEmail] = useState('');
@@ -45,8 +45,8 @@ function ForgotPassword() {
     const newHeight = '100%';
 
     const updatedSvgString = svgString
-      .replace(/width="[^"]*"/, `width="${newWidth}"`)
-      .replace(/height="[^"]*"/, `height="${newHeight}"`);
+      .replace(/width='[^']*'/, `width='${newWidth}'`)
+      .replace(/height='[^']*'/, `height='${newHeight}'`);
 
     return <div dangerouslySetInnerHTML={{ __html: updatedSvgString }} />;
   };
@@ -163,8 +163,8 @@ function ForgotPassword() {
         <div className={cx('form__group')}>
           <div className={cx('form__text-input')} style={errors.email !== '' ? { border: '1px solid #f44336' } : {}}>
             <input
-              type="email"
-              name=""
+              type='email'
+              name=''
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -192,21 +192,21 @@ function ForgotPassword() {
                   setTouchedCaptcha(true);
                 }}
                 onBlur={() => setTouchedCaptcha(true)}
-                type="text"
-                name=""
+                type='text'
+                name=''
                 value={captchaValue}
-                placeholder="Captcha"
+                placeholder='Captcha'
                 className={cx('form__input')}
               />
             </div>
-            {loading && <Oval width="30" color="#00b14f" />}
+            {loading && <Oval width='30' color='#00b14f' />}
             {captchaSVG && !loading ? (
               <SvgComponent />
             ) : (
-              !loading && <img src={images.defaultImg} className={cx('captcha__img')} alt="default-img" />
+              !loading && <img src={images.defaultImg} className={cx('captcha__img')} alt='default-img' />
             )}
             <button
-              type="button"
+              type='button'
               className={cx('captcha__icon')}
               onClick={(e) => {
                 e.preventDefault();

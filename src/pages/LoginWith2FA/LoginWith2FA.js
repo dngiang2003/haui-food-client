@@ -125,8 +125,8 @@ function LoginWith2FA() {
                   handleChange(e, index);
                 }}
                 onKeyDown={(e) => handleKeyDown(e, index)}
-                type="text"
-                name=""
+                type='text'
+                name=''
                 className={cx('form__input', 'form__input--center')}
               />
             </div>
@@ -149,7 +149,7 @@ function LoginWith2FA() {
 
       <p className={cx('verify-otp__footer')}>
         {t('login-with-2fa.desc02')}
-        <a href="https://2fa.live/" target="blank" className={cx('verify-otp__link')} to={routes.login}>
+        <a href='https://2fa.live/' target='blank' className={cx('verify-otp__link')} to={routes.login}>
           {t('login-with-2fa.here')}
         </a>
       </p>

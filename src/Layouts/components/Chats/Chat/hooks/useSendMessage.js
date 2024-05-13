@@ -1,13 +1,14 @@
-import { useState } from "react";
-import useConversation from "../zustand/useConversation";
-import axios from "axios";
+import axios from 'axios';
+import { useState } from 'react';
+
+import useConversation from '../zustand/useConversation';
 
 const useSendMessage = () => {
     const [loading, setLoading] = useState(false);
     const { messages, setMessages, selectedConversation } = useConversation();
 
     const jwtString = localStorage.getItem('accessToken');
-    const regex = /"([^"]+)"/;
+    const regex = /'([^']+)'/;
     const matches = jwtString.match(regex);
     const token = matches && matches[1];
 

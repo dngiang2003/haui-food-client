@@ -81,8 +81,8 @@ function VerifyOTP() {
                   handleChange(e, index);
                 }}
                 onKeyDown={(e) => handleKeyDown(e, index)}
-                type="text"
-                name=""
+                type='text'
+                name=''
                 className={cx('form__input', 'form__input--center')}
               />
             </div>

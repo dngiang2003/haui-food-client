@@ -140,8 +140,8 @@ function SignUp() {
         <div className={cx('form__group')}>
           <div className={cx('form__text-input')} style={errors.fullname !== '' ? { border: '1px solid #f44336' } : {}}>
             <input
-              type="text"
-              name=""
+              type='text'
+              name=''
               readOnly={loading}
               value={fullname}
               onChange={(e) => setFullName(e.target.value)}
@@ -157,8 +157,8 @@ function SignUp() {
         <div className={cx('form__group')}>
           <div className={cx('form__text-input')} style={errors.email !== '' ? { border: '1px solid #f44336' } : {}}>
             <input
-              type="email"
-              name=""
+              type='email'
+              name=''
               readOnly={loading}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -179,7 +179,7 @@ function SignUp() {
               onChange={(e) => setPassword(e.target.value)}
               onBlur={handleChangePassword}
               type={showPassword}
-              name="password"
+              name='password'
               placeholder={t('form.tp02')}
               className={cx('form__input')}
             />
@@ -190,7 +190,7 @@ function SignUp() {
 
         <div className={cx('form__group', 'form__group--inline')}>
           <label onChange={handleShowPassword} className={cx('form__checkbox')}>
-            <input type="checkbox" name="" className={cx('form__checkbox-input')} />
+            <input type='checkbox' name='' className={cx('form__checkbox-input')} />
             <span className={cx('form__checkbox-label')}>{t('form.lb01')}</span>
           </label>
         </div>
@@ -201,7 +201,7 @@ function SignUp() {
             auth
             disabled={submit || loading}
             onClick={(e) => handleRegister(e)}
-            leftIcon={loading && <Oval width="20" color="#fff" />}
+            leftIcon={loading && <Oval width='20' color='#fff' />}
           >
             {t('button.btn07')}
           </Button>

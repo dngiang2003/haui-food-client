@@ -138,7 +138,7 @@ function ResetPassword() {
               }}
               onBlur={handleChangeNewPassword}
               type={showPassword}
-              name=""
+              name=''
               placeholder={t('form.tp02')}
               className={cx('form__input')}
             />
@@ -160,7 +160,7 @@ function ResetPassword() {
               }}
               onBlur={handleChangeConfirmPassword}
               type={showPassword}
-              name=""
+              name=''
               placeholder={t('form.tp04')}
               className={cx('form__input')}
             />
@@ -171,7 +171,7 @@ function ResetPassword() {
 
         <div className={cx('form__group', 'form__group--inline')}>
           <label onChange={handleShowPassword} className={cx('form__checkbox')}>
-            <input type="checkbox" name="" className={cx('form__checkbox-input')} />
+            <input type='checkbox' name='' className={cx('form__checkbox-input')} />
             <span className={cx('form__checkbox-label')}>{t('form.lb01')}</span>
           </label>
         </div>

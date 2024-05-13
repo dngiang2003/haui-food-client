@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
-import MessageContainer from "./messages/MessageContainer";
-import Sidebar from "./sidebar/Sidebar";
+
+import Sidebar from './sidebar/Sidebar';
+import MessageContainer from './messages/MessageContainer';
 
 const Home = () => {
   return (
@@ -17,18 +18,6 @@ const Home = () => {
         right: { xs: '19vw', md: '6.3vw', xl: '6.4vw' },
         bottom: '84px',
         zIndex: '99999999999',
-        '&::after': {
-          content: '""',
-          position: 'absolute',
-          bottom: '32px',
-          right: '-12px',
-          width: 0,
-          height: 0,
-          borderTop: '12px solid transparent',
-          borderBottom: '12px solid transparent',
-          borderLeft: '13px solid white',
-          zIndex: '99999999999',
-        }
       }}
     >
       <Sidebar />

@@ -1,11 +1,12 @@
+import { useState } from 'react';
 import { TextField, IconButton } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
-import { useState } from "react";
-import useConversation from "../../zustand/useConversation";
-import useGetConversations from "../../hooks/useGetConversations";
+
+import useConversation from '../../zustand/useConversation';
+import useGetConversations from '../../hooks/useGetConversations';
 
 const SearchInput = () => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const { setSelectedConversation } = useConversation();
   const { conversations } = useGetConversations();
 
@@ -19,14 +20,14 @@ const SearchInput = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center gap-2">
+    <form onSubmit={handleSubmit} className='flex items-center gap-2'>
       <TextField
-        label="Search..."
-        variant="outlined"
+        label='Search...'
+        variant='outlined'
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <IconButton type="submit" className="bg-sky-500 text-white" >
+      <IconButton type='submit' className='bg-sky-500 text-white' >
         <SearchIcon onclick={handleSubmit} />
       </IconButton>
     </form>

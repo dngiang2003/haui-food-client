@@ -253,7 +253,7 @@ const Restaurant = () => {
       slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
       slug = slug.replace(/đ/gi, 'd');
 
-      slug = slug.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '');
+      slug = slug.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\'|\:|\;|_/gi, '');
 
       slug = slug.replace(/\s+/g, '-');
 
@@ -283,7 +283,7 @@ const Restaurant = () => {
           return (
             <div key={idx} className={cx('productCard__detail')}>
               <div className={cx('productCard__detail--img')}>
-                <img alt="ảnh" src={product.productImage} />
+                <img alt='ảnh' src={product.productImage} />
               </div>
               <div className={cx('productCard__detail--description')}>
                 <div className={cx('productCard__detail--description--content')}>
@@ -309,7 +309,7 @@ const Restaurant = () => {
       </div>
 
       <p className={cx('restaurant__footer')}>
-        Chúng tôi luôn cố gắng cập nhật thông tin chính xác nhất. <a href="#">Hãy báo với chúng tôi </a>nếu bạn thấy bất
+        Chúng tôi luôn cố gắng cập nhật thông tin chính xác nhất. <a href='#'>Hãy báo với chúng tôi </a>nếu bạn thấy bất
         kỳ thông tin không chính xác nào.
       </p>
     </div>

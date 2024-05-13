@@ -253,7 +253,7 @@ function Header() {
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
           >
-            <img src={logo} alt="logo" className={cx('header__logo')} />
+            <img src={logo} alt='logo' className={cx('header__logo')} />
           </Link>
 
           {/* Actions */}
@@ -282,7 +282,7 @@ function Header() {
                   onClick={() => setShowUserOptions(!showUserOptions)}
                   className={cx('header__actions-avatar', showUserOptions && 'header__actions-avatar--open')}
                   src={avatar}
-                  alt="avatar"
+                  alt='avatar'
                 />
                 <ul
                   ref={userOptionsRef}
@@ -331,7 +331,7 @@ function Header() {
                 className={cx('header__language')}
               >
                 <p>Tiếng Việt</p>
-                <img loading="lazy" className={cx('header__language-img')} src={images.vi} alt="vi" />
+                <img loading='lazy' className={cx('header__language-img')} src={images.vi} alt='vi' />
               </li>
               <li
                 onClick={() => {
@@ -343,7 +343,7 @@ function Header() {
                 className={cx('header__language')}
               >
                 <p>English</p>
-                <img loading="lazy" className={cx('header__language-img')} src={images.en} alt="en" />
+                <img loading='lazy' className={cx('header__language-img')} src={images.en} alt='en' />
               </li>
               <li
                 onClick={() => {
@@ -355,7 +355,7 @@ function Header() {
                 className={cx('header__language')}
               >
                 <p>中国人</p>
-                <img loading="lazy" className={cx('header__language-img')} src={images.zh} alt="zh" />
+                <img loading='lazy' className={cx('header__language-img')} src={images.zh} alt='zh' />
               </li>
             </ul>
           </nav>
@@ -371,7 +371,7 @@ function Header() {
       {isLoadingCart && !showCart && (
         <div className={cx('modal-loading')}>
           <div className={cx('modal-loading__content')}>
-            <Oval width="50" color="#00b14f" />
+            <Oval width='50' color='#00b14f' />
           </div>
         </div>
       )}

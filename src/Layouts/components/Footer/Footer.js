@@ -23,7 +23,7 @@ function Footer() {
     <div className={cx('footer')}>
       <div className={cx('container gx-5')}>
         <Link to={routes.home} onClick={(e) => handleClick(e)}>
-          <img src={images.logoVip1} alt="logo" className={cx('footer__logo')} />
+          <img src={images.logoVip1} alt='logo' className={cx('footer__logo')} />
         </Link>
 
         <div className={cx('separate')}></div>
@@ -77,20 +77,20 @@ function Footer() {
           <div className={cx('col col-xxl-3 col-xl-3 col-12')}>
             <div className={cx('footer__socials')}>
               <a
-                href="https://www.facebook.com/profile.php?id=61557360312825"
-                rel="noreferrer"
-                target="_blank"
+                href='https://www.facebook.com/profile.php?id=61557360312825'
+                rel='noreferrer'
+                target='_blank'
                 className={cx('footer__social-link')}
               >
                 <FacebookIcon />
               </a>
-              <a href="#!" rel="noreferrer" target="_blank" className={cx('footer__social-link')}>
+              <a href='#!' rel='noreferrer' target='_blank' className={cx('footer__social-link')}>
                 <InstagramIcon />
               </a>
               <a
-                href="https://github.com/haui-food"
-                rel="noreferrer"
-                target="_blank"
+                href='https://github.com/haui-food'
+                rel='noreferrer'
+                target='_blank'
                 className={cx('footer__social-link')}
               >
                 <GithubIcon />
@@ -105,7 +105,7 @@ function Footer() {
           <div className={cx('footer__bottom-group')}>
             <p className={cx('footer__bottom-text')}>
               {t('footer.title08')}:
-              <a href="mailto: info.hauifood@gmail.com" className={cx('footer__bottom-link')}>
+              <a href='mailto: info.hauifood@gmail.com' className={cx('footer__bottom-link')}>
                 {' '}
                 info.hauifood@gmail.com
               </a>
@@ -117,13 +117,13 @@ function Footer() {
             </div>
             <div className={cx('footer__bottom-wrapper')}>
               <p className={cx('footer__bottom-text')}>
-                <a href="#!" className={cx('footer__bottom-link')}>
+                <a href='#!' className={cx('footer__bottom-link')}>
                   {t('footer.title07')}
                 </a>
               </p>
               <span className={cx('dot-separate')}>•</span>
               <p className={cx('footer__bottom-text')}>
-                <a href="#!" className={cx('footer__bottom-link')}>
+                <a href='#!' className={cx('footer__bottom-link')}>
                   {t('footer.title09')}
                 </a>
               </p>

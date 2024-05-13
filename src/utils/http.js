@@ -1,2 +1,2 @@
-const hostname = 'https://api.hauifood.com/api';
+const hostname = 'https://haui-food-api.onrender.com/api';
 export default hostname;

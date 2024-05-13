@@ -16,6 +16,9 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import GlobalStyles from '~/components/GlobalStyles';
 import BasketProvider from './contexts/BasketContext';
 import store from './redux/store';
+import { AuthContextProvider } from './Layouts/components/Chats/Chat/context/AuthContext';
+import { SocketContextProvider } from './Layouts/components/Chats/Chat/context/SocketContext';
+import { ChatProvider } from './Layouts/components/Chats/Chat/context/ChatContext';
 
 AOS.init({
   once: true,
@@ -31,18 +34,24 @@ function Main() {
   return (
     <Provider store={store}>
       {/* <React.StrictMode> */}
-        <GoogleOAuthProvider clientId="1016987616352-ac1dgf61p6suvhvg3bcaqcrqd874rppm.apps.googleusercontent.com">
-          <I18nextProvider i18n={i18n}>
-            <GlobalStyles>
-              <BasketProvider>
-                <Helmet>
-                  <title>{t('title')}</title>
-                </Helmet>
-                <App />
-              </BasketProvider>
-            </GlobalStyles>
-          </I18nextProvider>
-        </GoogleOAuthProvider>
+      <GoogleOAuthProvider clientId="1016987616352-ac1dgf61p6suvhvg3bcaqcrqd874rppm.apps.googleusercontent.com">
+        <I18nextProvider i18n={i18n}>
+          <GlobalStyles>
+            <BasketProvider>
+              <AuthContextProvider>
+                <SocketContextProvider>
+                  <ChatProvider>
+                    <Helmet>
+                      <title>{t('title')}</title>
+                    </Helmet>
+                    <App />
+                  </ChatProvider>
+                </SocketContextProvider>
+              </AuthContextProvider>
+            </BasketProvider>
+          </GlobalStyles>
+        </I18nextProvider>
+      </GoogleOAuthProvider>
       {/* </React.StrictMode> */}
     </Provider>
   );

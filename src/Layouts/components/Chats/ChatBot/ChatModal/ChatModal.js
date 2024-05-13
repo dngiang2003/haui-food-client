@@ -23,7 +23,7 @@ const ChatModal = () => {
       setMessageInput('');
 
       try {
-        const response = await axios.post('https://api.hauifood.com/api/v1/chat-bots', {
+        const response = await axios.post('https://haui-food-api.onrender.com/api/v1/chat-bots', {
           message: messageInput,
         });
 

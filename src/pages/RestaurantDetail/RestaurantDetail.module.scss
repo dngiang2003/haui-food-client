@@ -1,6 +1,6 @@
-@import 'bootstrap/scss/functions';
-@import 'bootstrap/scss/variables';
-@import 'bootstrap/scss/mixins';
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
 
 .restaurant-header {
   margin-top: 100px;
@@ -32,6 +32,12 @@
     @include media-breakpoint-down(md) {
       font-size: 2.4rem;
     }
+  }
+  &__chat {
+    margin-left: 20px;
+    color: var(--primary-color);
+    font-weight: 600;
+    cursor: pointer;
   }
 
   &__desc {

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { useDispatch, useSelector } from 'react-redux';
+import ChatIcon from '@mui/icons-material/Chat';
+
 
 import style from './RestaurantDetail.module.scss';
 
@@ -9,15 +11,35 @@ import { EmptyStarIcon, HaftStarIcon, StarIcon } from '~/components/Icons';
 import ProductCard from '~/components/ProductCard';
 import { getRestaurantDetail } from '~/apiService/restaurantService';
 import NoResult from '~/components/NoResult';
+import { useChatContext } from '~/Layouts/components/Chats/Chat/context/ChatContext';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(style);
 
 function RestaurantDetail() {
   const dispatch = useDispatch();
+  const navigator = useNavigate();
+
   const reduxData = useSelector((prop) => prop.restaurant);
 
   const [activeCategory, setActiveCategory] = useState(null);
 
+  const { openModal, addConversation, conversations } = useChatContext();
+  const handleModal = async () => {
+    const user = await JSON.parse(localStorage.getItem('user'));
+    if (!user) {
+      navigator('/auth/login');
+      return;
+    }
+
+    const isExist = conversations.some(conversation => conversation._id === reduxData.restaurantDetail._id);
+
+    if (!isExist) {
+      addConversation(reduxData.restaurantDetail);
+    }
+
+    openModal();
+  };
   const handleCategoryClick = (categoryId) => {
     setActiveCategory(categoryId);
     const element = document.getElementById(categoryId);
@@ -99,7 +121,9 @@ function RestaurantDetail() {
 
           <div className={cx('container gx-5')}>
             <BreadCrumb />
-            <h1 className={cx('restaurant__name')}>{reduxData.restaurantDetail?.fullname}</h1>
+            <h1 className={cx('restaurant__name')}>{reduxData.restaurantDetail?.fullname}
+              <span className={cx('restaurant__chat')} onClick={handleModal}><ChatIcon style={{ width: '17px', height: '17px' }} /></span>
+            </h1>
             <p className={cx('restaurant__desc')}>{reduxData.restaurantDetail?.description}</p>
 
             <div className={cx('restaurant__rating-container')}>

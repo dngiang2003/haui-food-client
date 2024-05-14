@@ -38,6 +38,7 @@ const images = {
   qrPay: require('~/assets/images/checkout/qr-payment.png'),
   banhtieusr: require('~/assets/images/products/bachtieusaurieng.jpg'),
   chickenBowl: require('~/assets/images/chicken-bowl.svg').default,
+  logoTpBank: require('~/assets/images/vpBankLogo.png'),
 };
 
 export default images;

@@ -1,15 +1,15 @@
-import { useState, useRef, useEffect } from "react";
-import classNames from "classnames/bind";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
-import "flatpickr/dist/flatpickr.css";
-import Flatpickr from "react-flatpickr";
-import moment from "moment";
+import { useState, useRef, useEffect } from 'react';
+import classNames from 'classnames/bind';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import 'flatpickr/dist/flatpickr.css';
+import Flatpickr from 'react-flatpickr';
+import moment from 'moment';
 
-import style from "./Profile.module.scss";
+import style from './Profile.module.scss';
 
-import images from "~/assets/images";
+import images from '~/assets/images';
 import {
   PasswordIcon,
   PersonalInfoIcon,
@@ -20,14 +20,16 @@ import {
   HideIcon,
   KeyIcon,
   HistoryOderIcon,
-} from "~/components/Icons";
-import Button from "~/components/Button";
-import Loader from "~/components/Loader";
-import { changePassword, getMe, updateMe } from "~/apiService/authService";
-import TermsOfUse from "~/components/TermsOfUse";
-import Help from "~/components/Help";
-import AuthTwinSetup from "~/components/AuthTwinSetup";
-import HistoryOder from "~/components/HistoryOrder/HistoryOrder";
+  CoinIcon,
+} from '~/components/Icons';
+import Button from '~/components/Button';
+import Loader from '~/components/Loader';
+import { changePassword, getMe, updateMe } from '~/apiService/authService';
+import TermsOfUse from '~/components/TermsOfUse';
+import Help from '~/components/Help';
+import AuthTwinSetup from '~/components/AuthTwinSetup';
+import HistoryOder from '~/components/HistoryOrder/HistoryOrder';
+import WalletRecharge from '~/components/WalletRecharge';
 
 const cx = classNames.bind(style);
 
@@ -38,50 +40,55 @@ function Profile() {
 
   const listOptions = [
     {
-      title: t("profile.navTitle01"),
-      icon: <div className={cx("special-icon")}></div>,
+      title: t('profile.navTitle01'),
+      icon: <div className={cx('special-icon')}></div>,
       isTitle: true,
     },
     {
-      title: t("profile.nav01"),
-      icon: <PersonalInfoIcon className={cx("icon")} />,
-      navId: "personalInfo",
+      title: t('profile.nav01'),
+      icon: <PersonalInfoIcon className={cx('icon')} />,
+      navId: 'personalInfo',
     },
     {
-      title: t("profile.nav02"),
-      icon: <PasswordIcon className={cx("icon")} />,
-      navId: "changePassword",
+      title: t('profile.nav02'),
+      icon: <PasswordIcon className={cx('icon')} />,
+      navId: 'changePassword',
     },
     {
-      title: t("profile.nav06"),
-      icon: <HistoryOderIcon className={cx("icon")} />,
+      title: t('profile.nav05'),
+      icon: <KeyIcon className={cx('icon')} />,
+      navId: 'authTwinSetup',
     },
     {
-      title: t("profile.nav05"),
-      icon: <KeyIcon className={cx("icon")} />,
-      navId: "authTwinSetup",
+      title: t('profile.nav06'),
+      icon: <HistoryOderIcon className={cx('icon')} />,
     },
     {
-      title: t("profile.navTitle02"),
-      icon: <div className={cx("special-icon")}></div>,
+      title: 'Nạp tiền',
+      icon: <CoinIcon className={cx('icon')} />,
+    },
+
+    {
+      title: t('profile.navTitle02'),
+      icon: <div className={cx('special-icon')}></div>,
       isTitle: true,
     },
     {
-      title: t("profile.nav03"),
-      icon: <HelpIcon className={cx("icon")} />,
-      navId: "help",
+      title: t('profile.nav03'),
+      icon: <HelpIcon className={cx('icon')} />,
+      navId: 'help',
     },
     {
-      title: t("profile.nav04"),
-      icon: <TermsOfUseIcon className={cx("icon")} />,
-      navId: "termsOfUse",
+      title: t('profile.nav04'),
+      icon: <TermsOfUseIcon className={cx('icon')} />,
+      navId: 'termsOfUse',
     },
   ];
 
   const genderMapping = {
-    male: t("profile.gender.male"),
-    female: t("profile.gender.female"),
-    default: t("profile.gender.title"),
+    male: t('profile.gender.male'),
+    female: t('profile.gender.female'),
+    default: t('profile.gender.title'),
   };
 
   const [userInfo, setUserInfo] = useState();
@@ -96,10 +103,10 @@ function Profile() {
   const [imageSelected, setImageSelected] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [date, setDate] = useState([userInfo?.dateOfBirth ? new Date(userInfo?.dateOfBirth) : null]);
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState({
     newPassword: false,
     confirmPassword: false,
@@ -129,20 +136,20 @@ function Profile() {
   const upDateUserInfo = (userInfo) => {
     if (userInfo) {
       setUserInfo(userInfo);
-      setEmail(userInfo?.email ?? "");
-      setFullName(userInfo?.fullname ?? "");
-      setMsv(userInfo?.msv || "");
-      setPhoneNumber(userInfo?.phone || "");
+      setEmail(userInfo?.email ?? '');
+      setFullName(userInfo?.fullname ?? '');
+      setMsv(userInfo?.msv || '');
+      setPhoneNumber(userInfo?.phone || '');
       setDate([userInfo?.dateOfBirth ? new Date(userInfo?.dateOfBirth) : null]);
-      setGender(userInfo?.gender ?? "male");
+      setGender(userInfo?.gender ?? 'male');
       setIsChange(false);
       setImagePreview(null);
       setImageSelected(null);
     }
 
-    setOldPassword("");
-    setConfirmPassword("");
-    setNewPassword("");
+    setOldPassword('');
+    setConfirmPassword('');
+    setNewPassword('');
 
     setErrors({});
   };
@@ -157,7 +164,7 @@ function Profile() {
     let isChange = true;
     let hasChanged = true;
     Object.values(errors).forEach((error) => {
-      if (error !== "") {
+      if (error !== '') {
         isChange = false;
         return;
       }
@@ -165,10 +172,10 @@ function Profile() {
 
     // if change password
     if (!isPersonalInfo) {
-      if (oldPassword === "" || oldPassword === "" || confirmPassword === "") {
-        toast.error(t("profile.toast.noExactly"));
+      if (oldPassword === '' || oldPassword === '' || confirmPassword === '') {
+        toast.error(t('profile.toast.noExactly'));
       } else if (!isChange) {
-        toast.error(t("profile.toast.noExactly"));
+        toast.error(t('profile.toast.noExactly'));
       } else {
         const data = {
           oldPassword: oldPassword,
@@ -176,7 +183,7 @@ function Profile() {
         };
         dispatch(changePassword(data)).then((result) => {
           if (result.payload.code === 200) {
-            toast.success(t("profile.toast.successed"));
+            toast.success(t('profile.toast.successed'));
             upDateUserInfo();
             setShowPassword({
               newPassword: false,
@@ -184,7 +191,7 @@ function Profile() {
               oldPassword: false,
             });
           } else if (result.payload.code === 401) {
-            toast.error(t("profile.toast.noExactlyPasswords"));
+            toast.error(t('profile.toast.noExactlyPasswords'));
           } else {
             toast.error(t(result.payload.message));
           }
@@ -196,13 +203,13 @@ function Profile() {
     if (isPersonalInfo) {
       if (
         fullName === userInfo?.fullname &&
-        phoneNumber === (userInfo?.phone || "") &&
-        msv === (userInfo?.msv || "") &&
-        gender === (userInfo?.gender === "male" ? "male" : "female") &&
+        phoneNumber === (userInfo?.phone || '') &&
+        msv === (userInfo?.msv || '') &&
+        gender === (userInfo?.gender === 'male' ? 'male' : 'female') &&
         date[0].getTime() === new Date(userInfo.dateOfBirth).getTime() &&
         imageSelected === null
       ) {
-        toast.info(t("profile.toast.noChanged"));
+        toast.info(t('profile.toast.noChanged'));
         hasChanged = false;
         return;
       }
@@ -217,12 +224,12 @@ function Profile() {
         };
         dispatch(updateMe({ userData: data, avatar: imageSelected })).then((result) => {
           if (result.payload.code === 200) {
-            toast.success(t("profile.toast.successed"));
+            toast.success(t('profile.toast.successed'));
             upDateUserInfo(result.payload.data);
           }
         });
       } else {
-        toast.error(t("profile.toast.noExactly"));
+        toast.error(t('profile.toast.noExactly'));
       }
     }
   };
@@ -237,8 +244,8 @@ function Profile() {
     }
 
     // Lấy các thành phần ngày, tháng và năm từ đối tượng ngày
-    const day = newDate.getDate().toString().padStart(2, "0");
-    const month = (newDate.getMonth() + 1).toString().padStart(2, "0"); // Lưu ý: Tháng bắt đầu từ 0
+    const day = newDate.getDate().toString().padStart(2, '0');
+    const month = (newDate.getMonth() + 1).toString().padStart(2, '0'); // Lưu ý: Tháng bắt đầu từ 0
     const year = newDate.getFullYear();
 
     // Trả về chuỗi đã được định dạng
@@ -257,8 +264,8 @@ function Profile() {
       try {
         reader.readAsDataURL(file);
       } catch (error) {
-        console.error("Error reading the file:", error);
-        toast.error("Đã xảy ra lỗi khi đọc file.");
+        console.error('Error reading the file:', error);
+        toast.error('Đã xảy ra lỗi khi đọc file.');
       }
     }
   };
@@ -266,9 +273,9 @@ function Profile() {
   const handleCancel = () => {
     upDateUserInfo();
 
-    setOldPassword("");
-    setNewPassword("");
-    setConfirmPassword("");
+    setOldPassword('');
+    setNewPassword('');
+    setConfirmPassword('');
     setShowPassword({
       newPassword: false,
       confirmPassword: false,
@@ -281,40 +288,40 @@ function Profile() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
-      case "fullName":
+      case 'fullName':
         setFullName(value);
-        setErrors((preErr) => ({ ...preErr, fullName: "" }));
+        setErrors((preErr) => ({ ...preErr, fullName: '' }));
         break;
-      case "phoneNumber":
+      case 'phoneNumber':
         if (/^\d*$/.test(value)) {
           setPhoneNumber(value);
-          setErrors((preErr) => ({ ...preErr, phoneNumber: "" }));
+          setErrors((preErr) => ({ ...preErr, phoneNumber: '' }));
         }
         break;
-      case "msv":
+      case 'msv':
         if (/^\d*$/.test(value)) {
           if (value.length > 10) {
-            setErrors((preErr) => ({ ...preErr, msv: "Mã sinh viên tối đa 10 ký tự" }));
+            setErrors((preErr) => ({ ...preErr, msv: 'Mã sinh viên tối đa 10 ký tự' }));
             break;
           }
           setMsv(value);
-          setErrors((preErr) => ({ ...preErr, msv: "" }));
+          setErrors((preErr) => ({ ...preErr, msv: '' }));
         }
         break;
 
-      case "oldPassword":
+      case 'oldPassword':
         setOldPassword(value);
-        setErrors((preErr) => ({ ...preErr, oldPassword: "" }));
+        setErrors((preErr) => ({ ...preErr, oldPassword: '' }));
         break;
 
-      case "newPassword":
+      case 'newPassword':
         setNewPassword(value);
-        setErrors((preErr) => ({ ...preErr, newPassword: "" }));
+        setErrors((preErr) => ({ ...preErr, newPassword: '' }));
         break;
 
-      case "confirmPassword":
+      case 'confirmPassword':
         setConfirmPassword(value);
-        setErrors((preErr) => ({ ...preErr, confirmPassword: "" }));
+        setErrors((preErr) => ({ ...preErr, confirmPassword: '' }));
         break;
 
       default:
@@ -324,55 +331,55 @@ function Profile() {
 
   const validateInputs = () => {
     let newErrors = {};
-    const fullName = inputRefs.fullName.current?.value ?? "";
-    const phoneNumber = inputRefs.phoneNumber.current?.value ?? "";
-    const msv = inputRefs.msv.current?.value ?? "";
-    const oldPassword = inputRefs.oldPassword.current?.value ?? "";
-    const newPassword = inputRefs.newPassword.current?.value ?? "";
-    const confirmPassword = inputRefs.confirmPassword.current?.value ?? "";
+    const fullName = inputRefs.fullName.current?.value ?? '';
+    const phoneNumber = inputRefs.phoneNumber.current?.value ?? '';
+    const msv = inputRefs.msv.current?.value ?? '';
+    const oldPassword = inputRefs.oldPassword.current?.value ?? '';
+    const newPassword = inputRefs.newPassword.current?.value ?? '';
+    const confirmPassword = inputRefs.confirmPassword.current?.value ?? '';
 
     if (selectedOption === listOptions[1].title) {
-      if (fullName.trim() === "") {
-        newErrors = { ...newErrors, fullName: t("errors.fullName.err01") };
+      if (fullName.trim() === '') {
+        newErrors = { ...newErrors, fullName: t('errors.fullName.err01') };
       }
 
-      if (phoneNumber.trim() === "") {
-        newErrors = { ...newErrors, phoneNumber: "" };
+      if (phoneNumber.trim() === '') {
+        newErrors = { ...newErrors, phoneNumber: '' };
       } else if (!/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(phoneNumber)) {
-        newErrors = { ...newErrors, phoneNumber: t("errors.phoneNumber.err02") };
+        newErrors = { ...newErrors, phoneNumber: t('errors.phoneNumber.err02') };
       }
 
-      if (msv.trim() === "") {
-        newErrors = { ...newErrors, msv: "" };
+      if (msv.trim() === '') {
+        newErrors = { ...newErrors, msv: '' };
       } else if (msv.trim().length !== 10) {
-        newErrors = { ...newErrors, msv: t("errors.msv.err02") };
+        newErrors = { ...newErrors, msv: t('errors.msv.err02') };
       } else {
         const currentYear = new Date().getFullYear();
         const firstFourDigits = parseInt(msv.trim().substring(0, 4), 10);
         if (firstFourDigits > currentYear) {
-          newErrors = { ...newErrors, msv: t("errors.msv.err04") };
+          newErrors = { ...newErrors, msv: t('errors.msv.err04') };
         } else if (firstFourDigits < currentYear - 6) {
-          newErrors = { ...newErrors, msv: t("errors.msv.err03") };
+          newErrors = { ...newErrors, msv: t('errors.msv.err03') };
         }
       }
     }
 
-    if (oldPassword === "") {
-      newErrors = { ...newErrors, oldPassword: "" };
+    if (oldPassword === '') {
+      newErrors = { ...newErrors, oldPassword: '' };
     } else if (!/^(?=.*[@-_]).{8,}$/.test(oldPassword)) {
-      newErrors = { ...newErrors, oldPassword: t("errors.password.err01") };
+      newErrors = { ...newErrors, oldPassword: t('errors.password.err01') };
     }
 
-    if (newPassword === "") {
-      newErrors = { ...newErrors, newPassword: "" };
+    if (newPassword === '') {
+      newErrors = { ...newErrors, newPassword: '' };
     } else if (!/^(?=.*[@-_]).{8,}$/.test(newPassword)) {
-      newErrors = { ...newErrors, newPassword: t("errors.password.err01") };
+      newErrors = { ...newErrors, newPassword: t('errors.password.err01') };
     }
 
-    if (confirmPassword === "") {
-      newErrors = { ...newErrors, confirmPassword: "" };
+    if (confirmPassword === '') {
+      newErrors = { ...newErrors, confirmPassword: '' };
     } else if (confirmPassword !== newPassword) {
-      newErrors = { ...newErrors, confirmPassword: t("errors.password.err02") };
+      newErrors = { ...newErrors, confirmPassword: t('errors.password.err02') };
     }
 
     setErrors(newErrors);
@@ -381,21 +388,21 @@ function Profile() {
   const validateDate = (date) => {
     let newErrors = { ...errors };
 
-    if (!moment(date[0], "DD.MM.YYYY", true).isValid()) {
-      newErrors = { ...newErrors, birthDay: t("errors.birthDay.err05") };
+    if (!moment(date[0], 'DD.MM.YYYY', true).isValid()) {
+      newErrors = { ...newErrors, birthDay: t('errors.birthDay.err05') };
     } else {
       const today = moment();
-      const birthDay = moment(date[0], "DD.MM.YYYY", true);
-      const age = today.diff(birthDay, "years");
+      const birthDay = moment(date[0], 'DD.MM.YYYY', true);
+      const age = today.diff(birthDay, 'years');
 
       if (age < 0) {
-        newErrors = { ...newErrors, birthDay: t("errors.birthDay.err02") };
+        newErrors = { ...newErrors, birthDay: t('errors.birthDay.err02') };
       } else if (age < 18) {
-        newErrors = { ...newErrors, birthDay: t("errors.birthDay.err03") };
+        newErrors = { ...newErrors, birthDay: t('errors.birthDay.err03') };
       } else if (age > 100) {
-        newErrors = { ...newErrors, birthDay: t("errors.birthDay.err04") };
+        newErrors = { ...newErrors, birthDay: t('errors.birthDay.err04') };
       } else {
-        newErrors = { ...newErrors, birthDay: "" };
+        newErrors = { ...newErrors, birthDay: '' };
       }
     }
     setDate(date);
@@ -407,7 +414,7 @@ function Profile() {
   };
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
   useEffect(() => {
@@ -452,33 +459,33 @@ function Profile() {
   }, [selectedOption]);
 
   return (
-    <div className={cx("wrapper")}>
-      <div className={cx("container gx-5")}>
-        <div className={cx("row profile")}>
+    <div className={cx('wrapper')}>
+      <div className={cx('container gx-5')}>
+        <div className={cx('row profile')}>
           {/* sidebar */}
-          <div className={cx("col-xl-3")}>
-            <div className={cx("profile__img-container")}>
+          <div className={cx('col-xl-3')}>
+            <div className={cx('profile__img-container')}>
               <img
-                className={cx("profile__img-cover")}
+                className={cx('profile__img-cover')}
                 src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="hauifood"
               />
               <div
                 // listOption[1].title là "Personal info"
-                className={cx("profile__img-content")}
+                className={cx('profile__img-content')}
               >
                 <div
-                  className={cx("profile__avatar-container", {
-                    "no-change": !isChange || selectedOption !== listOptions[1].title,
+                  className={cx('profile__avatar-container', {
+                    'no-change': !isChange || selectedOption !== listOptions[1].title,
                   })}
                 >
                   <img
-                    className={cx("profile__img")}
+                    className={cx('profile__img')}
                     src={imagePreview || userInfo?.avatar || images.avatarDefault}
                     alt="hauifood"
                   />
                   <div
-                    className={cx("select-image-btn")}
+                    className={cx('select-image-btn')}
                     onClick={() => {
                       inputRefs.avatar.current.click();
                     }}
@@ -487,32 +494,32 @@ function Profile() {
                       ref={inputRefs.avatar}
                       type="file"
                       accept="image/*"
-                      style={{ display: "none" }}
+                      style={{ display: 'none' }}
                       onInput={(e) => {
                         handleSelectImage(e);
                       }}
                     />
-                    <div className={cx("profile__select-img-title")}>{t("profile.btn-select-img")}</div>
+                    <div className={cx('profile__select-img-title')}>{t('profile.btn-select-img')}</div>
                   </div>
                 </div>
-                <div className={cx("profile__user-name")}>{userInfo?.fullname ? userInfo.fullname : "HauiFood"}</div>
-                <div className={cx("profile__registered-day")}>
-                  {t("profile.registered")} {formatRegisterDate(userInfo?.createdAt)}
+                <div className={cx('profile__user-name')}>{userInfo?.fullname ? userInfo.fullname : 'HauiFood'}</div>
+                <div className={cx('profile__registered-day')}>
+                  {t('profile.registered')} {formatRegisterDate(userInfo?.createdAt)}
                 </div>
               </div>
             </div>
 
-            <div className={cx("profile-nav-container")}>
-              <ul className={cx("profile-nav")}>
+            <div className={cx('profile-nav-container')}>
+              <ul className={cx('profile-nav')}>
                 {listOptions.map((item, index) => {
                   return (
                     <li key={index}>
-                      {item.isTitle && <Button className={cx("profile-nav__title")}>{item.title}</Button>}
+                      {item.isTitle && <Button className={cx('profile-nav__title')}>{item.title}</Button>}
 
                       {!item.isTitle && (
                         <Button
-                          className={cx("profile-nav__item", {
-                            "profile-nav__item-active": item.title === selectedOption,
+                          className={cx('profile-nav__item', {
+                            'profile-nav__item-active': item.title === selectedOption,
                           })}
                           leftIcon={item.icon}
                           onClick={() => {
@@ -533,39 +540,39 @@ function Profile() {
           </div>
 
           {/* main content */}
-          <div className={cx("col-xl-9")}>
+          <div className={cx('col-xl-9')}>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
               }}
-              className={cx("profile-content-container", { onLoader: isLoading })}
+              className={cx('profile-content-container', { onLoader: isLoading })}
             >
-              {isLoading && <Loader className={cx("loader")} />}
+              {isLoading && <Loader className={cx('loader')} />}
               {!isLoading && (
-                <div className={cx("profile-content")}>
+                <div className={cx('profile-content')}>
                   <div
                     // listOption[1].title là "Personal info"
-                    className={cx("profile-input-container", {
-                      "no-personal-info": selectedOption !== listOptions[1].title,
+                    className={cx('profile-input-container', {
+                      'no-personal-info': selectedOption !== listOptions[1].title,
                     })}
                   >
-                    <div className={cx("profile-content__title")}>{selectedOption}</div>
-                    {selectedOption === listOptions[1].title && <div className={cx("profile__sub-row")}></div>}
+                    <div className={cx('profile-content__title')}>{selectedOption}</div>
+                    {selectedOption === listOptions[1].title && <div className={cx('profile__sub-row')}></div>}
                     {/* personal infor */}
                     {selectedOption === listOptions[1].title && (
                       <>
                         {/* full name */}
-                        <div className={cx("profile-input-group", { "no-change": !isChange })}>
-                          <label className={cx("profile-input-group__label")} htmlFor="fullName">
-                            {t("profile.fullName")}
+                        <div className={cx('profile-input-group', { 'no-change': !isChange })}>
+                          <label className={cx('profile-input-group__label')} htmlFor="fullName">
+                            {t('profile.fullName')}
                           </label>
                           <input
                             ref={inputRefs.fullName}
-                            className={cx("profile__input", { isError: errors.fullName })}
+                            className={cx('profile__input', { isError: errors.fullName })}
                             type="text"
                             name="fullName"
                             // id="fullName"
-                            placeholder={t("profile.fullName")}
+                            placeholder={t('profile.fullName')}
                             value={fullName}
                             onChange={(e) => {
                               handleInputChange(e);
@@ -573,17 +580,17 @@ function Profile() {
                             }}
                             onBlur={validateInputs}
                           />
-                          {errors.fullName && <div className={cx("errors-message")}>{errors.fullName}</div>}
-                          <div className={cx("placeholder-fake")}></div>
+                          {errors.fullName && <div className={cx('errors-message')}>{errors.fullName}</div>}
+                          <div className={cx('placeholder-fake')}></div>
                         </div>
 
                         {/* email */}
-                        <div className={cx("profile-input-group", "no-change")}>
-                          <label className={cx("profile-input-group__label")} htmlFor="email">
-                            {t("profile.email")}
+                        <div className={cx('profile-input-group', 'no-change')}>
+                          <label className={cx('profile-input-group__label')} htmlFor="email">
+                            {t('profile.email')}
                           </label>
                           <input
-                            className={cx("")}
+                            className={cx('')}
                             type="text"
                             name="email"
                             // id="email"
@@ -598,9 +605,9 @@ function Profile() {
 
                         {/* phone number */}
 
-                        <div className={cx("profile-input-group", { "no-change": !isChange })}>
-                          <label className={cx("profile-input-group__label")} htmlFor="phoneNumber">
-                            {t("profile.phoneNumber")}
+                        <div className={cx('profile-input-group', { 'no-change': !isChange })}>
+                          <label className={cx('profile-input-group__label')} htmlFor="phoneNumber">
+                            {t('profile.phoneNumber')}
                           </label>
                           <input
                             ref={inputRefs.phoneNumber}
@@ -608,7 +615,7 @@ function Profile() {
                             type="text"
                             name="phoneNumber"
                             id="phone-number"
-                            placeholder={t("profile.phoneNumber")}
+                            placeholder={t('profile.phoneNumber')}
                             value={phoneNumber}
                             onChange={(e) => {
                               handleInputChange(e);
@@ -616,15 +623,15 @@ function Profile() {
                             }}
                             onBlur={validateInputs}
                           />
-                          {errors.phoneNumber && <div className={cx("errors-message")}>{errors.phoneNumber}</div>}
-                          <div className={cx("placeholder-fake")}></div>
+                          {errors.phoneNumber && <div className={cx('errors-message')}>{errors.phoneNumber}</div>}
+                          <div className={cx('placeholder-fake')}></div>
                         </div>
 
                         {/* msv */}
 
-                        <div className={cx("profile-input-group", { "no-change": !isChange })}>
-                          <label className={cx("profile-input-group__label")} htmlFor="msv">
-                            {t("profile.msv")}
+                        <div className={cx('profile-input-group', { 'no-change': !isChange })}>
+                          <label className={cx('profile-input-group__label')} htmlFor="msv">
+                            {t('profile.msv')}
                           </label>
                           <input
                             ref={inputRefs.msv}
@@ -632,7 +639,7 @@ function Profile() {
                             type="text"
                             max={10}
                             name="msv"
-                            placeholder={t("profile.msv")}
+                            placeholder={t('profile.msv')}
                             value={msv}
                             onChange={(e) => {
                               handleInputChange(e);
@@ -640,21 +647,21 @@ function Profile() {
                             }}
                             onBlur={validateInputs}
                           />
-                          {errors.msv && <div className={cx("errors-message")}>{errors.msv}</div>}
+                          {errors.msv && <div className={cx('errors-message')}>{errors.msv}</div>}
                         </div>
 
                         {/* Birth day */}
-                        <div className={cx("profile-input-group", { "no-change": !isChange })}>
-                          <label className={cx("profile-input-group__label")} htmlFor="birth-day">
-                            {t("profile.birthDay")}
+                        <div className={cx('profile-input-group', { 'no-change': !isChange })}>
+                          <label className={cx('profile-input-group__label')} htmlFor="birth-day">
+                            {t('profile.birthDay')}
                           </label>
-                          <div className={cx("date-picker-container")}>
+                          <div className={cx('date-picker-container')}>
                             <Flatpickr
                               value={date}
-                              className={cx("date-picker", { "no-change": !isChange })}
-                              placeholder={t("profile.birthDay")}
+                              className={cx('date-picker', { 'no-change': !isChange })}
+                              placeholder={t('profile.birthDay')}
                               options={{
-                                dateFormat: "d/m/Y",
+                                dateFormat: 'd/m/Y',
                                 // allowInput: true,
                                 // maxDate: new Date(),
                                 disableMobile: true,
@@ -667,43 +674,43 @@ function Profile() {
                               }}
                             />
                           </div>
-                          {errors.birthDay && <div className={cx("errors-message")}>{errors.birthDay}</div>}
+                          {errors.birthDay && <div className={cx('errors-message')}>{errors.birthDay}</div>}
                         </div>
 
                         {/* Gender */}
-                        <div className={cx("profile-input-group", { "no-change": !isChange })}>
-                          <label className={cx("profile-input-group__label")}>{t("profile.gender.title")}</label>
+                        <div className={cx('profile-input-group', { 'no-change': !isChange })}>
+                          <label className={cx('profile-input-group__label')}>{t('profile.gender.title')}</label>
                           <div
-                            className={cx("gender-container")}
+                            className={cx('gender-container')}
                             onClick={() => {
                               setIsShowGender(!isShowGender);
                             }}
                           >
-                            <div className={cx("gender__selected-value")}>
+                            <div className={cx('gender__selected-value')}>
                               {genderMapping[gender] || genderMapping.default}
                             </div>
-                            <ArrowDownIcon className={cx("gender__icon")} />
+                            <ArrowDownIcon className={cx('gender__icon')} />
                             <ul
-                              className={cx("gender__options", { isShow: isShowGender })}
+                              className={cx('gender__options', { isShow: isShowGender })}
                               onClick={() => {
                                 setIsShowGender(!isShowGender);
                               }}
                             >
                               <li
-                                className={cx("gender__option")}
+                                className={cx('gender__option')}
                                 onClick={() => {
-                                  setGender("male");
+                                  setGender('male');
                                 }}
                               >
-                                {t("profile.gender.male")}
+                                {t('profile.gender.male')}
                               </li>
                               <li
-                                className={cx("gender__option")}
+                                className={cx('gender__option')}
                                 onClick={() => {
-                                  setGender("female");
+                                  setGender('female');
                                 }}
                               >
-                                {t("profile.gender.female")}
+                                {t('profile.gender.female')}
                               </li>
                             </ul>
                           </div>
@@ -714,15 +721,15 @@ function Profile() {
                     {selectedOption === listOptions[2].title && (
                       <>
                         {/* old password */}
-                        <div className={cx("profile-input-group")}>
-                          <label className={cx("profile-input-group__label")}>
-                            {t("profile.oldPassword")}
+                        <div className={cx('profile-input-group')}>
+                          <label className={cx('profile-input-group__label')}>
+                            {t('profile.oldPassword')}
                             <input
                               ref={inputRefs.oldPassword}
                               className={cx({ isError: errors.oldPassword })}
-                              type={showPassword.oldPassword ? "text" : "password"}
+                              type={showPassword.oldPassword ? 'text' : 'password'}
                               name="oldPassword"
-                              placeholder={t("profile.oldPassword")}
+                              placeholder={t('profile.oldPassword')}
                               value={oldPassword}
                               autoComplete="false"
                               onChange={(e) => {
@@ -734,30 +741,30 @@ function Profile() {
                             {oldPassword && (
                               <div
                                 onClick={() => {
-                                  handleEyeIconClick("oldPassword");
+                                  handleEyeIconClick('oldPassword');
                                 }}
                               >
                                 {!showPassword.oldPassword ? (
-                                  <EyeIcon className={cx("eye-icon")} />
+                                  <EyeIcon className={cx('eye-icon')} />
                                 ) : (
-                                  <HideIcon className={cx("eye-icon")} />
+                                  <HideIcon className={cx('eye-icon')} />
                                 )}
                               </div>
                             )}
                           </label>
-                          {errors.oldPassword && <div className={cx("errors-message")}>{errors.oldPassword}</div>}
+                          {errors.oldPassword && <div className={cx('errors-message')}>{errors.oldPassword}</div>}
                         </div>
 
                         {/* new password */}
-                        <div className={cx("profile-input-group")}>
-                          <label className={cx("profile-input-group__label")}>
-                            {t("profile.newPassword")}
+                        <div className={cx('profile-input-group')}>
+                          <label className={cx('profile-input-group__label')}>
+                            {t('profile.newPassword')}
                             <input
                               ref={inputRefs.newPassword}
                               className={cx({ isError: errors.newPassword })}
-                              type={showPassword.newPassword ? "text" : "password"}
+                              type={showPassword.newPassword ? 'text' : 'password'}
                               name="newPassword"
-                              placeholder={t("profile.newPassword")}
+                              placeholder={t('profile.newPassword')}
                               value={newPassword}
                               autoComplete="false"
                               onChange={(e) => {
@@ -769,30 +776,30 @@ function Profile() {
                             {newPassword && (
                               <div
                                 onClick={() => {
-                                  handleEyeIconClick("newPassword");
+                                  handleEyeIconClick('newPassword');
                                 }}
                               >
                                 {!showPassword.newPassword ? (
-                                  <EyeIcon className={cx("eye-icon")} />
+                                  <EyeIcon className={cx('eye-icon')} />
                                 ) : (
-                                  <HideIcon className={cx("eye-icon")} />
+                                  <HideIcon className={cx('eye-icon')} />
                                 )}
                               </div>
                             )}
                           </label>
-                          {errors.newPassword && <div className={cx("errors-message")}>{errors.newPassword}</div>}
+                          {errors.newPassword && <div className={cx('errors-message')}>{errors.newPassword}</div>}
                         </div>
 
                         {/* confirm password */}
-                        <div className={cx("profile-input-group")}>
-                          <label className={cx("profile-input-group__label")}>
-                            {t("profile.confirmPassword")}
+                        <div className={cx('profile-input-group')}>
+                          <label className={cx('profile-input-group__label')}>
+                            {t('profile.confirmPassword')}
                             <input
                               ref={inputRefs.confirmPassword}
                               className={cx({ isError: errors.confirmPassword })}
-                              type={showPassword.confirmPassword ? "text" : "password"}
+                              type={showPassword.confirmPassword ? 'text' : 'password'}
                               name="confirmPassword"
-                              placeholder={t("profile.confirmPassword")}
+                              placeholder={t('profile.confirmPassword')}
                               value={confirmPassword}
                               autoComplete="false"
                               onChange={(e) => {
@@ -804,44 +811,47 @@ function Profile() {
                             {confirmPassword && (
                               <div
                                 onClick={() => {
-                                  handleEyeIconClick("confirmPassword");
+                                  handleEyeIconClick('confirmPassword');
                                 }}
                               >
                                 {!showPassword.confirmPassword ? (
-                                  <EyeIcon className={cx("eye-icon")} />
+                                  <EyeIcon className={cx('eye-icon')} />
                                 ) : (
-                                  <HideIcon className={cx("eye-icon")} />
+                                  <HideIcon className={cx('eye-icon')} />
                                 )}
                               </div>
                             )}
                           </label>
                           {errors.confirmPassword && (
-                            <div className={cx("errors-message")}>{errors.confirmPassword}</div>
+                            <div className={cx('errors-message')}>{errors.confirmPassword}</div>
                           )}
                         </div>
                       </>
                     )}
                     {/* auth twin setup */}
-                    {selectedOption === listOptions[4].title && <AuthTwinSetup />}
+                    {selectedOption === listOptions[3].title && <AuthTwinSetup />}
                     {/* help */}
-                    {selectedOption === listOptions[6].title && <Help />}
+                    {selectedOption === listOptions[7].title && <Help />}
                     {/* Terms of use */}
-                    {selectedOption === listOptions[7].title && <TermsOfUse />}
+                    {selectedOption === listOptions[8].title && <TermsOfUse />}
                     {/* history oder */}
-                    {selectedOption === listOptions[3].title && <HistoryOder />}
+                    {selectedOption === listOptions[4].title && <HistoryOder />}
+
+                    {/* wallet */}
+                    {selectedOption === listOptions[5].title && <WalletRecharge />}
                   </div>
 
                   {/* listOption[1].title là "Personal info" */}
                   {/* nếu đang không thay đổi và phải đang ở trang trang personal info thì mới hiển thị */}
                   {!isChange && selectedOption === listOptions[1].title && (
-                    <div className={cx("btn-container")}>
+                    <div className={cx('btn-container')}>
                       <Button
-                        className={cx("change-btn")}
+                        className={cx('change-btn')}
                         onClick={() => {
                           setIsChange(true);
                         }}
                       >
-                        {t("profile.btn-edit")}
+                        {t('profile.btn-edit')}
                       </Button>
                     </div>
                   )}
@@ -850,26 +860,26 @@ function Profile() {
                   {/* nếu đang thay đổi hoặc không phải là trang personal info thì hiển thị */}
                   {((isChange && selectedOption === listOptions[1].title) ||
                     selectedOption === listOptions[2].title) && (
-                      <div className={cx("btn-container")}>
-                        <Button
-                          className={cx("cancel-btn")}
-                          onClick={() => {
-                            handleCancel();
-                            setIsChange(false);
-                          }}
-                        >
-                          {t("profile.btn-cancel")}
-                        </Button>
-                        <Button
-                          className={cx("update-btn")}
-                          onClick={(e) => {
-                            handleUpdate();
-                          }}
-                        >
-                          {t("profile.btn-update")}
-                        </Button>
-                      </div>
-                    )}
+                    <div className={cx('btn-container')}>
+                      <Button
+                        className={cx('cancel-btn')}
+                        onClick={() => {
+                          handleCancel();
+                          setIsChange(false);
+                        }}
+                      >
+                        {t('profile.btn-cancel')}
+                      </Button>
+                      <Button
+                        className={cx('update-btn')}
+                        onClick={(e) => {
+                          handleUpdate();
+                        }}
+                      >
+                        {t('profile.btn-update')}
+                      </Button>
+                    </div>
+                  )}
                 </div>
               )}
             </form>

@@ -64,6 +64,8 @@ function Banner({ className, onSearch, onSearchResult, onPage, onRemove, onHandl
     }
   };
 
+  // call api khi nhấn enter
+
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       handleClick();

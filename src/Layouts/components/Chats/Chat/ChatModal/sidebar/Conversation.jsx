@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
-
 import { Avatar, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
-import { useSocketContext } from '../../context/SocketContext';
+
 import useConversation from '../../zustand/useConversation';
+import { useSocketContext } from '../../context/SocketContext';
 
 const Conversation = ({ conversation, lastIdx, emoji }) => {
   const { onlineUsers } = useSocketContext();

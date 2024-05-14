@@ -4,8 +4,8 @@ import { Avatar, Typography } from '@mui/material';
 
 import Messages from './Messages';
 import MessageInput from './MessageInput';
-import { useAuthContext } from '../../context/AuthContext';
 import useConversation from '../../zustand/useConversation';
+import { useSelector } from 'react-redux';
 
 const MessageContainer = () => {
   const { selectedConversation, setSelectedConversation } = useConversation();
@@ -42,7 +42,7 @@ const MessageContainer = () => {
 export default MessageContainer;
 
 const NoChatSelected = () => {
-  const { authUser } = useAuthContext();
+  const authUser = useSelector((state) => state.auth.user);
 
   return (
     <div style={{

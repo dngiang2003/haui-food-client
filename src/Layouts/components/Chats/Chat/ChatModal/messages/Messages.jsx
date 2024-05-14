@@ -18,7 +18,7 @@ const Messages = () => {
   }, [messages])
 
   return (
-    <Box className='px-4' style={{ maxHeight: '400px', overflowY: 'auto', overflowX: 'hidden', height: '400px' }}>
+    <Box className='px-4' style={{ maxHeight: '80%', overflowY: 'auto', overflowX: 'hidden', height: '80%' }}>
       {!loading &&
         messages.length > 0 &&
         messages.map((message, index) => (

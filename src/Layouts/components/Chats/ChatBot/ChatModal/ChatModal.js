@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import classNames from "classnames/bind";
 import axios from "axios";
 import { Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
+import React, { useState, useEffect } from "react";
 
+import classNames from "classnames/bind";
 import styles from "./ChatModal.module.scss";
 
 const cx = classNames.bind(styles);
@@ -12,14 +12,25 @@ const ChatModal = () => {
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
 
+  useEffect(() => {
+    const savedMessages = JSON.parse(sessionStorage.getItem("chatMessages"));
+    if (savedMessages) {
+      setMessages(savedMessages);
+    }
+  }, []);
+
+  const saveMessagesToSessionStorage = (messages) => {
+    sessionStorage.setItem("chatMessages", JSON.stringify(messages));
+  };
+
   const handleChange = (event) => {
     setMessageInput(event.target.value);
   };
 
   const handleSendMessage = async () => {
     if (messageInput) {
-      setMessages((messages) => [...messages, { user: "User", message: messageInput }]);
-
+      const newMessage = { user: "User", message: messageInput };
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
       setMessageInput("");
 
       try {
@@ -27,7 +38,8 @@ const ChatModal = () => {
           message: messageInput,
         });
 
-        setMessages((messages) => [...messages, { user: "Chatbot", message: response.data.data }]);
+        const chatbotResponse = { user: "Chatbot", message: response.data.data };
+        setMessages((prevMessages) => [...prevMessages, chatbotResponse]);
       } catch (error) {
         console.error("Error fetching chatbot response:", error);
       }
@@ -39,6 +51,10 @@ const ChatModal = () => {
       handleSendMessage();
     }
   };
+
+  useEffect(() => {
+    saveMessagesToSessionStorage(messages);
+  }, [messages]);
 
   return (
     <div className={cx("chat-modal")}>

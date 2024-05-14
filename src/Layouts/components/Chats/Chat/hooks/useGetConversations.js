@@ -4,27 +4,34 @@ import { useEffect, useState } from 'react';
 const useGetConversations = () => {
     const [loading, setLoading] = useState(false);
     const [conversations, setConversations] = useState([]);
+
     useEffect(() => {
         const getConversations = async () => {
+            const token = localStorage.getItem('accessToken');
+            const user = localStorage.getItem('user');
+
+            if (!token || !user) return;
+
             setLoading(true);
             try {
-                const token = JSON.parse(localStorage.getItem('accessToken'));
-                const user = JSON.parse(localStorage.getItem('user'));
+                const parsedToken = JSON.parse(token);
+                const parsedUser = JSON.parse(user);
 
                 const res = await axios.post('https://api.hauifood.com/api/v1/chats/users', {
-                    userId: user._id
+                    userId: parsedUser._id
                 }, {
                     headers: {
-                        'authorization': `Bearer ${token}`
+                        'Authorization': `Bearer ${parsedToken}`
                     }
                 });
+
                 const { data } = res.data;
                 if (data.error) {
                     throw new Error(data.error);
                 }
                 setConversations(data);
             } catch (error) {
-                console.error(error.message);
+                console.error('Failed to fetch conversations:', error.message);
             } finally {
                 setLoading(false);
             }

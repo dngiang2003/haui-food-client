@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { BsSend } from 'react-icons/bs';
-import { IconButton, InputAdornment, TextField } from '@mui/material';
+import { styled } from '@mui/system';
+import { IconButton, InputAdornment, TextField, CircularProgress } from '@mui/material';
 
 import useSendMessage from '../../hooks/useSendMessage';
 
@@ -15,10 +16,30 @@ const MessageInput = () => {
     setMessage('');
   };
 
+  const StyledTextField = styled(TextField)({
+    '& .MuiOutlinedInput-root': {
+      borderRadius: '0.5rem',
+      '& fieldset': {
+        borderColor: 'var(--primary-bg)',
+      },
+      '&:hover fieldset': {
+        borderColor: 'var(--primary-bg)',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'var(--primary-bg)',
+      },
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: 'var(--primary-bg)',
+      },
+    },
+    '& .MuiOutlinedInput-input': {
+      padding: '10px 14px',
+    },
+  });
+
   return (
     <form className='px-4 my-3' onSubmit={handleSubmit}>
-      <TextField
-        style={{ margin: '30px 0 10px 0' }}
+      <StyledTextField
         variant='outlined'
         fullWidth
         placeholder='Send a message'
@@ -27,8 +48,8 @@ const MessageInput = () => {
         InputProps={{
           endAdornment: (
             <InputAdornment position='end'>
-              <IconButton type='submit' disabled={loading}>
-                {loading ? <span className='loading loading-spinner'></span> : <BsSend className='w-5 h-5 text-white opacity-50 ' />}
+              <IconButton type='submit' disabled={loading} style={{ color: 'var(--primary-bg)' }}>
+                {loading ? <CircularProgress size={24} /> : <BsSend className='w-5 h-5 text-white opacity-50 ' />}
               </IconButton>
             </InputAdornment>
           )

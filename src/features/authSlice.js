@@ -14,15 +14,15 @@ import {
   verifyOtpForgotPassword,
   resetPassword,
 } from '~/apiService/authService';
-import { addOrUpdateFieldInLocalStorage } from '~/utils/localStorage';
+import { addOrUpdateFieldInLocalStorage, getLocalStorageItem } from '~/utils/localStorage';
 
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
     loading: false,
-    user: null,
+    user: getLocalStorageItem('user') || null,
     error: null,
-    isLogin: null,
+    isLogin: getLocalStorageItem('user') ? true : null,
     status: null,
     secretKey: '',
     message: '',

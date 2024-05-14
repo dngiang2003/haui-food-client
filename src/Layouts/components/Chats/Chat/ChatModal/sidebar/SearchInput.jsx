@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TextField, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
 
 import useConversation from '../../zustand/useConversation';
@@ -20,15 +20,26 @@ const SearchInput = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className='flex items-center gap-2'>
-      <TextField
-        label='Search...'
-        variant='outlined'
+    <form onSubmit={handleSubmit}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        gap: '0.5rem',
+        border: '1px solid #ccc',
+        padding: '5px 10px',
+        borderRadius: '0.5rem'
+      }}
+    >
+      <input type="text"
+        placeholder='Search...'
         value={search}
         onChange={(e) => setSearch(e.target.value)}
+        style={{ outline: 'none', border: 'none' }}
       />
-      <IconButton type='submit' className='bg-sky-500 text-white' >
-        <SearchIcon onclick={handleSubmit} />
+      <IconButton type='submit' >
+        <SearchIcon onclick={handleSubmit} style={{ color: 'var(--primary-bg)', width: '20px', height: '20px' }} />
       </IconButton>
     </form>
   );

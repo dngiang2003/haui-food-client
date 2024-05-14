@@ -152,4 +152,4 @@ export const updateSecretKey = createAsyncThunk('auth/updateSecretKey', async (d
   }
 });
 
-export const clearError = createAsyncThunk('auth/clearError', async () => {});
+export const clearError = createAsyncThunk('auth/clearError', async () => { });

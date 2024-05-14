@@ -25,19 +25,14 @@ function RestaurantDetail() {
 
   const [activeCategory, setActiveCategory] = useState(null);
 
-  const { openModal, addConversation, conversations } = useChatContext();
+  const { openModal, addConversation } = useChatContext();
   const handleModal = async () => {
     const user = await JSON.parse(localStorage.getItem("user"));
     if (!user) {
-      navigator("/auth/login");
-      return;
+      return navigator("/auth/login");
     }
 
-    const isExist = conversations.some(conversation => conversation._id === reduxData.restaurantDetail._id);
-
-    if (!isExist) {
-      addConversation(reduxData.restaurantDetail);
-    }
+    addConversation(reduxData.restaurantDetail);
 
     openModal();
   };
@@ -123,7 +118,7 @@ function RestaurantDetail() {
           <div className={cx("container gx-5")}>
             <BreadCrumb />
             <h1 className={cx("restaurant__name")}>{reduxData.restaurantDetail?.fullname}
-              <span className={cx("restaurant__chat")} onClick={handleModal}><ChatIcon style={{ width: "17px", height: "17px" }} /></span>
+              <span className={cx("restaurant__chat")} onClick={handleModal}><ChatIcon style={{ width: "2rem", height: "2rem" }} /></span>
             </h1>
             <p className={cx("restaurant__desc")}>{reduxData.restaurantDetail?.description}</p>
 

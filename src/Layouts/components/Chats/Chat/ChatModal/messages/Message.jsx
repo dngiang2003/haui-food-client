@@ -1,9 +1,10 @@
+import { useSelector } from 'react-redux';
 import { Avatar, Typography } from '@mui/material';
-import { useAuthContext } from '../../context/AuthContext';
+
 import useConversation from '../../zustand/useConversation';
 
 const Message = ({ message }) => {
-  const { authUser } = useAuthContext();
+  const authUser = useSelector((state) => state.auth.user);
   const { selectedConversation } = useConversation();
   const fromMe = message.senderId === authUser?._id;
   const profilePic = fromMe ? authUser?.avatar : selectedConversation?.avatar;

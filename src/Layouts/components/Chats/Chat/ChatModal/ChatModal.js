@@ -8,9 +8,9 @@ const Home = () => {
     <Box
       sx={{
         display: 'flex',
-        height: { xs: 300, md: 450, lg: 550 },
-        width: { xs: 250, md: 550, lg: 750 },
-        borderRadius: '0.5rem',
+        height: { xs: 500, md: 550, lg: 600 },
+        width: { xs: 500, md: 550, lg: 750 },
+        borderRadius: '0.7rem',
         backgroundColor: 'white',
         backdropFilter: 'blur(10px)',
         backgroundClip: 'padding-box',

@@ -307,6 +307,7 @@
     "desc11": "账户持有人姓名：DO NGOC GIANG",
     "desc12": "账号：00005572823",
     "desc13": "越南先锋商业银行",
+    "desc14": "使用HaUIFood电子钱包付款",
     "notify01": "请先选择一个大厦",
     "notify02": "请先选择楼层",
     "notify03": "发生了错误，请检查并重试。",
@@ -357,7 +358,6 @@
       "unauthorized": "请登录以添加到购物车"
     }
   },
-
   "restaurant-detail": {
     "open-time-label": "营业时间",
     "open-time-value": "周一至周六 06:00 - 22:00"

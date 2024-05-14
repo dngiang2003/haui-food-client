@@ -1,6 +1,6 @@
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/mixins";
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
 
 .checkout {
   padding-bottom: 30px;
@@ -148,7 +148,7 @@
       max-width: 85%;
       color: var(--white);
       border-radius: 8px;
-      background-color: #ffc400b3;
+      background-color: rgb(255, 196, 0);
 
       @include media-breakpoint-down(lg) {
         margin-bottom: 15px;
@@ -189,7 +189,8 @@
       }
 
       @include media-breakpoint-down(md) {
-        width: 75%;
+        margin-top: 8px;
+        width: 90%;
       }
     }
 
@@ -226,7 +227,7 @@
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center center;
-      background-image: url("../../assets/images/checkout/ilus-app-features.svg");
+      background-image: url('../../assets/images/checkout/ilus-app-features.svg');
     }
 
     &-info {

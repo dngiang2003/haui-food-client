@@ -59,11 +59,13 @@ function CartItem({ data, isCheckout = false, showCart, shopChecked, onItemCheck
 
   const temporaryIncreasedQuantity = () => {
     setChangeQuantity((preQuantity) => preQuantity + 1);
+    setChangeTotalPrice((changeQuantity + 1) * data.product.price);
   };
 
   const temporaryReducedQuantity = () => {
     if (changeQuantity > 0) {
       setChangeQuantity((preQuantity) => preQuantity - 1);
+      setChangeTotalPrice((changeQuantity - 1) * data.product.price);
     }
   };
 
@@ -130,6 +132,8 @@ function CartItem({ data, isCheckout = false, showCart, shopChecked, onItemCheck
     if (openChange) {
       setChangeQuantity(data.quantity);
     }
+    setChangeTotalPrice(data.totalPrice);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openChange]);
 
   return (
@@ -197,7 +201,7 @@ function CartItem({ data, isCheckout = false, showCart, shopChecked, onItemCheck
         <div className={cx('change-quantity__first')}>
           <h1 className={cx('change-quantity__name')}>{productName}</h1>
           <p className={cx('change-quantity__desc')}>{productName}</p>
-          <p className={cx('change-quantity__price')}>{data.totalPrice.toLocaleString('vi-VN')} ₫</p>
+          <p className={cx('change-quantity__price')}>{changeTotalPrice.toLocaleString('vi-VN')} ₫</p>
         </div>
         <div className={cx('change-quantity__last')}>
           <h2 className={cx('change-quantity__title')}>{t('cart.title05')}</h2>

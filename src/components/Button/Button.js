@@ -19,6 +19,7 @@ function Button({
   authGoogle = false,
   more = false,
   order = false,
+  cancel = false,
   send = false,
   className,
   children,
@@ -64,6 +65,7 @@ function Button({
     more,
     order,
     send,
+    cancel,
   });
   return (
     <Comp className={classes} {...props}>

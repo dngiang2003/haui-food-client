@@ -6,12 +6,29 @@ import style from './HistoryOderItem.module.scss';
 import { StoreIcon } from '../Icons';
 import Button from '../Button';
 import formatDateTime from '~/utils/formatDateTime';
+import { useDispatch } from 'react-redux';
+import { cancelOrder } from '~/apiService/orderSevice';
+import { toast } from 'react-toastify';
+import { deleteOrder as cancel } from '~/features/orderSlice';
 
 const cx = classNames.bind(style);
 
 function HistoryOderItem({ data }) {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   // console.log(data);
+
+  const handleCancelOrder = () => {
+    dispatch(cancelOrder(data?._id)).then((result) => {
+      console.log(result);
+      if (result.payload.code === 200) {
+        toast.success(result.payload.message);
+        dispatch(cancel(data?._id));
+      } else {
+        toast.error(result.payload.message);
+      }
+    });
+  };
 
   const handleStatus = (status) => {
     if (!status) {
@@ -90,8 +107,18 @@ function HistoryOderItem({ data }) {
           <div className={cx('total__label')}>{t('historyOrder.label01')}</div>
           <div className={cx('total__value')}>{data?.totalMoney.toLocaleString('vi-VI') + ' đ'}</div>
         </div>
-        <Button className={cx('total__container-btn')} order primary>
-          {t('button.btn18')}
+        <Button
+          onClick={() => {
+            if (data?.status === 'pending') {
+              handleCancelOrder();
+            }
+          }}
+          className={cx('total__container-btn')}
+          order
+          primary
+          cancel={data?.status === 'pending'}
+        >
+          {data?.status === 'pending' ? 'Hủy' : t('button.btn18')}
         </Button>
       </div>
     </div>

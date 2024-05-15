@@ -11,3 +11,13 @@ export const getOrder = createAsyncThunk('getOrder', async (params, { rejectWith
     return rejectWithValue({ ...error });
   }
 });
+
+export const cancelOrder = createAsyncThunk('cancelOrder', async (orderID, { rejectWithValue }) => {
+  try {
+    const response = await callApi('post', `v1/orders/${orderID}/cancel`, null, {});
+    // await sleep(5000);
+    return response;
+  } catch (error) {
+    return rejectWithValue({ ...error });
+  }
+});

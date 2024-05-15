@@ -62,6 +62,15 @@ function HistoryOder() {
     });
   }, []);
 
+  useEffect(() => {
+    const newList = orderData?.orders?.filter((item) => item._id !== reduxData?.idOrderCancel);
+
+    setOrderData((prevOrderData) => ({
+      ...prevOrderData,
+      orders: newList,
+    }));
+  }, [reduxData.idOrderCancel]);
+
   const handleSelectStatus = (status) => {
     let params = {
       status: status,

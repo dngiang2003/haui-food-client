@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getOrder } from '~/apiService/orderSevice';
+import { getOrder, cancelOrder } from '~/apiService/orderSevice';
 
 const orderSlice = createSlice({
   name: 'statistical',
@@ -7,9 +7,39 @@ const orderSlice = createSlice({
     loading: false,
     orders: null,
     error: null,
+
+    idOrderCancel: null,
   },
+
+  reducers: {
+    deleteOrder: (state, action) => {
+      state.idOrderCancel = action.payload;
+      console.log(action);
+    },
+  },
+
   extraReducers: (builder) => {
     builder
+
+      //cancel order
+      .addCase(cancelOrder.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.orders = null;
+      })
+      .addCase(cancelOrder.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.loading = false;
+        state.orders = action.payload;
+        state.error = null;
+      })
+      .addCase(cancelOrder.rejected, (state, action) => {
+        state.loading = false;
+        state.orders = null;
+        state.error = action.error.message;
+      })
+
+      //get order
       .addCase(getOrder.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -28,5 +58,5 @@ const orderSlice = createSlice({
       });
   },
 });
-
+export const { deleteOrder } = orderSlice.actions;
 export default orderSlice.reducer;

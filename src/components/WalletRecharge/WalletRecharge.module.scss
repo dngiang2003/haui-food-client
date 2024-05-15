@@ -23,7 +23,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 5px;
+      border-radius: 8px;
       border: 1px solid var(--primary-color);
       cursor: pointer;
     }
@@ -40,14 +40,14 @@
     height: 50px;
     margin-top: 15px;
     background-color: var(--primary-color);
-    border-radius: 5px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   &__qr-info {
-    margin-top: 15px;
+    margin-top: 20px;
     background-color: var();
     display: flex;
     flex-direction: column;
@@ -65,7 +65,7 @@
     width: 40%;
     height: 40%;
     margin: 0 auto;
-    margin-top: 15px;
+    margin-top: 25px;
 
     @include media-breakpoint-down(lg) {
       width: 75%;
@@ -73,7 +73,7 @@
     }
 
     border: 1px solid var(--primary-color);
-    border-radius: 5px;
+    border-radius: 8px;
     overflow: hidden;
 
     & img {
@@ -86,8 +86,8 @@
   &__note {
     &-container {
       padding: 10px;
-      border-radius: 5px;
-      margin-top: 15px;
+      border-radius: 8px;
+      margin-top: 25px;
       color: var(--white);
       background-color: rgb(255, 196, 0);
       font-size: 1.7rem;

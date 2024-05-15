@@ -11,7 +11,7 @@ function WalletRecharge() {
       <h2 className={cx('wallet__title')}>Nội dung chuyển khoản</h2>
       <div title="Copy" className={cx('wallet__transfer-content-container')}>
         <div className={cx('wallet__transfer-content-value')}>
-          Le nghia <CopyIcon className={cx('wallet__copy-icon')} />
+          hauifood9 <CopyIcon className={cx('wallet__copy-icon')} />
         </div>
       </div>
 
@@ -23,17 +23,17 @@ function WalletRecharge() {
         <div className={cx('wallet__qr-info')}>
           <div className={cx('wallet__qr-info-row')}>
             <div className={cx('wallet__qr-info-label')}>Số tài khoản:</div>
-            <div className={cx('wallet__qr-info-value')}>0966859061</div>
+            <div className={cx('wallet__qr-info-value')}>00005572823</div>
           </div>
 
           <div className={cx('wallet__qr-info-row')}>
             <div className={cx('wallet__qr-info-label')}>Chủ tài khoản:</div>
-            <div className={cx('wallet__qr-info-value')}>Lê Công Nghĩa</div>
+            <div className={cx('wallet__qr-info-value cc')}>DO NGOC GIANG</div>
           </div>
 
           <div className={cx('wallet__qr-info-row')}>
             <div className={cx('wallet__qr-info-label')}>Tỉ giá:</div>
-            <div className={cx('wallet__qr-info-value')}>1 VNĐ = 1 hauiFodd coin</div>
+            <div className={cx('wallet__qr-info-value')}>1 VNĐ = 1 hauifood coin</div>
           </div>
 
           <div className={cx('wallet__qr-info-row')}>
@@ -57,7 +57,10 @@ function WalletRecharge() {
         </p>
         <p className={cx('wallet__note-desc')}>
           <div> -</div> Nạp sai cú pháp, sai số tài khoản, sai ngân hàng sẽ bị trừ 20% phí giao dịch. VD: nạp 100k sai
-          nội dung sẽ chỉ nhận được 80K hauiFood coin và phải liên hệ admin để cộng tay.
+          nội dung sẽ chỉ nhận được 80K hauifood coin và phải liên hệ admin để cộng tay.
+        </p>
+        <p className={cx('wallet__note-desc')}>
+          <div> -</div> Sau 5-10 phút tài khoản chưa được cộng coin hãy liên hệ admin tại đây để được hỗ trợ.
         </p>
       </div>
     </div>

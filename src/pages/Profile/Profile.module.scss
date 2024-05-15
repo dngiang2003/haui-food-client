@@ -1,6 +1,6 @@
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/mixins";
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
 
 .wrapper {
   margin-top: 120px;
@@ -216,6 +216,14 @@
     transition: all 0.5s;
   }
 
+  &__coin {
+    margin-top: 5px;
+    font-size: 1.6rem;
+    font-weight: 600;
+    transition: all 0.5s;
+    // color: var(--primary-color);
+  }
+
   &-nav-container {
     color: var(--text-color);
     background-color: #f6f6f6;
@@ -324,8 +332,8 @@
       position: relative;
     }
 
-    & input[type="text"],
-    input[type="password"] {
+    & input[type='text'],
+    input[type='password'] {
       transition: all 0.5s;
       width: 100%;
       height: 42px;
@@ -439,8 +447,8 @@
     }
   }
 
-  & input[type="text"],
-  input[type="password"] {
+  & input[type='text'],
+  input[type='password'] {
     border: 1px solid #bababa !important;
     &::placeholder {
       color: #bababa !important;

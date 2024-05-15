@@ -175,7 +175,7 @@ function AuthTwinSetup() {
                 onDoubleClick={(e) => {
                   const text = e.target.innerText;
                   navigator.clipboard.writeText(text);
-                  toast.error(t('authTwinSetup.toast.copySuccess'));
+                  toast.info(t('authTwinSetup.toast.copySuccess'));
                 }}
               >
                 <div className={cx('secret-key__value')}>{addSpaceForSecretKey(secretKey)}</div>

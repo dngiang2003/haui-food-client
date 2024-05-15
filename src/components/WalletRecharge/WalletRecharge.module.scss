@@ -32,6 +32,10 @@
       font-size: 2rem;
       font-weight: 600;
       color: var(--primary-color);
+
+      @include media-breakpoint-down(lg) {
+        font-size: 1.8rem;
+      }
     }
   }
 
@@ -44,6 +48,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    & img {
+      width: 13%;
+
+      @include media-breakpoint-down(lg) {
+        width: 25%;
+      }
+    }
   }
 
   &__qr-info {
@@ -58,6 +70,10 @@
       gap: 5px;
       font-size: 1.7rem;
       font-weight: 500;
+    }
+
+    &-value--green {
+      color: var(--primary-color);
     }
   }
 
@@ -89,14 +105,23 @@
       border-radius: 8px;
       margin-top: 25px;
       color: var(--white);
-      background-color: rgb(255, 196, 0);
+      background-color: rgb(255, 196, 0, 0.78);
       font-size: 1.7rem;
       font-weight: 500;
+      color: rgb(87, 85, 100);
+
+      a {
+        color: var(--primary-color);
+      }
     }
 
-    &-desc{
-        display: flex;
-        gap: 5px;
+    &-desc {
+      display: flex;
+      gap: 5px;
+
+      & a {
+        // display: flex;
+      }
     }
   }
 }

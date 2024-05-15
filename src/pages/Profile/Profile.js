@@ -506,6 +506,9 @@ function Profile() {
                 <div className={cx('profile__registered-day')}>
                   {t('profile.registered')} {formatRegisterDate(userInfo?.createdAt)}
                 </div>
+                <div className={cx('profile__coin')}>
+                  HauiFood coin: {userInfo?.accountBalance.toLocaleString('vi-VI')}
+                </div>
               </div>
             </div>
 
@@ -838,7 +841,7 @@ function Profile() {
                     {selectedOption === listOptions[4].title && <HistoryOder />}
 
                     {/* wallet */}
-                    {selectedOption === listOptions[5].title && <WalletRecharge />}
+                    {selectedOption === listOptions[5].title && <WalletRecharge userInfo={userInfo} />}
                   </div>
 
                   {/* listOption[1].title là "Personal info" */}

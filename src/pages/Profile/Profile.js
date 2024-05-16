@@ -512,7 +512,7 @@ function Profile() {
                   {t('profile.registered')} {formatRegisterDate(userInfo?.createdAt)}
                 </div>
                 <div className={cx('profile__coin')}>
-                  HauiFood coin: {userInfo?.accountBalance?.toLocaleString('vi-VI')}
+                  HaUIFood coin: {userInfo?.accountBalance?.toLocaleString('vi-VI')}
                 </div>
               </div>
             </div>

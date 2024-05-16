@@ -73,6 +73,7 @@
     }
 
     &-value--green {
+      font-weight: 600;
       color: var(--primary-color);
     }
   }
@@ -104,11 +105,10 @@
       padding: 10px;
       border-radius: 8px;
       margin-top: 25px;
-      color: var(--white);
       background-color: rgb(255, 196, 0, 0.78);
       font-size: 1.7rem;
       font-weight: 500;
-      color: rgb(87, 85, 100);
+      color: var(--text-color);;
 
       a {
         color: var(--primary-color);
@@ -118,10 +118,6 @@
     &-desc {
       display: flex;
       gap: 5px;
-
-      & a {
-        // display: flex;
-      }
     }
   }
 }

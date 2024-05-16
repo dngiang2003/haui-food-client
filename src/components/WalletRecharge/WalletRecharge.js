@@ -21,7 +21,7 @@ function WalletRecharge({ userInfo }) {
           onClick={(e) => {
             const text = e.target.innerText;
             navigator.clipboard.writeText(text);
-            toast.info(t('authTwinSetup.toast.copySuccess'));
+            toast.success(t('authTwinSetup.toast.copySuccess'));
           }}
         >
           {userInfo?.username} <CopyIcon className={cx('wallet__copy-icon')} />
@@ -29,7 +29,7 @@ function WalletRecharge({ userInfo }) {
       </div>
 
       <div className={cx('wallet__logo-bank-container')}>
-        <img src={images.logoTpBank} alt="hauiFood TPbank" />
+        <img src={images.logoTpBank} alt="HaUIFood TPbank" />
       </div>
 
       <div className={cx('wallet__qr-wrapper')}>
@@ -46,7 +46,7 @@ function WalletRecharge({ userInfo }) {
 
           <div className={cx('wallet__qr-info-row')}>
             <div className={cx('wallet__qr-info-label')}>{t('topUp.title04')}</div>
-            <div className={cx('wallet__qr-info-value')}>1 VNĐ = 1 hauifood coin</div>
+            <div className={cx('wallet__qr-info-value')}>1 VNĐ = 1 HaUIFood coin</div>
           </div>
 
           <div className={cx('wallet__qr-info-row')}>
@@ -76,7 +76,7 @@ function WalletRecharge({ userInfo }) {
           <div> -</div>{' '}
           <p>
             {t('topUp.desc03')}{' '}
-            <a href="https://www.facebook.com/profile.php?id=61557360312825" target="blank">
+            <a href="https://www.facebook.com/messages/t/274451679080721" target="blank">
               {t('topUp.desc04')}
             </a>{' '}
             {t('topUp.desc05')}

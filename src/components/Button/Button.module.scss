@@ -132,6 +132,11 @@
 
 .cancel {
   background-color: rgb(238, 99, 82);
+  border-color: rgb(238, 99, 82);
+
+  &:hover {
+    border-color: rgb(238, 99, 82);
+  }
 }
 
 .authGoogle {

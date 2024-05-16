@@ -170,9 +170,9 @@ function AuthTwinSetup() {
             <p className={cx('secret-key__desc')}>{t('authTwinSetup.desc04')}</p>
 
             <p className={cx('secret-key__label')}>Secret Key:</p>
-            <div className={cx('secret-key__value-container')}>
+            <div className={cx('secret-key__value-container')} title="Copy">
               <span
-                onDoubleClick={(e) => {
+                onClick={(e) => {
                   const text = e.target.innerText;
                   navigator.clipboard.writeText(text);
                   toast.info(t('authTwinSetup.toast.copySuccess'));

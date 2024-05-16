@@ -189,6 +189,7 @@
     color: var(--primary-color);
     font-weight: 600;
     min-width: 60%;
+    cursor: pointer;
     @include media-breakpoint-down(md) {
       margin-top: 10px;
       width: 300px;

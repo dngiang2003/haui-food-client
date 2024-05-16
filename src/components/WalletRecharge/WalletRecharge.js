@@ -1,9 +1,11 @@
 import classNames from 'classnames/bind';
 import styles from './WalletRecharge.module.scss';
 import images from '~/assets/images';
-import { CopyIcon } from '../Icons';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+
+import { CopyIcon } from '../Icons';
+
 const cx = classNames.bind(styles);
 
 function WalletRecharge({ userInfo }) {
@@ -12,11 +14,11 @@ function WalletRecharge({ userInfo }) {
 
   return (
     <div className={cx('wallet')}>
-      <h2 className={cx('wallet__title')}>Nội dung chuyển khoản</h2>
+      <h2 className={cx('wallet__title')}>{t('topUp.title01')}</h2>
       <div title="Copy" className={cx('wallet__transfer-content-container')}>
         <div
           className={cx('wallet__transfer-content-value')}
-          onDoubleClick={(e) => {
+          onClick={(e) => {
             const text = e.target.innerText;
             navigator.clipboard.writeText(text);
             toast.info(t('authTwinSetup.toast.copySuccess'));
@@ -33,22 +35,22 @@ function WalletRecharge({ userInfo }) {
       <div className={cx('wallet__qr-wrapper')}>
         <div className={cx('wallet__qr-info')}>
           <div className={cx('wallet__qr-info-row')}>
-            <div className={cx('wallet__qr-info-label')}>Số tài khoản:</div>
+            <div className={cx('wallet__qr-info-label')}>{t('topUp.title02')}</div>
             <div className={cx('wallet__qr-info-value')}>00005572823</div>
           </div>
 
           <div className={cx('wallet__qr-info-row')}>
-            <div className={cx('wallet__qr-info-label')}>Chủ tài khoản:</div>
+            <div className={cx('wallet__qr-info-label')}>{t('topUp.title03')}</div>
             <div className={cx('wallet__qr-info-value', 'wallet__qr-info-value--green')}>DO NGOC GIANG</div>
           </div>
 
           <div className={cx('wallet__qr-info-row')}>
-            <div className={cx('wallet__qr-info-label')}>Tỉ giá:</div>
+            <div className={cx('wallet__qr-info-label')}>{t('topUp.title04')}</div>
             <div className={cx('wallet__qr-info-value')}>1 VNĐ = 1 hauifood coin</div>
           </div>
 
           <div className={cx('wallet__qr-info-row')}>
-            <div className={cx('wallet__qr-info-label')}>Nạp tối thiểu:</div>
+            <div className={cx('wallet__qr-info-label')}>{t('topUp.title05')}</div>
             <div className={cx('wallet__qr-info-value')}>10.000 VNĐ</div>
           </div>
 
@@ -62,25 +64,22 @@ function WalletRecharge({ userInfo }) {
       </div>
 
       <div className={cx('wallet__note-container')}>
-        <div className={cx('wallet__note-label')}>Lưu ý:</div>
+        <div className={cx('wallet__note-label')}>{t('topUp.title06')}</div>
         <p className={cx('wallet__note-desc')}>
-          <div>-</div> Cố tình nạp dưới mức nạp không hỗ trợ.
+          <div>-</div>
+          {t('topUp.desc01')}
         </p>
         <div className={cx('wallet__note-desc')}>
-          <div> -</div>{' '}
-          <p>
-            Nạp sai cú pháp, sai số tài khoản, sai ngân hàng sẽ bị trừ 20% phí giao dịch. VD: nạp 100k sai nội dung sẽ
-            chỉ nhận được 80K hauifood coin và phải liên hệ admin để cộng tay.
-          </p>
+          <div> -</div> <p>{t('topUp.desc02')}</p>
         </div>
         <div className={cx('wallet__note-desc')}>
           <div> -</div>{' '}
           <p>
-            Sau 5-10 phút tài khoản chưa được cộng coin hãy liên hệ admin tại{' '}
+            {t('topUp.desc03')}{' '}
             <a href="https://www.facebook.com/profile.php?id=61557360312825" target="blank">
-              đây
+              {t('topUp.desc04')}
             </a>{' '}
-            để được hỗ trợ.
+            {t('topUp.desc05')}
           </p>
         </div>
       </div>

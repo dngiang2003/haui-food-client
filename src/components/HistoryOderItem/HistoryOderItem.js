@@ -20,9 +20,11 @@ function HistoryOderItem({ data }) {
 
   const handleCancelOrder = () => {
     dispatch(cancelOrder(data?._id)).then((result) => {
-      console.log(result);
+      // console.log(result);
       if (result.payload.code === 200) {
         toast.success(result.payload.message);
+
+        //khi người dùng xóa thành công thì distpatch id đơn hàng để cập nhật lại danh sách đơn hàng
         dispatch(cancel(data?._id));
       } else {
         toast.error(result.payload.message);
@@ -36,17 +38,29 @@ function HistoryOderItem({ data }) {
     }
 
     if (status === 'pending') {
-      return { status: 'Chờ xác nhận', color: 'green' };
+      return { status: t('historyOrder.statusPending'), color: 'green' };
     } else if (status === 'canceled') {
-      return { status: 'Đã hủy', color: 'red' };
+      return { status: t('historyOrder.statusCanceled'), color: 'red' };
     } else if (status === 'confirmed') {
-      return { status: 'Đã xác nhận', color: 'green' };
+      return { status: t('historyOrder.statusConfirmed'), color: 'green' };
     } else if (status === 'reject') {
-      return { status: 'Bị từ chối', color: 'red' };
+      return { status: t('historyOrder.statusRejected'), color: 'red' };
     } else if (status === 'shipping') {
-      return { status: 'Đang giao', color: 'green' };
+      return { status: t('historyOrder.statusShipping'), color: 'green' };
     } else if (status === 'success') {
-      return { status: 'Đã hoàn thành', color: 'green' };
+      return { status: t('historyOrder.statusSuccess'), color: 'green' };
+    }
+  };
+
+  const handlePaymentMethods = (method) => {
+    if (method === 'cod') {
+      return t('checkout.desc02');
+    }
+    if (method === 'bank') {
+      return t('checkout.desc03');
+    }
+    if (method === 'prepaid') {
+      return t('checkout.desc14');
     }
   };
 
@@ -81,25 +95,23 @@ function HistoryOderItem({ data }) {
       })}
 
       <div className={cx('address__container')}>
-        <div className={cx('address__label')}>Địa chỉ nhận hàng: </div>
+        <div className={cx('address__label')}>{t('historyOrder.label02')}</div>
         <div className={cx('address__value')}>{data?.address} </div>
       </div>
 
       <div className={cx('note__container')}>
-        <div className={cx('note__label')}>Ghi chú: </div>
+        <div className={cx('note__label')}>{t('historyOrder.label03')}</div>
         <div className={cx('note__value')}>{data?.note} </div>
       </div>
 
       <div className={cx('date-create__container')}>
-        <div className={cx('date-create__label')}>Thời gian tạo: </div>
+        <div className={cx('date-create__label')}>{t('historyOrder.label04')}</div>
         <div className={cx('date-create__value')}>{formatDateTime(data?.createdAt)} </div>
       </div>
 
       <div className={cx('payment-method__container')}>
-        <div className={cx('payment-method__label')}>Phương thức thanh toán: </div>
-        <div className={cx('payment-method__value')}>
-          {data?.paymentMethod === 'cod' ? 'Thanh toán khi nhận hàng' : 'Thanh toán chuyển khoản'}{' '}
-        </div>
+        <div className={cx('payment-method__label')}>{t('checkout.title12')}:</div>
+        <div className={cx('payment-method__value')}>{data && handlePaymentMethods(data.paymentMethod)}</div>
       </div>
 
       <div className={cx('total__container')}>
@@ -118,7 +130,7 @@ function HistoryOderItem({ data }) {
           primary
           cancel={data?.status === 'pending'}
         >
-          {data?.status === 'pending' ? 'Hủy' : t('button.btn18')}
+          {data?.status === 'pending' ? t('profile.btn-cancel') : t('button.btn18')}
         </Button>
       </div>
     </div>

@@ -146,10 +146,15 @@
     width: 100%;
     background-color: #f6f6f6;
     padding: 20px 20px 30px 20px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 20px 60px 10px rgba(237, 237, 246, 0.2);
+    background: linear-gradient(180deg, rgba(26, 22, 46, 0), #1a162e),
+      url('https://grocery-mart-client.vercel.app/static/media/user-background.4458a2239d360bd26829.png') no-repeat 50% /
+        cover;
+    // https://images.unsplash.com/photo-1497250681960-ef046c08a56e?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
   }
 
   &__sub-row {
@@ -178,10 +183,12 @@
     width: 140px;
     height: 140px;
     border-radius: 50%;
-    border: 3px solid rgb(246, 246, 246, 0.7);
     object-fit: cover;
     min-height: 140px;
     min-width: 140px;
+    background: #ccc content-box;
+    border: 5px solid hsla(0, 0%, 100%, 0.2);
+    box-shadow: 0 4px 14px 2px rgba(0, 0, 0, .08);
 
     &-content {
       z-index: 999;
@@ -203,7 +210,7 @@
   }
 
   &__user-name {
-    margin-top: 5px;
+    margin-top: 10px;
     font-size: 2rem;
     font-weight: 600;
     transition: all 0.5s;
@@ -227,13 +234,12 @@
   &-nav-container {
     color: var(--text-color);
     background-color: #f6f6f6;
-    margin-top: 15px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
     padding-bottom: 200px;
     @include media-breakpoint-down(xl) {
       padding-bottom: 30px;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
   }
 
@@ -287,8 +293,7 @@
 
   &-content-container {
     color: var(--text-color);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-radius: 12px;
     background-color: #f6f6f6;
     height: 100%;
     padding: 20px;
@@ -299,8 +304,7 @@
     }
 
     @include media-breakpoint-down(md) {
-      padding: 10px 15px 20px;
-      border-radius: 10px;
+      padding: 15px 15px 20px;
     }
   }
 

@@ -62,6 +62,7 @@ function HistoryOder() {
     });
   }, []);
 
+  // khi người dùng xóa đơn hàng sẽ dispatch id đơn hàng, lấy id đó để xóa đơn hàng trong mảng
   useEffect(() => {
     const newList = orderData?.orders?.filter((item) => item._id !== reduxData?.idOrderCancel);
 
@@ -69,6 +70,7 @@ function HistoryOder() {
       ...prevOrderData,
       orders: newList,
     }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reduxData.idOrderCancel]);
 
   const handleSelectStatus = (status) => {

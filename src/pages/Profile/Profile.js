@@ -60,11 +60,16 @@ function Profile() {
       navId: 'authTwinSetup',
     },
     {
+      title: t('profile.navTitle03'),
+      icon: <div className={cx('special-icon')}></div>,
+      isTitle: true,
+    },
+    {
       title: t('profile.nav06'),
       icon: <HistoryOderIcon className={cx('icon')} />,
     },
     {
-      title: 'Nạp tiền',
+      title: t('profile.nav07'),
       icon: <CoinIcon className={cx('icon')} />,
     },
 
@@ -465,11 +470,11 @@ function Profile() {
           {/* sidebar */}
           <div className={cx('col-xl-3')}>
             <div className={cx('profile__img-container')}>
-              <img
+              {/* <img
                 className={cx('profile__img-cover')}
                 src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="hauifood"
-              />
+              /> */}
               <div
                 // listOption[1].title là "Personal info"
                 className={cx('profile__img-content')}
@@ -507,7 +512,7 @@ function Profile() {
                   {t('profile.registered')} {formatRegisterDate(userInfo?.createdAt)}
                 </div>
                 <div className={cx('profile__coin')}>
-                  HauiFood coin: {userInfo?.accountBalance.toLocaleString('vi-VI')}
+                  HauiFood coin: {userInfo?.accountBalance?.toLocaleString('vi-VI')}
                 </div>
               </div>
             </div>
@@ -834,14 +839,14 @@ function Profile() {
                     {/* auth twin setup */}
                     {selectedOption === listOptions[3].title && <AuthTwinSetup />}
                     {/* help */}
-                    {selectedOption === listOptions[7].title && <Help />}
+                    {selectedOption === listOptions[8].title && <Help />}
                     {/* Terms of use */}
-                    {selectedOption === listOptions[8].title && <TermsOfUse />}
+                    {selectedOption === listOptions[9].title && <TermsOfUse />}
                     {/* history oder */}
-                    {selectedOption === listOptions[4].title && <HistoryOder />}
+                    {selectedOption === listOptions[5].title && <HistoryOder />}
 
                     {/* wallet */}
-                    {selectedOption === listOptions[5].title && <WalletRecharge userInfo={userInfo} />}
+                    {selectedOption === listOptions[6].title && <WalletRecharge userInfo={userInfo} />}
                   </div>
 
                   {/* listOption[1].title là "Personal info" */}

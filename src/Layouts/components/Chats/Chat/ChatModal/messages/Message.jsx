@@ -16,36 +16,56 @@ const Message = ({ message }) => {
 
   return (
     <>
-      <div style={{
-        float: fromMe ? 'right' : 'left',
-        maxWidth: '60%',
-        clear: 'both',
-        margin: '0 0 10px 0',
-        display: 'flex',
-        alignItems: 'center',
-      }}>
-        {!fromMe ? <Avatar className='avatar' src={profilePic} alt='Avatar' style={{
-          width: '28px',
-          height: '28px',
-
-        }} /> : null}
-        <div style={{
-          backgroundColor: fromMe ? '#2196f3' : '#f0f0f0',
-          padding: '7px 20px',
-          borderRadius: '20px',
-          width: '100%',
-          maxHeight: '200px',
-          margin: '0 0 0 10px',
-          fontSize: '15px',
-        }}>
+      <div
+        style={{
+          float: fromMe ? 'right' : 'left',
+          maxWidth: '60%',
+          clear: 'both',
+          margin: '0 0 10px 0',
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        {!fromMe ? (
+          <Avatar
+            className="avatar"
+            src={profilePic}
+            alt="Avatar"
+            style={{
+              width: '28px',
+              height: '28px',
+            }}
+          />
+        ) : null}
+        <div
+          style={{
+            backgroundColor: fromMe ? '#00ba5133' : '#f0f0f0',
+            padding: '7px 20px',
+            borderRadius: '20px',
+            width: '100%',
+            maxHeight: '200px',
+            margin: '0 0 0 10px',
+            fontSize: '15px',
+          }}
+        >
           {message.message}
         </div>
       </div>
-      <Typography variant='caption' style={{ clear: 'both', opacity: 0.5, display: 'block', textAlign: fromMe ? 'right' : 'left', margin: fromMe ? '0 2px 20px 0' : '0 0 20px 2px' }}>
+      <Typography
+        variant="caption"
+        style={{
+          clear: 'both',
+          opacity: 0.5,
+          display: 'block',
+          fontSize: '1.3rem',
+          textAlign: fromMe ? 'right' : 'left',
+          margin: fromMe ? '0 2px 20px 0' : '0 0 20px 2px',
+        }}
+      >
         {formattedTime}
       </Typography>
     </>
   );
-}
+};
 
 export default Message;

@@ -1,0 +1,18 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 2px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}

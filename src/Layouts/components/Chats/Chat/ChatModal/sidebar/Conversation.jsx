@@ -1,10 +1,15 @@
 import * as React from 'react';
+import classNames from 'classnames/bind';
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import { Avatar, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
 
+import styles from './Conversation.module.scss';
+
 import useConversation from '../../zustand/useConversation';
 import { useSocketContext } from '../../context/SocketContext';
+
+const cx = classNames.bind(styles);
 
 const Conversation = ({ conversation, lastIdx, emoji }) => {
   const { onlineUsers } = useSocketContext();
@@ -44,47 +49,45 @@ const Conversation = ({ conversation, lastIdx, emoji }) => {
   return (
     <>
       <ListItem
+        className={cx('list-item')}
         button
         selected={isSelected}
         onClick={() => setSelectedConversation(conversation)}
         sx={{
-          display: 'flex',
-          gap: 2,
-          alignItems: 'center',
-          padding: '8px 12px',
-          borderRadius: '8px',
-          cursor: 'pointer',
+          padding: '8px',
+          borderRadius: '4px',
           '&:hover': {
             bgcolor: isSelected ? 'inherit' : 'sky.500',
           },
         }}
       >
-        <ListItemAvatar>
-          {isOnline ? <StyledBadge
-            overlap='circular'
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-            variant='dot'
-          >
-            <Avatar alt='user avatar' src={conversation.avatar} />
-          </StyledBadge> : <Avatar alt='user avatar' src={conversation.avatar} />}
+        <ListItemAvatar sx={{ minWidth: '40px' }}>
+          {isOnline ? (
+            <StyledBadge overlap="circular" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} variant="dot">
+              <Avatar className={cx('list-item__avatar')} alt="user avatar" src={conversation.avatar} />
+            </StyledBadge>
+          ) : (
+            <Avatar className={cx('list-item__avatar')} alt="user avatar" src={conversation.avatar} />
+          )}
         </ListItemAvatar>
         <ListItemText
           primary={conversation.fullname}
           primaryTypographyProps={{
             variant: 'body1',
-            fontWeight: 'bold',
             color: 'text.primary',
+            fontSize: '1.3rem',
+            fontWeight: 600,
           }}
           secondary={emoji}
           secondaryTypographyProps={{
-            variant: 'h6',
+            variant: 'h5',
             color: 'text.secondary',
           }}
           sx={{ flex: 1 }}
         />
       </ListItem>
 
-      {!lastIdx && <div className='divider my-0 py-0 h-1'></div>}
+      {!lastIdx && <div className="divider my-0 py-0 h-1"></div>}
     </>
   );
 };

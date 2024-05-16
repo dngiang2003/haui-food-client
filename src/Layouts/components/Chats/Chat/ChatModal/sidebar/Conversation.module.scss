@@ -1,0 +1,29 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  min-width: 40px;
+
+  @include media-breakpoint-down(md) {
+    flex-direction: column;
+    gap: 4px;
+    padding: 4px;
+  }
+
+  &__avatar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+
+    @include media-breakpoint-down(md) {
+      width: 35px;
+      height: 35px;
+    }
+  }
+}

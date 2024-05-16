@@ -1,0 +1,22 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  width: 40%;
+  border-right: 1px solid #718096;
+
+  @include media-breakpoint-down(md) {
+    padding: 10px 3px;
+    width: 30%;
+  }
+
+  &__separate {
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
+  }
+}

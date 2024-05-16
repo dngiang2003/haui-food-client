@@ -25,6 +25,8 @@
   }
 
   &__name {
+    display: flex;
+    align-items: center;
     margin-top: 15px;
     font-size: 2.6rem;
     font-weight: 700;
@@ -34,9 +36,11 @@
     }
   }
   &__chat {
+    display: inline-flex;
+    align-items: center;
     margin-left: 20px;
-    color: var(--primary-color);
     font-weight: 600;
+    color: var(--primary-color);
     cursor: pointer;
   }
 

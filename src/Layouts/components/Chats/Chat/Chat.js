@@ -19,7 +19,7 @@ const Chat = () => {
       return navigator('/auth/login');
     }
     openModal();
-  }
+  };
   return (
     <>
       <div className={cx('chat')} onClick={handleOpenModal}>
@@ -29,27 +29,13 @@ const Chat = () => {
       <Modal
         open={isOpen}
         onClose={closeModal}
-        aria-labelledby='simple-modal-title'
-        aria-describedby='simple-modal-description'
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
         style={{
-          zIndex: 9999999999
+          zIndex: 9999999999,
         }}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            height: { xs: '60%', md: 450, lg: 550 },
-            width: { xs: '100%', md: 550, lg: 750 },
-            borderRadius: '0.7rem',
-            backgroundColor: 'white',
-            backdropFilter: 'blur(10px)',
-            backgroundClip: 'padding-box',
-            position: 'absolute',
-            right: { xs: '0', md: '6.3vw', xl: '6.4vw' },
-            bottom: { xs: '0', md: '84px', xl: '84px' },
-            outline: 'none',
-          }}
-        >
+        <Box className={cx('chat__modal')}>
           <Sidebar />
           <MessageContainer />
         </Box>

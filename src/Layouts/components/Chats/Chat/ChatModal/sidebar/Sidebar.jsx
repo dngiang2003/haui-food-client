@@ -1,16 +1,21 @@
+import classNames from 'classnames/bind';
 import { Box, Divider } from '@mui/material';
+
+import styles from './Sidebar.module.scss';
 
 import SearchInput from './SearchInput';
 import Conversations from './Conversations';
 
+const cx = classNames.bind(styles);
+
 const Sidebar = () => {
   return (
-    <Box borderRight='1px solid #718096' p={2} display='flex' flexDirection='column' cx={{ width: '30%' }}>
+    <Box className={cx('sidebar')}>
       <SearchInput />
-      <Divider sx={{ mt: 2, mb: 2 }} />
+      <Divider className={cx('sidebar__separate')} sx={{ mt: 2, mb: 2 }} />
       <Conversations />
     </Box>
   );
-}
+};
 
 export default Sidebar;

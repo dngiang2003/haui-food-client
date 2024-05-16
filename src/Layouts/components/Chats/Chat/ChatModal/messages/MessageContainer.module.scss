@@ -1,0 +1,17 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+.container {
+  padding: 16px;
+  width: 70%;
+
+  @include media-breakpoint-down(md) {
+    padding: 8px;
+  }
+
+  &__heading {
+    display: flex;
+    align-items: center;
+  }
+}

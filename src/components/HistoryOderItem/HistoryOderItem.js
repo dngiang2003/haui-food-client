@@ -33,9 +33,7 @@ function HistoryOderItem({ data }) {
   };
 
   const handleStatus = (status) => {
-    if (!status) {
-      return;
-    }
+    if (!status) return;
 
     if (status === 'pending') {
       return { status: t('historyOrder.statusPending'), color: 'green' };
@@ -53,6 +51,8 @@ function HistoryOderItem({ data }) {
   };
 
   const handlePaymentMethods = (method) => {
+    if (!method) return;
+
     if (method === 'cod') {
       return t('checkout.desc02');
     }
@@ -79,7 +79,7 @@ function HistoryOderItem({ data }) {
       </div>
 
       {data?.cartDetails.map((cartDetail, index) => {
-        console.log('cartDetail', cartDetail);
+        // console.log('cartDetail', cartDetail);
         return (
           <div key={index} className={cx('sub-item__info-container')}>
             <img className={cx('sub-item__img')} src={cartDetail.product.image} alt="HaUI Food" />

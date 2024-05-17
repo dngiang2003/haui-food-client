@@ -7,14 +7,14 @@ const orderSlice = createSlice({
     loading: false,
     orders: null,
     error: null,
-
+    cancelOrderLoading: false,
     idOrderCancel: null,
   },
 
   reducers: {
     deleteOrder: (state, action) => {
       state.idOrderCancel = action.payload;
-      console.log(action);
+      // console.log(action);
     },
   },
 
@@ -23,18 +23,18 @@ const orderSlice = createSlice({
 
       //cancel order
       .addCase(cancelOrder.pending, (state) => {
-        state.loading = true;
+        state.cancelOrderLoading = true;
         state.error = null;
         state.orders = null;
       })
       .addCase(cancelOrder.fulfilled, (state, action) => {
-        console.log(action.payload);
-        state.loading = false;
+        // console.log(action.payload);
+        state.cancelOrderLoading = false;
         state.orders = action.payload;
         state.error = null;
       })
       .addCase(cancelOrder.rejected, (state, action) => {
-        state.loading = false;
+        state.cancelOrderLoading = false;
         state.orders = null;
         state.error = action.error.message;
       })
@@ -46,7 +46,7 @@ const orderSlice = createSlice({
         state.orders = null;
       })
       .addCase(getOrder.fulfilled, (state, action) => {
-        console.log(action.payload);
+        // console.log(action.payload);
         state.loading = false;
         state.orders = action.payload;
         state.error = null;

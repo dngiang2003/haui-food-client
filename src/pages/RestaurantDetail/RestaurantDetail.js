@@ -187,7 +187,7 @@ function RestaurantDetail() {
           </div>
         )}
 
-        {reduxData.restaurantDetail?.categories.length <= 0 && !reduxData.loading && <NoResult />}
+        {reduxData.restaurantDetail?.categories.length <= 0 && !reduxData.loading && <NoResult type="product" />}
       </div>
     </div>
   );

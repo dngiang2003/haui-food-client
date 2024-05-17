@@ -55,6 +55,7 @@
     "err08": "The phone number is incorrect, please re-enter",
     "err09": "Please enter the content",
     "err10": "Content from 5 to 500 characters",
+    "err11": "Please enter your Email",
     "msv": {
       "err01": "Please enter your student ID.",
       "err02": "Student ID must be exactly 10 characters.",

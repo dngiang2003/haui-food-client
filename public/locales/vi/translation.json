@@ -55,6 +55,7 @@
     "err08": "Số điện thoại không đúng, vui lòng nhập lại",
     "err09": "Vui lòng nhập nội dung",
     "err10": "Nội dung từ 5 đến 500 ký tự",
+    "err11": "Vui lòng nhập Email",
     "msv": {
       "err01": "Vui lòng nhập mã sinh viên.",
       "err02": "Mã sinh viên phải có đúng 10 ký tự.",

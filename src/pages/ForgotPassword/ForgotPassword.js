@@ -71,7 +71,7 @@ function ForgotPassword() {
     const data = {
       email: email,
       text: captchaValue,
-      sign: "U2FsdGVkX1+jTOXmH4CXlekMcx3d56iebXE8vP50Nvb5e/UC/n41QFFEJc1pioo0mwH8oTsueKaP6qBIvUGIig==",
+      sign: JSON.parse(sessionStorage.getItem("signature")),
     };
 
     dispatch(forgotPassword(data))

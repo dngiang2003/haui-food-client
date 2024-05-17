@@ -4,7 +4,8 @@ import { searchProduct } from '~/apiService/productService';
 const productSlice = createSlice({
   name: 'product',
   initialState: {
-    product: null,
+    products: [],
+    shops: [],
     loading: null,
     error: null,
     length: 0,
@@ -29,18 +30,23 @@ const productSlice = createSlice({
       .addCase(searchProduct.pending, (state) => {
         state.loading = true;
         state.error = null;
-        state.product = null;
+        state.products = [];
+        state.shops = [];
       })
       .addCase(searchProduct.fulfilled, (state, action) => {
         state.loading = false;
-        state.product = action.payload.data;
+        console.log(action.payload.data);
+        state.products = action.payload.data.products;
+        state.shops = action.payload.data.shops;
         state.data = action.payload;
         state.error = null;
       })
       .addCase(searchProduct.rejected, (state, action) => {
         state.loading = false;
-        state.product = null;
+
         state.error = action.error.message;
+        state.products = [];
+        state.shops = [];
       });
   },
 });

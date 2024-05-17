@@ -1,6 +1,6 @@
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/mixins";
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
 
 .home {
   scroll-behavior: smooth;
@@ -27,7 +27,7 @@
   }
 
   &__title-1 {
-    margin-top: 64px;
+    margin-top: 28px;
     margin-bottom: 48px;
 
     @include media-breakpoint-down(md) {
@@ -81,16 +81,12 @@
   }
 
   &__search-result-show {
-    max-height: 900px;
+    max-height: 1900px;
     opacity: 1;
     height: fit-content;
 
     @include media-breakpoint-down(lg) {
-      max-height: 1900px;
-    }
-
-    @include media-breakpoint-down(md) {
-      max-height: 1900px;
+      max-height: 5500px;
     }
   }
 
@@ -152,7 +148,7 @@
     transition: transform 0.5s;
     &::after {
       position: absolute;
-      content: "";
+      content: '';
       width: 1px;
       height: 100%;
       display: block;
@@ -184,11 +180,11 @@
   }
 
   &__search-title {
-    font-size: 3.6rem;
-    font-weight: 600;
+    font-size: 3.2rem;
+    font-weight: 500;
     color: var(--text-color);
-    margin-top: 64px;
-    margin-bottom: 48px;
+    margin-top: 35px;
+    margin-bottom: 35px;
     @include media-breakpoint-down(md) {
       font-size: 2.2rem;
       margin-top: 0;

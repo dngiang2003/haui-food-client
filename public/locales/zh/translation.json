@@ -97,12 +97,16 @@
     "op02": "登出"
   },
   "home": {
-    "title01": "HauiFood优惠在",
+    "title01": "新开张的商店在",
     "title02": "有些东西适合每个人！",
     "title03": "为什么你应该在HauiFood上订购？",
     "title04": "常见问题",
     "title05": "精选餐厅",
     "title06": "我们的应用程序上有更多有趣的功能",
+    "result-title": "搜索结果",
+    "close-btn": "关闭",
+    "see-all-restaurants": "查看所有餐厅",
+    "read-more": "阅读更多",
     "reasonKeyword01": "最快",
     "reasonKeyword02": "最容易",
     "reasonKeyword03": "满足所有需求",
@@ -129,7 +133,8 @@
     "placeholder": "搜索食物或餐厅"
   },
   "no-result": {
-    "title": "很抱歉，目前没有任何餐厅",
+    "title-restaurant": "抱歉，目前没有餐厅",
+    "title-product": "抱歉，目前没有产品",
     "desc": "请刷新页面以解决问题。"
   },
   "login": {
@@ -380,5 +385,9 @@
   "restaurant-detail": {
     "open-time-label": "营业时间",
     "open-time-value": "周一至周六 06:00 - 22:00"
+  },
+  "list-result": {
+    "list-products": "产品列表",
+    "list-restaurants": "餐厅列表"
   }
 }

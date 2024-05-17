@@ -38,6 +38,7 @@ function Banner({ className, onSearch, onSearchResult, onPage, onRemove, onHandl
 
     dispatch(searchProduct({ limit: 9, keyword: searchValue, page: 1 })).then((result) => {
       if (result.payload.code === 200) {
+        
         onSearchResult(result.payload.data.products);
       }
     });
@@ -135,7 +136,7 @@ function Banner({ className, onSearch, onSearchResult, onPage, onRemove, onHandl
                 type="text"
                 placeholder=""
                 value={searchValue}
-                autocomplete="off"
+                autoComplete="off"
                 onKeyPress={handleKeyPress}
                 onChange={handleChange}
                 className={cx('banner__input-search')}

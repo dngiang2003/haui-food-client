@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 // import ReactPaginate from 'react-paginate';
 
 import style from './ListResult.module.scss';
@@ -7,14 +8,16 @@ import style from './ListResult.module.scss';
 // import { ChevronRight } from '../Icons';
 import NoResult from '../NoResult';
 import ProductCard from '../ProductCard';
+import RestaurantCard from '../RestaurantCard/RestaurantCard';
 
 const cx = classNames.bind(style);
 
 function ListResult({ data, className, onChangePage }) {
   // const dispatch = useDispatch();
+  const { t } = useTranslation();
   const reduxData = useSelector((prop) => prop.product);
-
-  if (data.length === 0 && !reduxData.loading) {
+  console.log(reduxData);
+  if (reduxData?.shops.length === 0 && reduxData?.products.length === 0 && !reduxData.loading) {
     return <NoResult />;
   }
 
@@ -24,10 +27,11 @@ function ListResult({ data, className, onChangePage }) {
 
   return (
     <div className={cx('list')}>
-      {data && (
+      <h2 className={cx('list-title')}>{t('list-result.list-products')}</h2>
+      {reduxData.products.length !== 0 ? (
         <div className={cx('list-container')}>
           <div className={cx('row g-5 g-0')}>
-            {data.map((item, index) => {
+            {reduxData?.products.map((item, index) => {
               return (
                 <div key={index} className={cx('col-xl-4 col-12')}>
                   <ProductCard data={item} />
@@ -36,7 +40,26 @@ function ListResult({ data, className, onChangePage }) {
             })}
           </div>
         </div>
+      ) : (
+        <NoResult type="product" />
       )}
+      <h2 className={cx('list-title')}>{t('list-result.list-restaurants')}</h2>
+      {reduxData.shops.length !== 0 ? (
+        <div className={cx('list-container')}>
+          <div className={cx('row g-5 g-0')}>
+            {reduxData?.shops.map((item, index) => {
+              return (
+                <div key={index} className={cx('col-xl-3 col-6')}>
+                  <RestaurantCard data={item} />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : (
+        <NoResult />
+      )}
+
       {/* <div className={cx('pagination-container')}>
         <ReactPaginate
           previousLabel={<ChevronRight className={cx('prev-icon')} />}

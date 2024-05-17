@@ -97,12 +97,16 @@
     "op02": "Log Out"
   },
   "home": {
-    "title01": "HauiFood Promo in",
+    "title01": "Newly Opened Stores in",
     "title02": "There's something for everyone!",
     "title03": "Why HauiFood?",
     "title04": "Frequently Asked Questions",
     "title05": "Curated restaurants",
     "title06": "More cool features available on the app",
+    "result-title": "Search results",
+    "close-btn": "Close",
+    "see-all-restaurant": "See All Restaurants",
+    "read-more": "Read more",
     "reasonKeyword01": "Quickest",
     "reasonKeyword02": "Easiest",
     "reasonKeyword03": "Food for all cravings",
@@ -128,10 +132,13 @@
     "at": "in",
     "placeholder": "Find a dish or restaurant"
   },
+
   "no-result": {
-    "title": "Sorry, there are currently no restaurants",
+    "title-restaurant": "Sorry, there are currently no restaurants",
+    "title-product": "Sorry, there are currently no products",
     "desc": "Please refresh the page to resolve the issue."
   },
+
   "login": {
     "heading": "Sign in",
     "desc01": "Welcome back. Sign in to continue shopping.",
@@ -380,5 +387,9 @@
   "restaurant-detail": {
     "open-time-label": "Opening Hours",
     "open-time-value": "Monday to Saturday 06:00 - 22:00"
+  },
+  "list-result": {
+    "list-products": "Product list",
+    "list-restaurants": "Restaurant Llst"
   }
 }

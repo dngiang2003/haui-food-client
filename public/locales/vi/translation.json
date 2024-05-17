@@ -98,12 +98,16 @@
     "op02": "Đăng xuất"
   },
   "home": {
-    "title01": "Ưu đãi HauiFood tại",
+    "title01": "Các cửa hàng mới mở tại",
     "title02": "There's something for everyone!",
     "title03": "Vì sao bạn nên Order trên HauiFood?",
     "title04": "Những câu hỏi thường gặp",
     "title05": "Nhà hàng tuyển chọn",
     "title06": "Nhiều tính năng thú vị hơn có sẵn trên ứng dụng của chúng tôi",
+    "result-title": "Kết quả tìm kiếm ",
+    "close-btn": "Đóng",
+    "see-all-restaurants": "Xem tất cả nhà hàng",
+    "read-more": "Đọc thêm",
     "reasonKeyword01": "Nhanh nhất",
     "reasonKeyword02": "Dễ dàng nhất",
     "reasonKeyword03": "Đáp ứng mọi nhu cầu",
@@ -130,7 +134,8 @@
     "placeholder": "Tìm món ăn hoặc quán ăn"
   },
   "no-result": {
-    "title": "Rất tiếc, hiện không có nhà hàng nào",
+    "title-restaurant": "Rất tiếc, hiện không có nhà hàng nào",
+    "title-product": "Rất tiếc, hiện không có sản phẩm nào",
     "desc": "Vui lòng làm mới trang để giải quyết sự cố."
   },
   "login": {
@@ -381,5 +386,9 @@
   "restaurant-detail": {
     "open-time-label": "Giờ mở cửa",
     "open-time-value": "Từ thứ 2 đến thứ 7 06:00 - 22:00"
+  },
+  "list-result": {
+    "list-products": "Danh sách sản phẩm",
+    "list-restaurants": "Danh sách nhà hàng"
   }
 }

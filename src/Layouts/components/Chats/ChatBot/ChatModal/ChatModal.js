@@ -2,7 +2,6 @@ import axios from "axios";
 import { Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import React, { useState, useEffect } from "react";
-
 import classNames from "classnames/bind";
 import styles from "./ChatModal.module.scss";
 
@@ -11,6 +10,7 @@ const cx = classNames.bind(styles);
 const ChatModal = () => {
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const savedMessages = JSON.parse(sessionStorage.getItem("chatMessages"));
@@ -32,6 +32,7 @@ const ChatModal = () => {
       const newMessage = { user: "User", message: messageInput };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
       setMessageInput("");
+      setLoading(true);
 
       try {
         const response = await axios.post("https://api.hauifood.com/api/v1/chat-bots", {
@@ -42,6 +43,8 @@ const ChatModal = () => {
         setMessages((prevMessages) => [...prevMessages, chatbotResponse]);
       } catch (error) {
         console.error("Error fetching chatbot response:", error);
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -70,14 +73,22 @@ const ChatModal = () => {
                 fontSize={{ fontSize: 15 }}
                 className={cx(
                   "chat-modal__message",
-                  message.user === "User" ? "chat-modal__message--user" : "chat-modal__message--chatbot",
+                  message.user === "User" ? "chat-modal__message--user" : "chat-modal__message--chatbot"
                 )}
               >
                 {message.message}
               </Typography>
             </div>
           ))}
+        {loading && (
+          <div className={cx("chat-modal__loading")}>
+            <div className={cx("dot")}></div>
+            <div className={cx("dot")}></div>
+            <div className={cx("dot")}></div>
+          </div>
+        )}
       </div>
+      <hr className={cx("chat-modal__divider")} />
       <div className={cx("chat-modal__container")}>
         <input
           type="text"

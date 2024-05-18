@@ -26,7 +26,7 @@
   @include media-breakpoint-down(lg) {
     right: 0;
     bottom: -1px;
-    padding: 15px 15px 50px;
+    padding: 15px 15px 33px;
     width: 100vw;
     max-width: 100vw;
     max-height: 65vh;
@@ -38,21 +38,6 @@
     max-height: 70vh;
     padding-bottom: 20px;
   }
-
-  // &::after {
-  //   content: "";
-  //   position: absolute;
-  //   bottom: 120px;
-  //   right: -12px;
-  //   width: 0;
-  //   height: 0;
-  //   border-top: 12px solid transparent;
-  //   border-bottom: 12px solid transparent;
-  //   border-left: 13px solid white;
-  //   @include media-breakpoint-down(lg) {
-  //     display: none;
-  //   }
-  // }
 }
 
 .chat-modal__title {
@@ -72,15 +57,17 @@
   flex: 1;
   overflow-y: auto;
   font-size: 15px;
-  border-bottom: 1px solid #ccc;
   padding: 0 10px;
   clear: both;
+  position: relative;
 }
+
 .chat-modal__message {
   margin-bottom: 15px !important;
   max-width: 70%;
   clear: both;
 }
+
 .chat-modal__message--chatbot {
   float: left;
   background-color: #f0f0f0;
@@ -97,13 +84,44 @@
   border-radius: 4px;
 }
 
-.chat-modal__user {
-  color: #3f51b5;
-  font-weight: bold;
+.chat-modal__loading {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 10px 0;
+  clear: both;
 }
 
-.chat-modal__chatbot {
-  color: #2196f3;
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin: 0 2px;
+  background-color: #333;
+  border-radius: 50%;
+  animation: loading 1s infinite ease-in-out;
+}
+
+@keyframes loading {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
 }
 
 .chat-modal__container {
@@ -136,11 +154,7 @@
   top: 50%;
   transform: translateY(-50%);
   display: inline-flex;
-  transform: translateY(-50%);
-  display: inline-flex;
-  -webkit-box-align: center;
   align-items: center;
-  -webkit-box-pack: center;
   justify-content: center;
 
   @include media-breakpoint-down(sm) {
@@ -164,8 +178,12 @@
   top: 50%;
   transform: translateY(-50%);
   display: inline-flex;
-  -webkit-box-align: center;
   align-items: center;
-  -webkit-box-pack: center;
   justify-content: center;
+}
+
+.chat-modal__divider {
+  margin: 15px 0 0 0;
+  border: none;
+  border-top: 1px solid #ccc;
 }

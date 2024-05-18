@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
 import { Avatar, Typography } from '@mui/material';
-
 import useConversation from '../../zustand/useConversation';
 
 const Message = ({ message }) => {
@@ -45,6 +44,8 @@ const Message = ({ message }) => {
             width: '100%',
             margin: '0 0 0 10px',
             fontSize: '15px',
+            wordBreak: 'break-word',
+            hyphens: 'auto',
           }}
         >
           {message.message}

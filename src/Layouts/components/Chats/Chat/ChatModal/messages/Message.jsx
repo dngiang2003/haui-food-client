@@ -23,7 +23,7 @@ const Message = ({ message }) => {
           clear: 'both',
           margin: '0 0 10px 0',
           display: 'flex',
-          alignItems: 'center',
+          alignItems: 'end',
         }}
       >
         {!fromMe ? (
@@ -43,7 +43,6 @@ const Message = ({ message }) => {
             padding: '7px 20px',
             borderRadius: '20px',
             width: '100%',
-            maxHeight: '200px',
             margin: '0 0 0 10px',
             fontSize: '15px',
           }}

@@ -222,7 +222,7 @@
   border: 2px solid rgb(244, 67, 54, 0.7);
 }
 .home__close-container:hover > .home__close-icon {
-  transform: scale(1.5) translateX(-140%);
+  transform: scale(1.5) translateX(-100%);
   color: rgb(244, 67, 54, 0.7);
   @include media-breakpoint-down(md) {
     transform: scale(1.5) translateX(-15 0%);

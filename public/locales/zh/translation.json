@@ -390,5 +390,20 @@
   "list-result": {
     "list-products": "产品列表",
     "list-restaurants": "餐厅列表"
+  },
+  "restaurantCard": {
+    "desc01": "很多优惠"
+  },
+  "chatBot": {
+    "title01": "助理",
+    "title02": "AI助理",
+    "desc01": "输入聊天内容"
+  },
+  "chatMessage": {
+    "title01": "聊天消息",
+    "desc01": "正在加载 ...",
+    "desc02": "欢迎",
+    "desc03": "选择一个对话开始发送消息",
+    "desc04": "发送消息"
   }
 }

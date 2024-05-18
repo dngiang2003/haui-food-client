@@ -2,12 +2,16 @@ import axios from "axios";
 import { Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import React, { useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
+
 import classNames from "classnames/bind";
 import styles from "./ChatModal.module.scss";
 
 const cx = classNames.bind(styles);
 
 const ChatModal = () => {
+  const { t } = useTranslation();
+
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -62,7 +66,7 @@ const ChatModal = () => {
   return (
     <div className={cx("chat-modal")}>
       <Typography variant="h6" className={cx("chat-modal__title")}>
-        Trợ lý AI
+        {t('chatBot.title02')}
       </Typography>
       <div className={cx("chat-modal__messages")}>
         {messages.length > 0 &&
@@ -95,7 +99,7 @@ const ChatModal = () => {
           className={cx("chat-modal__input")}
           value={messageInput}
           onChange={handleChange}
-          placeholder="Nhập nội dung chat"
+          placeholder={t('chatBot.desc01')}
           onKeyDown={handleKeyPress}
         />
         <button type="submit" onClick={handleSendMessage} className={cx("chat-modal__button")}>

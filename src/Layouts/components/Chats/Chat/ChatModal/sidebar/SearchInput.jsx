@@ -2,6 +2,7 @@ import { useState } from 'react';
 import classNames from 'classnames/bind';
 import { IconButton } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 
 import styles from './SearchInput.module.scss';
 
@@ -11,6 +12,8 @@ import useGetConversations from '../../hooks/useGetConversations';
 const cx = classNames.bind(styles);
 
 const SearchInput = () => {
+  const { t } = useTranslation();
+  
   const [search, setSearch] = useState('');
   const { setSelectedConversation } = useConversation();
   const { conversations } = useGetConversations();
@@ -30,7 +33,7 @@ const SearchInput = () => {
     <form onSubmit={handleSubmit} className={cx('search')}>
       <input
         type="text"
-        placeholder="Search..."
+        placeholder={t('home-banner.btn01')}
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         style={{ outline: 'none', border: 'none', fontSize: '1.5rem' }}

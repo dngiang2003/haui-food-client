@@ -2,13 +2,14 @@ import { useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { TiMessages } from 'react-icons/ti';
 import { Avatar, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import styles from './MessageContainer.module.scss';
 
 import Messages from './Messages';
 import MessageInput from './MessageInput';
 import useConversation from '../../zustand/useConversation';
-import { useSelector } from 'react-redux';
 
 const cx = classNames.bind(styles);
 
@@ -58,6 +59,8 @@ const MessageContainer = () => {
 export default MessageContainer;
 
 const NoChatSelected = () => {
+  const { t } = useTranslation();
+
   const authUser = useSelector((state) => state.auth.user);
 
   return (
@@ -77,10 +80,10 @@ const NoChatSelected = () => {
       }}
     >
       <Typography variant="body1" component="h6" style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>
-        Welcome 👋 {authUser?.fullname} ❄
+        {t('chatMessage.desc02')} 👋 {authUser?.fullname} ❄
       </Typography>
       <Typography variant="body1" component="p" style={{ fontSize: '1.3rem' }}>
-        Select a chat to start messaging
+        {t('chatMessage.desc03')}
       </Typography>
       <TiMessages style={{ fontSize: '4rem' }} className="text-3xl md:text-6xl text-center" />
     </div>

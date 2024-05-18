@@ -106,7 +106,7 @@
     "title06": "More cool features available on the app",
     "result-title": "Search results",
     "close-btn": "Close",
-    "see-all-restaurant": "See All Restaurants",
+    "see-all-restaurants": "See All Restaurants",
     "read-more": "Read more",
     "reasonKeyword01": "Quickest",
     "reasonKeyword02": "Easiest",
@@ -133,13 +133,11 @@
     "at": "in",
     "placeholder": "Find a dish or restaurant"
   },
-
   "no-result": {
     "title-restaurant": "Sorry, there are currently no restaurants",
     "title-product": "Sorry, there are currently no products",
     "desc": "Please refresh the page to resolve the issue."
   },
-
   "login": {
     "heading": "Sign in",
     "desc01": "Welcome back. Sign in to continue shopping.",
@@ -392,5 +390,20 @@
   "list-result": {
     "list-products": "Product list",
     "list-restaurants": "Restaurant Llst"
+  },
+  "restaurantCard": {
+    "desc01": "Many promotions"
+  },
+  "chatBot": {
+    "title01": "Assistant",
+    "title02": "AI Assistant",
+    "desc01": "Enter chat content"
+  },
+  "chatMessage": {
+    "title01": "Messages",
+    "desc01": "Loading ...",
+    "desc02": "Welcome",
+    "desc03": "Select a conversation to start messaging",
+    "desc04": "Send message"
   }
 }

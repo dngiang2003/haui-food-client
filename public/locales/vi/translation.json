@@ -391,5 +391,20 @@
   "list-result": {
     "list-products": "Danh sách sản phẩm",
     "list-restaurants": "Danh sách nhà hàng"
+  },
+  "restaurantCard": {
+    "desc01": "Rất nhiều ưu đãi"
+  },
+  "chatBot": {
+    "title01": "Trợ lý",
+    "title02": "Trợ lý AI",
+    "desc01": "Nhập nội dung chat"
+  },
+  "chatMessage": {
+    "title01": "Tin nhắn",
+    "desc01": "Đang tải ...",
+    "desc02": "Chào mừng",
+    "desc03": "Chọn một cuộc trò chuyện để bắt đầu nhắn tin",
+    "desc04": "Gửi tin nhắn"
   }
 }

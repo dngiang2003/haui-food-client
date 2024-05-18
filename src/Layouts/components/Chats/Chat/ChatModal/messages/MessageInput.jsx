@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { BsSend } from 'react-icons/bs';
 import { styled } from '@mui/system';
 import { IconButton, InputAdornment, TextField, CircularProgress } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import useSendMessage from '../../hooks/useSendMessage';
 
@@ -24,13 +25,15 @@ const StyledTextField = styled(TextField)({
   '& .MuiOutlinedInput-input': {
     padding: '8px 14px',
     fontSize: '1.6rem',
-    '&::placeholder' : {
+    '&::placeholder': {
       fontSize: '1.5rem',
-    }
+    },
   },
 });
 
 const MessageInput = () => {
+  const { t } = useTranslation();
+
   const [message, setMessage] = useState('');
   const { loading, sendMessage } = useSendMessage();
 
@@ -46,14 +49,18 @@ const MessageInput = () => {
       <StyledTextField
         variant="outlined"
         fullWidth
-        placeholder="Send a message"
+        placeholder={t('chatMessage.desc04')}
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
               <IconButton type="submit" disabled={loading} style={{ color: 'var(--primary-bg)', fontSize: '1.6rem' }}>
-                {loading ? <CircularProgress size={20} style={{ color: 'var(--primary-bg)' }} /> : <BsSend className="w-5 h-5 text-white opacity-50 " size={18} />}
+                {loading ? (
+                  <CircularProgress size={20} style={{ color: 'var(--primary-bg)' }} />
+                ) : (
+                  <BsSend className="w-5 h-5 text-white opacity-50 " size={18} />
+                )}
               </IconButton>
             </InputAdornment>
           ),

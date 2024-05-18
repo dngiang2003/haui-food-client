@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import styles from './RestaurantCard.module.scss';
 
@@ -9,11 +10,13 @@ import { EmptyStarIcon, HaftStarIcon, StarIcon } from '../Icons';
 const cx = classNames.bind(styles);
 
 function RestaurantCard({ data, className }) {
+  const { t } = useTranslation();
+
   const rating = data.rating || 0;
   const fullStars = Math.floor(rating);
   const halfStars = rating - fullStars !== 0;
   const stars = [];
-  
+
   for (let i = 1; i <= 5; i++) {
     if (i <= fullStars) stars.push(<StarIcon className={cx('star-icon')} />);
     else if (i === fullStars + 1 && halfStars) stars.push(<HaftStarIcon className={cx('star-icon')} />);
@@ -51,7 +54,7 @@ function RestaurantCard({ data, className }) {
 
           <div className={cx('restaurant-card__discount-container')}>
             <div className={cx('restaurant-card__discount-tag')}></div>
-            <div className={cx('restaurant-card__discount-text')}>Rất nhiều ưu đãi</div>
+            <div className={cx('restaurant-card__discount-text')}>{t('restaurantCard.desc01')}</div>
           </div>
         </div>
       </div>

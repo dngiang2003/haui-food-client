@@ -1,16 +1,19 @@
+import classNames from 'classnames/bind';
 import { Box, Modal } from '@mui/material';
 import ChatIcon from '@mui/icons-material/Chat';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-import classNames from 'classnames/bind';
 import styles from './Chat.module.scss';
 import Sidebar from './ChatModal/sidebar/Sidebar';
 import { useChatContext } from './context/ChatContext';
 import MessageContainer from './ChatModal/messages/MessageContainer';
-import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 const Chat = () => {
+  const { t } = useTranslation();
+
   const { isOpen, closeModal, openModal } = useChatContext();
   const navigator = useNavigate();
   const authUser = JSON.parse(localStorage.getItem('user'));
@@ -24,7 +27,7 @@ const Chat = () => {
     <>
       <div className={cx('chat')} onClick={handleOpenModal}>
         <ChatIcon className={cx('chat__icon')} />
-        <p className={cx('chat__text')}>Tin nhắn</p>
+        <p className={cx('chat__text')}>{t('chatMessage.title01')}</p>
       </div>
       <Modal
         open={isOpen}

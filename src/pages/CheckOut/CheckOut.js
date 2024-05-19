@@ -476,6 +476,23 @@ function CheckOut() {
                   </div>
                 </div>
 
+                <div className={cx('checkout__group', 'checkout__group-lap')}>
+                  <div className={cx('checkout__bottom')}>
+                    <div className={cx('checkout__bottom-img')}>
+                      <div className={cx('checkout__bottom-thumb')}></div>
+                    </div>
+                    <div className={cx('checkout__bottom-info')}>
+                      <p className={cx('checkout__bottom-desc')}>{t('checkout.desc05')}</p>
+                      <div className={cx('checkout__bottom-pays')}>
+                        <img src={images.bank} className={cx('checkout__bottom-pay')} alt="bank-transfer" />
+                        <img src={images.cash} className={cx('checkout__bottom-pay')} alt="cash" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className={cx('col-12 col-xxl-4 col-xl-4 col-lg-4 col-md-12')}>
                 {/* Payment detail */}
                 <div className={cx('checkout__group')}>
                   <h4 className={cx('checkout__group-title')}>{t('checkout.title11')}</h4>
@@ -516,15 +533,15 @@ function CheckOut() {
                         </RadioGroup>
                       </FormControl>
 
-                      <div className={cx('checkout__payment-warning')}>
+                      {/* <div className={cx('checkout__payment-warning')}>
                         <p>{t('checkout.title16')}</p>
                         <p>{t('checkout.desc07')}</p>
                         <p>{t('checkout.desc08')}</p>
                         <p>{t('checkout.desc09')}</p>
-                      </div>
+                      </div> */}
                     </div>
 
-                    <div className={cx('checkout__payment-qr')}>
+                    {/* <div className={cx('checkout__payment-qr')}>
                       <p className={cx('checkout__payment-desc')}>{t('checkout.desc04')}</p>
                       <img src={images.qrPay} className={cx('checkout__payment-thumb')} alt="qr" />
                       <div className={cx('checkout__payment-information')}>
@@ -533,27 +550,10 @@ function CheckOut() {
                         <strong>{t('checkout.desc12')}</strong>
                         <p>{t('checkout.desc13')}</p>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
 
-                <div className={cx('checkout__group', 'checkout__group-lap')}>
-                  <div className={cx('checkout__bottom')}>
-                    <div className={cx('checkout__bottom-img')}>
-                      <div className={cx('checkout__bottom-thumb')}></div>
-                    </div>
-                    <div className={cx('checkout__bottom-info')}>
-                      <p className={cx('checkout__bottom-desc')}>{t('checkout.desc05')}</p>
-                      <div className={cx('checkout__bottom-pays')}>
-                        <img src={images.bank} className={cx('checkout__bottom-pay')} alt="bank-transfer" />
-                        <img src={images.cash} className={cx('checkout__bottom-pay')} alt="cash" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className={cx('col-12 col-xxl-4 col-xl-4 col-lg-4 col-md-12')}>
                 <div className={cx('checkout__right')}>
                   <div className={cx('checkout__right-info')}>
                     <h4 className={cx('checkout__right-title')}>{t('cart.desc03')}</h4>

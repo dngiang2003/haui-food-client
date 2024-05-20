@@ -122,8 +122,8 @@ function CartItem({ data, isCheckout = false, showCart, shopChecked, onItemCheck
   }, [shopChecked]);
 
   useEffect(() => {
-    if (data && location.pathname !== '/checkout') {
-      onItemCheckboxChange(data._id, true);
+    if (data && (location.pathname !== '/checkout')) {
+      onItemCheckboxChange?.(data._id, true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -133,7 +133,7 @@ function CartItem({ data, isCheckout = false, showCart, shopChecked, onItemCheck
       setChangeQuantity(data.quantity);
     }
     setChangeTotalPrice(data.totalPrice);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openChange]);
 
   return (

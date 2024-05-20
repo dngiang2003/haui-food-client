@@ -338,7 +338,14 @@
     "notify02": "Vui lòng chọn tầng trước",
     "notify03": "Một số đã xảy ra, bạn vui lòng kiểm tra và thử lại.",
     "notify04": "Vui lòng vào Đơn mua để kiểm tra tình trạng đơn hàng.",
+    "notify05": "Vui lòng quét mã QR để thanh toán.",
     "link01": "Duyệt nhà hàng"
+  },
+  "payment": {
+    "title01": "Quét mã QR dưới đây bằng ứng dụng ngân hàng để thanh toán",
+    "desc01": "Tổng tiền thanh toán:",
+    "desc02": "Lưu ý: Đơn hàng sẽ tự động được hủy sau: ",
+    "notify01": "Đơn hàng đã được hủy. Vui lòng kiểm tra lại."
   },
   "authTwinSetup": {
     "title01": "Cấu hình App bảo mật 2 lớp",

@@ -9,6 +9,7 @@ import cartReducer from '~/features/cartSlice';
 import orderReducer from '~/features/orderSlice';
 import checkoutCarts from '~/features/checkoutCartsSlice';
 import ordersSlide from '~/features/ordersSlide';
+import paymentSlice from '~/features/paymentSlice';
 
 export default configureStore({
   reducer: {
@@ -22,5 +23,6 @@ export default configureStore({
     order: orderReducer,
     checkoutCarts: checkoutCarts,
     orders: ordersSlide,
+    payment: paymentSlice,
   },
 });

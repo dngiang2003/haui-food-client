@@ -13,6 +13,7 @@ import ResetPassword from "~/pages/ResetPassword";
 import AboutHaUIFood from "~/pages/AboutHaUIFood";
 import AboutDevelopmentTeam from "~/pages/AboutDevelopmentTeam";
 import CheckOut from "~/pages/CheckOut";
+import Payment from "~/pages/Payment";
 import NotFound from "~/pages/NotFound";
 import Profile from "../pages/Profile";
 import Forbidden from "~/pages/Forbidden";
@@ -55,6 +56,7 @@ const publicRoutes = [
 const privateRoutes = [
   { path: config.routes.profile, component: Profile },
   { path: config.routes.checkout, component: CheckOut, layout: CheckoutLayout },
+  { path: config.routes.payment, component: Payment, layout: CheckoutLayout },
 ];
 
 export { publicRoutes, privateRoutes };

@@ -3,10 +3,11 @@ import classNames from 'classnames/bind';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { createOrder } from '~/apiService/ordersService';
 import { toast } from 'react-toastify';
-import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
 import { Oval } from '@agney/react-loading';
+import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
+import { createOrder } from '~/apiService/ordersService';
+import { savePayment } from '~/features/paymentSlice';
 
 import styles from './CheckOut.module.scss';
 
@@ -163,6 +164,18 @@ function CheckOut() {
             navigate('/auth/profile');
             toast.info(t('checkout.notify04'));
           }, 4000);
+        }
+        if (payment === 'bank') {
+          dispatch(
+            savePayment({
+              qr: result.payload.data.urlQRCode,
+              total: result.payload.data.totalMoneyOrder,
+            }),
+          );
+          setTimeout(() => {
+            navigate('/payment');
+            toast.info(t('checkout.notify05'));
+          }, 3000);
         }
       } else {
         toast.warning(result.payload.message);

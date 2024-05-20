@@ -337,7 +337,14 @@
     "notify02": "Please select a floor first",
     "notify03": "An error has occurred, please check and try again.",
     "notify04": "Please go to the Purchase Order to check the order status.",
+    "notify05": "Please scan the QR code to make a payment.",
     "link01": "Browse restaurants"
+  },
+  "payment": {
+    "title01": "Scan the QR code below with your banking app to make a payment",
+    "desc01": "Total payment amount:",
+    "desc02": "Note: The order will be automatically cancelled after: ",
+    "notify01": "The order has been cancelled. Please check again."
   },
   "authTwinSetup": {
     "title01": "Configure Two-Factor Authentication",

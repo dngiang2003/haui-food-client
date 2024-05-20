@@ -14,6 +14,7 @@ const routes = {
   aboutDevelopmentTeam: '/about/development-team',
   profile: '/auth/profile',
   checkout: '/checkout',
+  payment: '/payment',
   forbidden: '/forbidden',
   internalServer: '/server-error',
   forgotPasswordOTP: '/auth/verify-otp-forgot-password',

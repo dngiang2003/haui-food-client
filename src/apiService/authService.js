@@ -1,12 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import hostname from '~/utils/http';
-import axios from 'axios';
 import { callApi } from './apiUtils';
 import Cookies from 'js-cookie';
 
 export const resetPassword = createAsyncThunk('auth/reset-password', async (data, { rejectWithValue }) => {
   try {
-    const response = await callApi('post', `/v1/auth/reset-password?lang=${Cookies.get('lang')}`, null, data);
+    const customHeaders = {
+      'accept-language': `${Cookies.get('lang')}`,
+    };
+    const response = await callApi('post', `/v1/auth/reset-password`, null, data, customHeaders);
     return response;
   } catch (error) {
     return rejectWithValue({ ...error });
@@ -17,12 +18,10 @@ export const verifyOtpForgotPassword = createAsyncThunk(
   'auth/verify-otp-forgot-password',
   async (data, { rejectWithValue }) => {
     try {
-      const response = await callApi(
-        'post',
-        `/v1/auth/verify-otp-forgot-password?lang=${Cookies.get('lang')}`,
-        null,
-        data,
-      );
+      const customHeaders = {
+        'accept-language': `${Cookies.get('lang')}`,
+      };
+      const response = await callApi('post', `/v1/auth/verify-otp-forgot-password`, null, data, customHeaders);
       if (response.code === 200) {
       }
       return response;
@@ -34,7 +33,10 @@ export const verifyOtpForgotPassword = createAsyncThunk(
 
 export const forgotPassword = createAsyncThunk('auth/forgot-password', async (data, { rejectWithValue }) => {
   try {
-    const response = await callApi('post', `/v1/auth/forgot-password?lang=${Cookies.get('lang')}`, null, data);
+    const customHeaders = {
+      'accept-language': `${Cookies.get('lang')}`,
+    };
+    const response = await callApi('post', `/v1/auth/forgot-password`, null, data, customHeaders);
     if (response.code === 200) {
     }
     return response;
@@ -45,7 +47,10 @@ export const forgotPassword = createAsyncThunk('auth/forgot-password', async (da
 
 export const loginUser = createAsyncThunk('auth/login', async (userCredentials, { rejectWithValue }) => {
   try {
-    const res = await callApi('POST', `/v1/auth/login?lang=${Cookies.get('lang')}`, null, userCredentials);
+    const customHeaders = {
+      'accept-language': `${Cookies.get('lang')}`,
+    };
+    const res = await callApi('POST', `/v1/auth/login`, null, userCredentials, customHeaders);
     if (res.code === 200) {
       localStorage.setItem('accessToken', JSON.stringify(res.data.accessToken));
       localStorage.setItem('refreshToken', JSON.stringify(res.data.refreshToken));
@@ -59,7 +64,10 @@ export const loginUser = createAsyncThunk('auth/login', async (userCredentials, 
 
 export const LoginWith2FA = createAsyncThunk('auth/login-with-2FA', async (data, { rejectWithValue }) => {
   try {
-    const response = await callApi('post', `/v1/auth/login-with-2fa?lang=${Cookies.get('lang')}`, null, data);
+    const customHeaders = {
+      'accept-language': `${Cookies.get('lang')}`,
+    };
+    const response = await callApi('post', `/v1/auth/login-with-2fa`, null, data, customHeaders);
     if (response.code === 200) {
       localStorage.setItem('accessToken', JSON.stringify(response.data.accessToken));
       localStorage.setItem('refreshToken', JSON.stringify(response.data.refreshToken));
@@ -71,20 +79,24 @@ export const LoginWith2FA = createAsyncThunk('auth/login-with-2FA', async (data,
   }
 });
 
-export const registerUser = createAsyncThunk('auth/signup', async (userCredentials) => {
+export const registerUser = createAsyncThunk('auth/signup', async (userCredentials, { rejectWithValue }) => {
   try {
-    const req = await axios.post(`${hostname}/v1/auth/register?lang=${Cookies.get('lang')}`, userCredentials);
-    const res = await req.data.data;
-
+    const customHeaders = {
+      'accept-language': `${Cookies.get('lang')}`,
+    };
+    const res = await callApi('post', `/v1/auth/register`, null, userCredentials, customHeaders);
     return res;
   } catch (error) {
-    throw error.response !== null ? new Error(error.response.data.message) : new Error('Đã xảy ra lỗi không mong đợi');
+    return rejectWithValue({ ...error });
   }
 });
 
 export const getMe = createAsyncThunk('auth/getMe', async (_, { rejectWithValue }) => {
   try {
-    const response = await callApi('get', `/v1/auth/me?lang=${Cookies.get('lang')}`, null, {});
+    const customHeaders = {
+      'accept-language': `${Cookies.get('lang')}`,
+    };
+    const response = await callApi('get', `/v1/auth/me`, null, {}, customHeaders);
     return response;
   } catch (error) {
     return rejectWithValue({ ...error });
@@ -95,6 +107,7 @@ export const updateMe = createAsyncThunk('auth/updateMe', async ({ userData, ava
   try {
     const customHeaders = {
       'Content-Type': 'multipart/form-data',
+      'accept-language': `${Cookies.get('lang')}`,
       // Các header khác nếu cần
     };
     //  Tạo một đối tượng FormData
@@ -110,7 +123,7 @@ export const updateMe = createAsyncThunk('auth/updateMe', async ({ userData, ava
       formData.append('avatar', avatar);
     }
 
-    const response = await callApi('put', `/v1/auth/me?lang=${Cookies.get('lang')}`, null, formData, customHeaders);
+    const response = await callApi('put', `/v1/auth/me}`, null, formData, customHeaders);
 
     if (response.code === 200) {
       localStorage.setItem('user', JSON.stringify(response.data));
@@ -124,7 +137,10 @@ export const updateMe = createAsyncThunk('auth/updateMe', async ({ userData, ava
 
 export const changePassword = createAsyncThunk('auth/change-password', async (userData, { rejectWithValue }) => {
   try {
-    const response = await callApi('post', `/v1/auth/change-password?lang=${Cookies.get('lang')}`, null, userData);
+    const customHeaders = {
+      'accept-language': `${Cookies.get('lang')}`,
+    };
+    const response = await callApi('post', `/v1/auth/change-password`, null, userData, customHeaders);
     return response;
   } catch (error) {
     return rejectWithValue({ ...error });
@@ -133,7 +149,10 @@ export const changePassword = createAsyncThunk('auth/change-password', async (us
 
 export const getSecretKey = createAsyncThunk('auth/getSecretKey', async (_, { rejectWithValue }) => {
   try {
-    const response = await callApi('post', `/v1/auth/generate-2fa-secret?lang=${Cookies.get('lang')}`, null, {});
+    const customHeaders = {
+      'accept-language': `${Cookies.get('lang')}`,
+    };
+    const response = await callApi('post', `/v1/auth/generate-2fa-secret`, null, {}, customHeaders);
     return response;
   } catch (error) {
     return rejectWithValue({ ...error });
@@ -142,7 +161,10 @@ export const getSecretKey = createAsyncThunk('auth/getSecretKey', async (_, { re
 
 export const toggle2FA = createAsyncThunk('auth/toggle2FA', async (code, { rejectWithValue }) => {
   try {
-    const response = await callApi('post', `v1/auth/toggle-2fa?lang=${Cookies.get('lang')}`, null, code);
+    const customHeaders = {
+      'accept-language': `${Cookies.get('lang')}`,
+    };
+    const response = await callApi('post', `v1/auth/toggle-2fa`, null, code, customHeaders);
     return response;
   } catch (error) {
     return rejectWithValue({ ...error });
@@ -151,7 +173,10 @@ export const toggle2FA = createAsyncThunk('auth/toggle2FA', async (code, { rejec
 
 export const updateSecretKey = createAsyncThunk('auth/updateSecretKey', async (data, { rejectWithValue }) => {
   try {
-    const response = await callApi('post', `v1/auth/change-2fa-secret?lang=${Cookies.get('lang')}`, null, data);
+    const customHeaders = {
+      'accept-language': `${Cookies.get('lang')}`,
+    };
+    const response = await callApi('post', `v1/auth/change-2fa-secret`, null, data, customHeaders);
     return response;
   } catch (error) {
     return rejectWithValue({ ...error });

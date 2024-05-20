@@ -5,7 +5,10 @@ import Cookies from 'js-cookie';
 
 export const getOrder = createAsyncThunk('getOrder', async (params, { rejectWithValue }) => {
   try {
-    const response = await callApi('get', `v1/orders/me?lang=${Cookies.get('lang')}`, params, {});
+    const customHeaders = {
+      'accept-language': `${Cookies.get('lang')}`,
+    };
+    const response = await callApi('get', `v1/orders/me`, params, {}, customHeaders);
     // await sleep(5000);
     return response;
   } catch (error) {
@@ -15,7 +18,10 @@ export const getOrder = createAsyncThunk('getOrder', async (params, { rejectWith
 
 export const cancelOrder = createAsyncThunk('cancelOrder', async (orderID, { rejectWithValue }) => {
   try {
-    const response = await callApi('post', `v1/orders/${orderID}/cancel?lang=${Cookies.get('lang')}`, null, {});
+    const customHeaders = {
+      'accept-language': `${Cookies.get('lang')}`,
+    };
+    const response = await callApi('post', `v1/orders/${orderID}/cancel`, null, {}, customHeaders);
     // await sleep(5000);
     return response;
   } catch (error) {

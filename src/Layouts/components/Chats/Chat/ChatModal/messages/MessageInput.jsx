@@ -216,7 +216,7 @@ const MessageInput = ({ conversationId }) => {
             }}
           />
         </div>
-        <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
+        <input type="file" accept='image/*' ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
       </form>
     </Container>
   );

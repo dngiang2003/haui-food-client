@@ -5,10 +5,9 @@ import { Avatar, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import styles from './MessageContainer.module.scss';
-
 import Messages from './Messages';
 import MessageInput from './MessageInput';
+import styles from './MessageContainer.module.scss';
 import useConversation from '../../zustand/useConversation';
 
 const cx = classNames.bind(styles);
@@ -21,7 +20,6 @@ const MessageContainer = () => {
       setSelectedConversation(null);
     };
   }, [setSelectedConversation]);
-
   return (
     <div className={cx('container')}>
       {!selectedConversation ? (
@@ -49,7 +47,7 @@ const MessageContainer = () => {
             </Typography>
           </div>
           <Messages />
-          <MessageInput />
+          <MessageInput conversationId={selectedConversation._id}/>
         </>
       )}
     </div>

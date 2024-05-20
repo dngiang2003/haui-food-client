@@ -1,5 +1,7 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import { useSelector } from 'react-redux';
 import { Avatar, Typography } from '@mui/material';
+
 import useConversation from '../../zustand/useConversation';
 
 const Message = ({ message }) => {
@@ -38,17 +40,28 @@ const Message = ({ message }) => {
         ) : null}
         <div
           style={{
-            backgroundColor: fromMe ? '#00ba5133' : '#f0f0f0',
-            padding: '7px 20px',
+            backgroundColor: message.image ? 'none' : fromMe ? '#00ba5133' : '#f0f0f0',
+            padding: message.image ? '0' : '7px 20px',
             borderRadius: '20px',
             width: '100%',
             margin: '0 0 0 10px',
-            fontSize: '15px',
+            fontSize: '17px',
             wordBreak: 'break-word',
             hyphens: 'auto',
+            textAlign: fromMe ? 'right' : 'left',
           }}
         >
-          {message.message}
+          {message.image && (
+            <img
+              src={message.image}
+              alt="image"
+              style={{
+                width: '100%',
+                borderRadius: '5px',
+              }}
+            />
+          )}
+          {message.message ? message.message : null}
         </div>
       </div>
       <Typography

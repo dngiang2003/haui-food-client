@@ -16,11 +16,11 @@ const Messages = () => {
       lastMessageRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, 100);
   }, [messages]);
-
+  
   return (
     <Box
       className="px-4"
-      style={{ maxHeight: '82%', overflowY: 'auto', overflowX: 'hidden', height: '82%', marginTop: '8px' }}
+      style={{ maxHeight: '82%', overflowY: 'auto', overflowX: 'hidden', height: '62%', marginTop: '8px' }}
     >
       {!loading &&
         messages.length > 0 &&

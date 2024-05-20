@@ -15,14 +15,14 @@ function Payment() {
   const payment = useSelector((state) => state.payment.payment);
   const isPayment = Object.keys(payment).length === 0;
 
-  const [countDown, setCountDown] = useState(15);
+  const [countDown, setCountDown] = useState(15 * 60);
 
   useEffect(() => {
     const timer =
       countDown > 0 &&
       setInterval(() => {
         setCountDown(countDown - 1);
-      }, 1000 * 60);
+      }, 1000);
     if (countDown === 0) {
       toast.info(t('payment.notify01'));
     }
@@ -47,7 +47,14 @@ function Payment() {
           {t('payment.desc01')} {(payment.total && `${payment.total.toLocaleString('vi-VN')} ₫`) || '0 ₫'}
         </p>
         <p className={cx('payment__desc')}>
-          {t('payment.desc02')} {!isPayment ? <span className={cx('payment__times')}>{countDown}</span> : 15}{' '}
+          {t('payment.desc02')}{' '}
+          {!isPayment ? (
+            <span className={cx('payment__times')}>
+              {Math.floor(countDown / 60)}:{(countDown % 60).toString().padStart(2, '0')}
+            </span>
+          ) : (
+            15
+          )}{' '}
           {t('cart.desc05')}.
         </p>
       </div>

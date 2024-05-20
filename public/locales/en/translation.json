@@ -343,7 +343,7 @@
   "payment": {
     "title01": "Scan the QR code below with your banking app to make a payment",
     "desc01": "Total payment amount:",
-    "desc02": "Note: The order will be automatically cancelled after: ",
+    "desc02": "Note: The order will be automatically cancelled after ",
     "notify01": "The order has been cancelled. Please check again."
   },
   "authTwinSetup": {

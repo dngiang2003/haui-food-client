@@ -27,29 +27,30 @@
   }
 
   &__title {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     font-size: 1.8rem;
     font-weight: 600;
     line-height: 1.5;
   }
 
   &__qr {
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
     object-fit: contain;
     background-color: #f1f2f6;
   }
 
   &__desc {
     padding: 8px 0;
+    font-size: 1.7rem;
     font-weight: 500;
     line-height: 1.4;
   }
 
   &__times {
     display: inline-block;
-    min-width: 25px;
-    color: rgb(255, 196, 0);
+    min-width: 50px;
+    color: var(--primary-color);
     font-weight: 500;
   }
 }

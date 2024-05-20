@@ -344,7 +344,7 @@
   "payment": {
     "title01": "Quét mã QR dưới đây bằng ứng dụng ngân hàng để thanh toán",
     "desc01": "Tổng tiền thanh toán:",
-    "desc02": "Lưu ý: Đơn hàng sẽ tự động được hủy sau: ",
+    "desc02": "Lưu ý: Đơn hàng sẽ tự động được hủy sau ",
     "notify01": "Đơn hàng đã được hủy. Vui lòng kiểm tra lại."
   },
   "authTwinSetup": {

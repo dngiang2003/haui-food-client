@@ -31,7 +31,7 @@ axiosInstance.interceptors.response.use(
     // Kiểm tra nếu mã trạng thái là 401 và không phải là lỗi từ phía request refresh token
     if (
       error.response.data.code === 401 &&
-      error.response.data.message === 'jwt expired' &&
+      ['jwt expired', 'jwt hết hạn', 'jwt已过期'].includes(error.response.data.message) &&
       !originalRequest._retry &&
       !error.config.url.includes('refresh-tokens')
     ) {

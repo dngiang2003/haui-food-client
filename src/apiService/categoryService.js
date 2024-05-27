@@ -1,6 +1,7 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import hostname from '~/utils/http';
 import axios from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
+import hostname from '~/utils/http';
 
 export const getCategories = createAsyncThunk('category/getCategories', async ({ limit, page }) => {
   try {

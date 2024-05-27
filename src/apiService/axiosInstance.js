@@ -1,9 +1,11 @@
 import axios from 'axios';
+
 import config from '~/config';
+import hostname from '~/utils/http';
 import { addOrUpdateFieldInLocalStorage, getLocalStorageItem } from '~/utils/localStorage';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://api.hauifood.com/api',
+  baseURL: `${hostname}`,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',

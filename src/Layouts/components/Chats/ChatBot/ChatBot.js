@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from '@mui/material/Modal';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import { useTranslation } from 'react-i18next';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 
 import ChatModal from './ChatModal';
 import classNames from 'classnames/bind';

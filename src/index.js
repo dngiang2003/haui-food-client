@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
 import { Provider } from 'react-redux';
+import 'react-photo-view/dist/react-photo-view.css';
 
 import 'bootstrap/dist/css/bootstrap-grid.min.css';
 import { I18nextProvider } from 'react-i18next';

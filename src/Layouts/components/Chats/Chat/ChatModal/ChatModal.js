@@ -17,7 +17,6 @@ const Home = () => {
         position: 'absolute',
         right: { xs: '19vw', md: '6.3vw', xl: '6.4vw' },
         bottom: '84px',
-        zIndex: '99999999999',
       }}
     >
       <Sidebar />

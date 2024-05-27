@@ -34,9 +34,7 @@ const Chat = () => {
         onClose={closeModal}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
-        style={{
-          zIndex: 9999999999,
-        }}
+        style={{ zIndex: 9999 }}
       >
         <Box className={cx('chat__modal')}>
           <Sidebar />

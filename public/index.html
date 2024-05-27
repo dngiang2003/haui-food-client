@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="https://hauifood.com/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Web site created using create-react-app" />
@@ -54,8 +53,32 @@
       property="twitter:image"
       content="https://res.cloudinary.com/ddh3jmwe9/image/upload/v1710691255/gx9wiin44untu9axdnxt.png"
     />
-
     <!-- Meta Tags Generated with https://metatags.io -->
+
+    <!-- Check favicon -->
+    <script>
+      function setFavicon(url) {
+        var link = document.createElement('link'),
+            oldLink = document.getElementById('dynamic-favicon');
+        link.id = 'dynamic-favicon';
+        link.rel = 'icon';
+        link.href = url;
+        if (oldLink) {
+          document.head.removeChild(oldLink);
+        }
+        document.head.appendChild(link);
+      }
+    
+      function checkFavicon() {
+        var testImage = new Image();
+        testImage.onload = function() { setFavicon('https://hauifood.com/favicon.ico'); };
+        testImage.onerror = function() { setFavicon('%PUBLIC_URL%/favicon.ico'); };
+        testImage.src = 'https://hauifood.com/favicon.ico';
+      }
+    
+      checkFavicon();
+    </script>
+    
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

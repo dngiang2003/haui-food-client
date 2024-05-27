@@ -6,15 +6,20 @@ import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import ChatModal from './ChatModal';
 import classNames from 'classnames/bind';
 import styles from './ChatBot.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 const ChatBot = () => {
   const { t } = useTranslation();
-
+  const navigator = useNavigate();
+  const authUser = JSON.parse(localStorage.getItem('user'));
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
+    if (!authUser) {
+      return navigator('/auth/login');
+    }
     setOpen(true);
   };
 

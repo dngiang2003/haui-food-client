@@ -35,7 +35,6 @@ const productSlice = createSlice({
       })
       .addCase(searchProduct.fulfilled, (state, action) => {
         state.loading = false;
-        console.log(action.payload.data);
         state.products = action.payload.data.products;
         state.shops = action.payload.data.shops;
         state.data = action.payload;

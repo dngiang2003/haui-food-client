@@ -38,8 +38,6 @@ function AboutHaUIFood() {
 
   const messageRef = useRef(null);
 
-  console.log(phone);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const contactForm = {

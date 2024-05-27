@@ -16,7 +16,6 @@ function ListResult({ data, className, onChangePage }) {
   // const dispatch = useDispatch();
   const { t } = useTranslation();
   const reduxData = useSelector((prop) => prop.product);
-  console.log(reduxData);
   if (reduxData?.shops.length === 0 && reduxData?.products.length === 0 && !reduxData.loading) {
     return <NoResult />;
   }

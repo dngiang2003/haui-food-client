@@ -16,11 +16,9 @@ const cx = classNames.bind(style);
 function HistoryOderItem({ data }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  // console.log(data);
 
   const handleCancelOrder = () => {
     dispatch(cancelOrder(data?._id)).then((result) => {
-      // console.log(result);
       if (result.payload.code === 200) {
         toast.success(result.payload.message);
 
@@ -79,7 +77,6 @@ function HistoryOderItem({ data }) {
       </div>
 
       {data?.cartDetails.map((cartDetail, index) => {
-        // console.log('cartDetail', cartDetail);
         return (
           <div key={index} className={cx('sub-item__info-container')}>
             <img className={cx('sub-item__img')} src={cartDetail.product.image} alt="HaUI Food" />

@@ -34,7 +34,6 @@ var loginUser = (0, _toolkit.createAsyncThunk)('auth/login', function _callee(us
         case 10:
           _context.prev = 10;
           _context.t0 = _context["catch"](0);
-          console.log(_context.t0);
           throw _context.t0.response !== null ? new Error(_context.t0.response.data.message) : new Error('Đã xảy ra lỗi không mong đợi');
 
         case 14:

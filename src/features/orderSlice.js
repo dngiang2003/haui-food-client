@@ -14,7 +14,6 @@ const orderSlice = createSlice({
   reducers: {
     deleteOrder: (state, action) => {
       state.idOrderCancel = action.payload;
-      // console.log(action);
     },
   },
 
@@ -28,7 +27,6 @@ const orderSlice = createSlice({
         state.orders = null;
       })
       .addCase(cancelOrder.fulfilled, (state, action) => {
-        // console.log(action.payload);
         state.cancelOrderLoading = false;
         state.orders = action.payload;
         state.error = null;
@@ -46,7 +44,6 @@ const orderSlice = createSlice({
         state.orders = null;
       })
       .addCase(getOrder.fulfilled, (state, action) => {
-        // console.log(action.payload);
         state.loading = false;
         state.orders = action.payload;
         state.error = null;

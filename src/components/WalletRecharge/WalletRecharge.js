@@ -10,7 +10,6 @@ const cx = classNames.bind(styles);
 
 function WalletRecharge({ userInfo }) {
   const { t } = useTranslation();
-  console.log(userInfo);
 
   return (
     <div className={cx('wallet')}>

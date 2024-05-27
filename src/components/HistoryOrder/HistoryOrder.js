@@ -75,9 +75,7 @@ function HistoryOder() {
 
   const fetchOrderData = () => {
     dispatch(getOrder({ limit, page: currentPage, status: status === 'all' ? '' : status })).then((result) => {
-      console.log(result);
       if (result.payload.code === 200) {
-        console.log(result.payload.data.orders);
         setOrderData((preOrderData) => {
           return [...preOrderData, ...result.payload.data.orders];
         });
@@ -108,9 +106,7 @@ function HistoryOder() {
     }
 
     dispatch(getOrder(params)).then((result) => {
-      console.log(result);
       if (result.payload.code === 200) {
-        console.log(result.payload.data.orders);
         setOrderData(result.payload.data.orders);
         if (currentPage < result.payload.data.totalPage) {
           setCurrentPage(2);
@@ -124,7 +120,6 @@ function HistoryOder() {
     });
   };
 
-  // console.log(orderData);
   return (
     <div className="History-order-wrapper">
       <div className={cx('order-status__nav')}>

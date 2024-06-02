@@ -123,7 +123,7 @@ export const updateMe = createAsyncThunk('auth/updateMe', async ({ userData, ava
       formData.append('avatar', avatar);
     }
 
-    const response = await callApi('put', `/v1/auth/me}`, null, formData, customHeaders);
+    const response = await callApi('put', `/v1/auth/me`, null, formData, customHeaders);
 
     if (response.code === 200) {
       localStorage.setItem('user', JSON.stringify(response.data));

@@ -260,7 +260,8 @@
     "desc02": "Nạp sai cú pháp, sai số tài khoản, sai ngân hàng sẽ bị trừ 20% phí giao dịch. VD: nạp 100k sai nội dung sẽ chỉ nhận được 80K hauifood coin và phải liên hệ admin để cộng tay.",
     "desc03": "Sau 5-10 phút tài khoản chưa được cộng coin hãy liên hệ admin",
     "desc04": "tại đây",
-    "desc05": "để được hỗ trợ."
+    "desc05": "để được hỗ trợ.",
+    "desc06": "Bạn đã nạp thành công "
   },
   "termsOfUse": {
     "title1": "Chấp Nhận",
@@ -334,6 +335,7 @@
     "desc12": "Số TK: 00005572823",
     "desc13": "Ngân hàng TMCP Tiên Phong",
     "desc14": "Thanh toán bằng Ví Điện Tử HaUIFood",
+    "title17": "Thanh toán thành công",
     "notify01": "Vui lòng chọn tòa nhà trước",
     "notify02": "Vui lòng chọn tầng trước",
     "notify03": "Một số đã xảy ra, bạn vui lòng kiểm tra và thử lại.",

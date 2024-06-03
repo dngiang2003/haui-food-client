@@ -6,6 +6,9 @@ import { toast } from 'react-toastify';
 
 import styles from './Payment.module.scss';
 import images from '~/assets/images';
+import { io } from 'socket.io-client';
+import { useNavigate } from 'react-router-dom';
+import hostname from '~/utils/http';
 
 const cx = classNames.bind(styles);
 
@@ -16,6 +19,16 @@ function Payment() {
   const isPayment = Object.keys(payment).length === 0;
 
   const [countDown, setCountDown] = useState(15 * 60);
+  const user = JSON.parse(localStorage.getItem('user'));
+  const navigate = useNavigate();
+  const socket = io(hostname, {
+    query: { userId: user?._id },
+  });
+
+  socket.on('paymentSuccess', (data) => {
+    toast.success(t('checkout.desc15'));
+    navigate('/');
+  });
 
   useEffect(() => {
     const timer =

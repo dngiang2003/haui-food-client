@@ -259,7 +259,8 @@
     "desc02": "Incorrect syntax, account number, or bank will incur a 20% transaction fee. For example: topping up 100k with incorrect details will result in only receiving 80k hauifood coins and you must contact the admin for manual adjustment.",
     "desc03": "If your account has not been credited with coins after 5-10 minutes, please contact the admin",
     "desc04": "here",
-    "desc05": "for support."
+    "desc05": "for support.",
+    "desc06": "You have successfully loaded "
   },
   "termsOfUse": {
     "title1": "Acceptance",
@@ -319,6 +320,7 @@
     "title14": "Room",
     "title15": "Start ordering",
     "title16": "Note",
+    "title17": "Payment success",
     "desc01": "Please call me first",
     "desc02": "Payment on delivery",
     "desc03": "Bank transfer payment",

@@ -5,11 +5,21 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
 import { CopyIcon } from '../Icons';
+import { io } from 'socket.io-client';
+import formatCurrency from '~/utils/formatCurrency';
+import hostname from '~/utils/http';
 
 const cx = classNames.bind(styles);
 
 function WalletRecharge({ userInfo }) {
   const { t } = useTranslation();
+  const socket = io(hostname, {
+    query: { userId: userInfo?._id },
+  });
+
+  socket.on('rechargeSuccess', (data) => {
+    toast.success(t('topUp.desc06') + formatCurrency(data.amount) + ' VND');
+  });
 
   return (
     <div className={cx('wallet')}>

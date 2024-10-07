@@ -32,8 +32,9 @@
 
   &__modal {
     position: absolute;
-    right: 8%;
-    bottom: 10%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(50%, 50%);
     display: flex;
     width: 750px;
     height: 550px;

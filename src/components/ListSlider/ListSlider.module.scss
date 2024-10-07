@@ -4,7 +4,7 @@
 
 .list-wrapper {
   max-height: 0;
-  overflow: hidden;
+  // overflow: hidden;
   // transition: max-height 0.5s;
 
   animation: showList 0.5s linear forwards;

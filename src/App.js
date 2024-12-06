@@ -44,6 +44,22 @@ function AppBody() {
     };
   }, [navigate]); // Ensure useEffect runs again if navigate changes
 
+  // Thêm sự kiện vào devtools
+  useEffect(() => {
+    const detectDevTools = (event) => {
+      // if (event.ctrlKey && event.shiftKey && event.key === 'I') {
+      console.log('%cĐịnh phá web của các anh à 😒!', 'color: red; font-size: 20px; cursor: pointer;');
+      console.log('%cCần gì liên hệ các anh 😉', 'color: blue; font-size: 14px; cursor: pointer;');
+      console.log('Anh Lộc đẹp trai:', 'https://www.facebook.com/loc.trinhgia.7');
+      console.log('Anh Giang:', 'https://www.facebook.com/dngiang2003');
+      console.log('Anh Công:', 'https://www.facebook.com/Nhu.Cong1123');
+      console.log('Anh Nghĩa:', 'https://www.facebook.com/profile.php?id=100009552092377');
+      console.log('Anh Dũng:', 'https://www.facebook.com/profile.php?id=100012048721594');
+      // }
+    };
+    detectDevTools();
+  }, []);
+
   return (
     <div className="App">
       <Routes>
